@@ -175,11 +175,13 @@ a, a:hover {
 	-o-transition: 0.2s 0s;
 	transition: 0.2s 0s;
 	border-radius: 4px;
+	
 }
 
 .site-navbar .site-navigation .site-menu .has-children .dropdown.arrow-top
 	{
 	position: absolute;
+	
 }
 
 .site-navbar .site-navigation .site-menu .has-children .dropdown.arrow-top:before
@@ -214,7 +216,7 @@ a, a:hover {
 
 .site-navbar .site-navigation .site-menu .has-children .dropdown a.active
 	{
-	color: #007bff;
+	color: ##343a40;
 }
 
 .site-navbar .site-navigation .site-menu .has-children .dropdown .active>a
@@ -509,7 +511,7 @@ a, a:hover {
 }
 
 .sticky-wrapper.is-sticky .site-navbar {
-	background-color: #007bff;
+	background-color: ##343a40;
 }
 
 .sticky-wrapper.is-sticky .site-navbar .site-navigation .site-menu>li {

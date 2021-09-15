@@ -21,8 +21,8 @@
 	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
 	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
 	crossorigin="anonymous" />
-	
-	<link
+
+<link
 	href="https://fonts.googleapis.com/css?family=Quicksand:400,600,700&display=swap"
 	rel="stylesheet">
 
@@ -53,11 +53,12 @@
 				<div class="container">
 					<div class="row align-items-center">
 						<div class="col-2">
-							
-								<a class="navbar-brand" href="index.html">MENTOR & MENTEE</a>
-						
+
+							<a class="navbar-brand" href="index.html">MENTOR & MENTEE</a>
+
 						</div>
-						<div class="col-10" style="display:flex; justify-content: flex-end;">
+						<div class="col-10"
+							style="display: flex; justify-content: flex-end;">
 							<nav class="site-navigation text-right" role="navigation">
 								<div class="container">
 									<div class="d-inline-block d-lg-none ml-md-0 mr-auto py-3">
@@ -66,25 +67,24 @@
 									</div>
 
 									<ul class="site-menu main-menu js-clone-nav d-none d-lg-block">
-										<li class="active"><a href="#home-section"
-											class="nav-link">Home</a></li>
+
 										<li><a href="#classes-section" class="nav-link">멘토신청</a></li>
+										<li><a href="#gallery-section" class="nav-link">멘토링 관리</a></li>
 										<li class="has-children"><a href="#" class="nav-link">게시판</a>
-											<ul class="dropdown arrow-top">
+											<ul class="dropdown arrow-top" style="text-align: center;">
 												<li><a href="#" class="nav-link">멘토 게시판</a></li>
 												<li><a href="#" class="nav-link">멘티 게시판</a></li>
-												<li><a href="#" class="nav-link">FAQ</a></li>
-												<li class="has-children"><a href="#">More Links</a>
-													<ul class="dropdown">
-														<li><a href="#">Menu One</a></li>
-														<li><a href="#">Menu Two</a></li>
-														<li><a href="#">Menu Three</a></li>
-													</ul></li>
+
+
 											</ul></li>
 										<li><a href="#about-section" class="nav-link">일정관리</a></li>
 										<li><a href="#events-section" class="nav-link">로그인</a></li>
-										<li><a href="#gallery-section" class="nav-link">Gallery</a></li>
-										<li><a href="#contact-section" class="nav-link">Contact</a></li>
+
+										<li class="has-children"><a href="#" class="join-link">회원가입</a>
+											<ul class="dropdown arrow-top" style="text-align: center;">
+												<li><a href="#" class="mentor-join">멘토 가입</a></li>
+												<li><a href="#" class="mentor-join">멘티 가입</a></li>
+											</ul></li>
 									</ul>
 								</div>
 							</nav>
@@ -93,6 +93,23 @@
 				</div>
 			</div>
 		</div>
+		
+		<!-- 로그인 후 바뀌는 내비바 변경사항 -->
+		
+		<!--                               <c:choose>
+                                 <c:when test="${sessionScope.userId eq null}">
+                                    <li><a href="#events-section" class="nav-link">로그인</a></li>
+                                    <li class="has-children"><a href="#" class="nav-link">회원가입</a>
+                                       <ul class="dropdown arrow-top">
+                                          <li><a href="#" class="nav-link">멘토 가입</a></li>
+                                          <li><a href="#" class="nav-link">멘티 가입</a></li>
+                                       </ul>
+                                    </li>
+                                 </c:when>
+                                 <c:otherwise>
+                                    <li><a href="#mypage-section" class="nav-link">${request.userNickname}</a></li>
+                                 </c:otherwise>
+                              </c:choose> -->
 		<!-- Header-->
 		<header class="bg-dark py-5">
 			<div class="container px-5" style="margin-top: 5%">
@@ -135,7 +152,7 @@
 					</div>
 				</div>
 				<div>
-					<img src="/mm/resources/img/main1.jpg" class="img-fluid img-main">
+					<img src="/mm/resources/img/main2.jpg" class="img-fluid img-main">
 				</div>
 			</div>
 		</section>
@@ -160,7 +177,7 @@
 					</div>
 				</div>
 				<div>
-					<img src="/mm/resources/img/main2.jpg" class="img-fluid img-main">
+					<img src="/mm/resources/img/main3.jpg" class="img-fluid img-main">
 				</div>
 			</div>
 		</section>
@@ -173,9 +190,9 @@
 						<h5 class="fw-bolder mb-0" style="text-decoration: underline;">Free
 							Chat</h5>
 						<h3 class="fw-bolder mb-0 shadow-gray-2" style="margin-top: 0;">
-							멘토가 마음에 든다면<br>
-							<span style="background-color: orange; color: white;">무료
-								채팅 상담</span>으로<br> 멘토 진행 방식에 대해 알아보세요 !
+							멘토가 마음에 든다면<br> <span
+								style="background-color: orange; color: white;">무료 채팅 상담</span>으로<br>
+							멘토 진행 방식에 대해 알아보세요 !
 						</h3>
 						<h6 class="fw-bolder mb-0" style="margin-top: 2%; color: gray;">
 							무료채팅 상담으로<br>멘토선택에 도움을 받으세요.
@@ -183,7 +200,7 @@
 					</div>
 				</div>
 				<div>
-					<img src="/mm/resources/img/main3.jpg" class="img-fluid img-main">
+					<img src="/mm/resources/img/main1.jpg" class="img-fluid img-main">
 				</div>
 			</div>
 		</section>
@@ -207,12 +224,12 @@
 			</div>
 		</div>
 	</footer>
-	
-	
-		<script src="/mm/resources/js/main/jquery-3.3.1.min.js"></script>
-		<script src="/mm/resources/js/main/bootstrap.min.js"></script>
-		<script src="/mm/resources/js/main/jquery.sticky.js"></script>
-		<script src="/mm/resources/js/main/main.js"></script>
-	
+
+
+	<script src="/mm/resources/js/main/jquery-3.3.1.min.js"></script>
+	<script src="/mm/resources/js/main/bootstrap.min.js"></script>
+	<script src="/mm/resources/js/main/jquery.sticky.js"></script>
+	<script src="/mm/resources/js/main/main.js"></script>
+
 </body>
 </html>
