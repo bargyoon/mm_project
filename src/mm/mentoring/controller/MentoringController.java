@@ -19,10 +19,12 @@ public class MentoringController extends HttpServlet {
 		String[] uriArr = request.getRequestURI().split("/");
 		
 		switch (uriArr[uriArr.length - 1]) {
+		case "apply-page":
+			applyPage(request, response);
+			break;
 		case "apply-mentoring":
 			applyMentoring(request, response);
 			break;
-
 		default:
 			break;
 		}
@@ -30,6 +32,11 @@ public class MentoringController extends HttpServlet {
 	}
 
 	private void applyMentoring(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void applyPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/mentoring/mentor-apply").forward(request, response);
 	}
 

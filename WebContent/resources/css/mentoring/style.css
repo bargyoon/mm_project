@@ -2962,6 +2962,7 @@ textarea.form-control-lg {
   background-color: #0b5ed7;
   border-color: #0a58ca;
 }
+
 .btn-check:focus + .btn-primary, .btn-primary:focus {
   color: #fff;
   background-color: #0b5ed7;
@@ -4046,7 +4047,7 @@ textarea.form-control-lg {
 }
 
 .navbar-nav-scroll {
-  max-height: var(--bs-scroll-height, 75vh);
+  max-height: var(--bs-scroll-height, 48vh);
   overflow-y: auto;
 }
 
@@ -7409,6 +7410,10 @@ textarea.form-control-lg {
 
 .pt-5 {
   padding-top: 3rem !important;
+}
+
+.pt-6 {
+  padding-top: 4.5rem !important;
 }
 
 .pe-0 {
@@ -11201,6 +11206,8 @@ html {
   min-height: 15rem;
 }
 
+/* 추가한 css */
+
 .shadow-dark-1{
 	text-shadow: 1px 1px 1px black;
 }
@@ -11241,27 +11248,36 @@ html {
 	text-shadow: 5px 5px 5px gray;
 }
 
-@media (max-width:990px){
-	.img-main{
-		display: none;
-	}
-	
-	.menu-list-l{
-		display: block;
-	}
+.btn-primary-dark {
+  color: white;
+  background-color: rgb(76, 90, 104);
+  border-color: white;
+}
+.btn-primary-dark:hover {
+  color: #fff;
+  background-color: #0b5ed7;
+  border-color: #0a58ca;
 }
 
-.menu-list-s{
-	display: none;
+.btn-check:focus + .btn-primary-dark, .btn-primary-dark:focus {
+  color: #fff;
+  background-color: #0b5ed7;
+  border-color: #0a58ca;
+  box-shadow: 0 0 0 0.25rem rgba(49, 132, 253, 0.5);
 }
 
-@media (max-width:990px){
-	.menu-list-s{
-		display: block;
-	}
-	.menu-list-l{
-		display: none;
-	}
+.btn-check:checked + .btn-primary-dark, .btn-check:active + .btn-primary-dark, .btn-primary-dark:active, .btn-primary-dark.active, .show > .btn-primary-dark.dropdown-toggle {
+  color: #fff;
+  background-color: #0a58ca;
+  border-color: #0a53be;
 }
 
+.btn-check:checked + .btn-primary-dark:focus, .btn-check:active + .btn-primary-dark:focus, .btn-primary-dark:active:focus, .btn-primary-dark.active:focus, .show > .btn-primary-dark.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.25rem rgba(49, 132, 253, 0.5);
+}
 
+.btn-primary-dark:disabled, .btn-primary-dark.disabled {
+  color: #fff;
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
