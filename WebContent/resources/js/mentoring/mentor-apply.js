@@ -1,11 +1,13 @@
-(() => {
-	let today = new Date();
+
+let renderDate = new Date();
 	
-	let year = today.getFullYear();
-	let month = today.getMonth()+1;
+let renderCalender = () => {
 	
-	document.querySelector(".calender-header").innerHTML = `${year}년 ${month}월`;
-	document.querySelector(".view_month").innerHTML = `${month}월`;
+	let year = renderDate.getFullYear();
+	let month = renderDate.getMonth()+1;
+		
+	document.querySelector(".year").innerHTML = `${year}년 `;
+	document.querySelector(".today_month").innerHTML = `${month}월`;
 	
 	//지난달 마지막 날짜 기준으로 Date객체 생성
 	let prevLast = new Date(year, month - 1, 0);
@@ -32,7 +34,7 @@
 		}
 	}
 	
-	for(let i = 1; i < tlDate; i ++){
+	for(let i = 1; i < tlDate+1; i ++){
 		thisDates.push(i);
 	}
 	
@@ -42,10 +44,38 @@
 	
 	let dates = prevDates.concat(thisDates, nextDates);
 	
+	let firstDateIndex = dates.indexOf(1);
+	
+  	let lastDateIndex = dates.lastIndexOf(tlDate);
+
 	dates.forEach((date, i) => {
-  		dates[i] = `<div class="date">${date}</div>`;
+		let dateClass = i >= firstDateIndex && i < lastDateIndex + 1 ? 'now_month' : 'other_month';
+		dates[i] = `<div class="date"><span class="${dateClass}">${date}</span></div>`;
 	})
 	
-	document.querySelector('.calender-content').innerHTML = dates.join('');
+	document.querySelector('.dates').innerHTML = dates.join('');
+}
 	
-})();
+renderCalender();
+
+let prevMonth = () => {
+	renderDate.setMonth(renderDate.getMonth()-1);
+	renderCalender();
+}
+	
+let todayMonth = () => {
+	renderCalender();
+}
+	
+let nextMonth = () => {
+	renderDate.setMonth(renderDate.getMonth()+1);
+	renderCalender();
+}
+
+
+let nextBtn = () => {
+	
+	
+	
+	
+}
