@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="utf-8" />
 <title>MENTOR & MENTEE</title>
+<<<<<<< HEAD
 <!-- Bootstrap icons-->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
@@ -31,21 +32,15 @@
 
 <!-- Style -->
 <link rel="stylesheet" href="/mm/resources/css/common/styles.css">
+=======
+<%@ include file="/WEB-INF/views/include/head.jsp" %>
+>>>>>>> refs/heads/dev
 </head>
 <body class="d-flex flex-column h-100">
-	<main class="flex-shrink-0">
-		<!-- Navigation-->
 
-		<div class="site-mobile-menu site-navbar-target">
-			<div class="site-mobile-menu-header">
-				<div class="site-mobile-menu-close mt-3">
-					<span class="icon-close2 js-menu-toggle"></span>
-				</div>
-			</div>
-			<div class="site-mobile-menu-body"></div>
-		</div>
-		<!-- .site-mobile-menu -->
+<%@ include file="/WEB-INF/views/include/nav.jsp" %>
 
+<<<<<<< HEAD
 
 		<div class="site-navbar-wrap">
 
@@ -112,6 +107,10 @@
                               </c:choose> -->
 		<!-- Header-->
 		<header class="bg-dark py-5">
+=======
+			<!-- Header-->
+		<header class="py-5" style="background-color: #343a40">
+>>>>>>> refs/heads/dev
 			<div class="container px-5" style="margin-top: 5%">
 				<div class="row gx-5 align-items-center justify-content-center">
 					<div class="col-lg-8 col-xl-7 col-xxl-6">
@@ -151,13 +150,18 @@
 						</h6>
 					</div>
 				</div>
+<<<<<<< HEAD
 				<div>
 					<img src="/mm/resources/img/main2.jpg" class="img-fluid img-main">
+=======
+				<div class="ms-5">
+					<img src="/resources/img/main2.jpg" class="img-fluid img-main">
+>>>>>>> refs/heads/dev
 				</div>
 			</div>
 		</section>
 
-		<section class="bg-dark py-5" id="features">
+		<section class="py-5" id="features" style="background-color: #343a40">
 			<div class="container px-5 my-5 ">
 				<div class="row gx-5">
 					<div class="col-lg-5 mb-5 mb-lg-5">
@@ -176,8 +180,13 @@
 						</h6>
 					</div>
 				</div>
+<<<<<<< HEAD
 				<div>
 					<img src="/mm/resources/img/main3.jpg" class="img-fluid img-main">
+=======
+				<div class="ms-5">
+					<img src="/resources/img/main3.jpg" class="img-fluid img-main">
+>>>>>>> refs/heads/dev
 				</div>
 			</div>
 		</section>
@@ -199,14 +208,19 @@
 						</h6>
 					</div>
 				</div>
+<<<<<<< HEAD
 				<div>
 					<img src="/mm/resources/img/main1.jpg" class="img-fluid img-main">
+=======
+				<div class="ms-5">
+					<img src="/resources/img/main1.jpg" class="img-fluid img-main">
+>>>>>>> refs/heads/dev
 				</div>
 			</div>
 		</section>
 	</main>
 	<!-- Footer-->
-	<footer class="bg-dark py-4 mt-auto">
+	<footer class="py-4 mt-auto" style="background-color: #343a40">
 		<div class="container px-5">
 			<div
 				class="row align-items-center justify-content-between flex-column flex-sm-row">
@@ -225,11 +239,17 @@
 		</div>
 	</footer>
 
+<<<<<<< HEAD
 
 	<script src="/mm/resources/js/main/jquery-3.3.1.min.js"></script>
 	<script src="/mm/resources/js/main/bootstrap.min.js"></script>
 	<script src="/mm/resources/js/main/jquery.sticky.js"></script>
 	<script src="/mm/resources/js/main/main.js"></script>
 
+=======
+<%@ include file="/WEB-INF/views/include/jsFiles.jsp" %>
+
+	
+>>>>>>> refs/heads/dev
 </body>
 </html>

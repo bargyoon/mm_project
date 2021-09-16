@@ -299,6 +299,10 @@ a, a:hover {
 	opacity: 1;
 }
 
+.site-navbar .site-navigation .site-menu>li:last-child>a{
+	padding-right: 20px;
+}
+
 .site-mobile-menu {
 	width: 300px;
 	position: fixed;
