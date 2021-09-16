@@ -44,7 +44,8 @@ public class MemberController extends HttpServlet {
 		case "logout":
 			logout(request, response);
 			break;
-		case "join-form":
+
+		case "join-form-mentor":
 			joinForm(request, response);
 			break;
 		case "join":
@@ -67,13 +68,14 @@ public class MemberController extends HttpServlet {
 	}
 
 	private void mypage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		request.getRequestDispatcher("/member/mypage").forward(request, response);
 
 	}
 
 	private void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getSession().removeAttribute("authentication");
-		response.sendRedirect("/");
+		response.sendRedirect("/index");
 	}
 
 	private void checkID(HttpServletRequest request, HttpServletResponse response)
@@ -161,10 +163,12 @@ public class MemberController extends HttpServlet {
 		 * 
 		 * if (member == null) { response.sendRedirect("/member/login-form?err=1");
 		 * return; }
-		 * 
-		 * request.getSession().setAttribute("authentication", member);
-		 * response.sendRedirect("/index");
-		 */
+		 */ 
+		 request.getSession().setAttribute("authentication","test");
+		
+		 response.sendRedirect("/");
+		 
+
 	}
 
 	private void loginForm(HttpServletRequest request, HttpServletResponse response)
