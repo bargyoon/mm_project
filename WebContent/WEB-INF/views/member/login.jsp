@@ -9,6 +9,7 @@
 
 
 
+
 <%@ include file="/WEB-INF/views/include/head.jsp" %>
 <link rel="stylesheet" href="/resources/css/member/style.css">
 
