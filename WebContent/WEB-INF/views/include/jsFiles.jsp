@@ -9,10 +9,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-<script src="${contextPath}/resources/js/main/jquery-3.3.1.min.js"></script>
-	<script src="${contextPath}/resources/js/main/bootstrap.min.js"></script>
-	<script src="${contextPath}/resources/js/main/jquery.sticky.js"></script>
-	<script src="${contextPath}/resources/js/main/main.js"></script>
+	<script src="${contextPath}/resources/js/common/jquery-3.3.1.min.js"></script>
+	<script src="${contextPath}/resources/js/common/bootstrap.min.js"></script>
+	<script src="${contextPath}/resources/js/common/jquery.sticky.js"></script>
+	<script src="${contextPath}/resources/js/common/main.js"></script>
 
 </body>
 </html>
