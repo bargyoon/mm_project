@@ -25,10 +25,25 @@ public class MentoringController extends HttpServlet {
 		case "apply-mentoring":
 			applyMentoring(request, response);
 			break;
+		case "apply-complete":
+			applyComolete(request, response);
+			break;
+		case "mentor-list":
+			mentorList(request, response);
+			break;
 		default:
 			break;
 		}
 		
+	}
+
+	private void mentorList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("/mentoring/mentor-list").forward(request, response);
+		
+	}
+
+	private void applyComolete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("/mentoring/apply-complete").forward(request, response);
 	}
 
 	private void applyMentoring(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
