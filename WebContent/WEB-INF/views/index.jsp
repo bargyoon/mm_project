@@ -5,14 +5,17 @@
 <head>
 <meta charset="utf-8" />
 <title>MENTOR & MENTEE</title>
+
 <%@ include file="/WEB-INF/views/include/head.jsp" %>
+
 </head>
 <body class="d-flex flex-column h-100">
 
 <%@ include file="/WEB-INF/views/include/nav.jsp" %>
+
+
 			<!-- Header-->
 		<header class="py-5" style="background-color: #343a40">
-
 
 			<div class="container px-5" style="margin-top: 5%">
 				<div class="row gx-5 align-items-center justify-content-center">
@@ -109,8 +112,6 @@
 				</div>
 				
 				
-				
-				
 
 				<div class="ms-5">
 					<img src="/resources/img/main1.jpg" class="img-fluid img-main">
@@ -120,6 +121,7 @@
 			</div>
 		</section>
 	</main>
+	<!-- Footer-->
 	
 	
 
@@ -127,5 +129,8 @@
 
 
 <%@ include file="/WEB-INF/views/include/jsFiles.jsp" %>
+
+	
+
 </body>
 </html>
