@@ -29,12 +29,13 @@
 			<div class="site-navbar site-navbar-target js-sticky-header">
 				<div class="container">
 					<div class="row align-items-center">
-						<div class="col-5">
+						<div class="col-4">
 
-							<a class="navbar-brand" href="${contextPath}/index">MENTOR & MENTEE</a>
+							<a class="navbar-brand d-none d-lg-block" href="${contextPath}/index" >MENTOR & MENTEE</a>
+							<a class="navbar-brand d-lg-none ml-md-0 mr-auto" href="${contextPath}/index" >M & M</a>
 
 						</div>
-						<div class="col-7"
+						<div class="col-8"
 							style="display: flex; justify-content: flex-end;">
 							<nav class="site-navigation text-right" role="navigation">
 								<div class="container">
