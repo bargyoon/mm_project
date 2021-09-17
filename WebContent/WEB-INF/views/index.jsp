@@ -6,7 +6,7 @@
 <meta charset="utf-8" />
 <title>MENTOR & MENTEE</title>
 
-
+<%@ include file="/WEB-INF/views/include/head.jsp" %>
 </head>
 <body class="d-flex flex-column h-100">
 
