@@ -7,7 +7,6 @@
 <title>MENTOR & MENTEE</title>
 
 <%@ include file="/WEB-INF/views/include/head.jsp" %>
-
 </head>
 <body class="d-flex flex-column h-100">
 
@@ -60,6 +59,7 @@
 				<div class="ms-5">
 					<img src="/resources/img/main2.jpg" class="img-fluid img-main">
 
+
 				</div>
 			</div>
 		</section>
@@ -85,8 +85,10 @@
 				</div>
 
 
+
 				<div class="ms-5">
 					<img src="/resources/img/main3.jpg" class="img-fluid img-main">
+
 
 
 				</div>
@@ -110,6 +112,7 @@
 						</h6>
 					</div>
 				</div>
+
 				
 				
 				
@@ -117,6 +120,7 @@
 
 				<div class="ms-5">
 					<img src="/resources/img/main1.jpg" class="img-fluid img-main">
+
 
 
 				</div>
@@ -127,12 +131,15 @@
 	
 	
 
+
 <%@ include file="/WEB-INF/views/include/footer.jsp" %>
+
 
 
 <%@ include file="/WEB-INF/views/include/jsFiles.jsp" %>
 
 	
+
 
 </body>
 </html>
