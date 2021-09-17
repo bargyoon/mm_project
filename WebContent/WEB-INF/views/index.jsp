@@ -1,117 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="utf-8" />
 <title>MENTOR & MENTEE</title>
-<!-- Bootstrap icons-->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
-	rel="stylesheet" />
-<!-- Core theme CSS (includes Bootstrap)-->
-<link rel='stylesheet'
-	href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css'>
-<link rel='stylesheet'
-	href='https://use.fontawesome.com/releases/v5.8.1/css/all.css'>
-<link rel='stylesheet'
-	href='https://unicons.iconscout.com/release/v2.1.9/css/unicons.css'>
-<link href="/mm/resources/css/common/style.css" rel="stylesheet" />
-<link rel="stylesheet"
-	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
-	crossorigin="anonymous" />
-
-<link
-	href="https://fonts.googleapis.com/css?family=Quicksand:400,600,700&display=swap"
-	rel="stylesheet">
-
-<link rel="stylesheet" href="/mm/resources/css/font/style.css">
-
-
-<!-- Style -->
-<link rel="stylesheet" href="/mm/resources/css/common/styles.css">
+<%@ include file="/WEB-INF/views/include/head.jsp" %>
 </head>
 <body class="d-flex flex-column h-100">
-	<main class="flex-shrink-0">
-		<!-- Navigation-->
 
-		<div class="site-mobile-menu site-navbar-target">
-			<div class="site-mobile-menu-header">
-				<div class="site-mobile-menu-close mt-3">
-					<span class="icon-close2 js-menu-toggle"></span>
-				</div>
-			</div>
-			<div class="site-mobile-menu-body"></div>
-		</div>
-		<!-- .site-mobile-menu -->
+<%@ include file="/WEB-INF/views/include/nav.jsp" %>
 
 
-		<div class="site-navbar-wrap">
-
-			<div class="site-navbar site-navbar-target js-sticky-header">
-				<div class="container">
-					<div class="row align-items-center">
-						<div class="col-2">
-
-							<a class="navbar-brand" href="index.html">MENTOR & MENTEE</a>
-
-						</div>
-						<div class="col-10"
-							style="display: flex; justify-content: flex-end;">
-							<nav class="site-navigation text-right" role="navigation">
-								<div class="container">
-									<div class="d-inline-block d-lg-none ml-md-0 mr-auto py-3">
-										<a href="#" class="site-menu-toggle js-menu-toggle text-black"><span
-											class="icon-menu h3"></span></a>
-									</div>
-
-									<ul class="site-menu main-menu js-clone-nav d-none d-lg-block">
-
-										<li><a href="#classes-section" class="nav-link">멘토신청</a></li>
-										<li><a href="#gallery-section" class="nav-link">멘토링 관리</a></li>
-										<li class="has-children"><a href="#" class="nav-link">게시판</a>
-											<ul class="dropdown arrow-top" style="text-align: center;">
-												<li><a href="#" class="nav-link">멘토 게시판</a></li>
-												<li><a href="#" class="nav-link">멘티 게시판</a></li>
+			<!-- Header-->
+		<header class="py-5" style="background-color: #343a40">
 
 
-											</ul></li>
-										<li><a href="#about-section" class="nav-link">일정관리</a></li>
-										<li><a href="#events-section" class="nav-link">로그인</a></li>
-
-										<li class="has-children"><a href="#" class="join-link">회원가입</a>
-											<ul class="dropdown arrow-top" style="text-align: center;">
-												<li><a href="#" class="mentor-join">멘토 가입</a></li>
-												<li><a href="#" class="mentor-join">멘티 가입</a></li>
-											</ul></li>
-									</ul>
-								</div>
-							</nav>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-		<!-- 로그인 후 바뀌는 내비바 변경사항 -->
-		
-		<!--                               <c:choose>
-                                 <c:when test="${sessionScope.userId eq null}">
-                                    <li><a href="#events-section" class="nav-link">로그인</a></li>
-                                    <li class="has-children"><a href="#" class="nav-link">회원가입</a>
-                                       <ul class="dropdown arrow-top">
-                                          <li><a href="#" class="nav-link">멘토 가입</a></li>
-                                          <li><a href="#" class="nav-link">멘티 가입</a></li>
-                                       </ul>
-                                    </li>
-                                 </c:when>
-                                 <c:otherwise>
-                                    <li><a href="#mypage-section" class="nav-link">${request.userNickname}</a></li>
-                                 </c:otherwise>
-                              </c:choose> -->
-		<!-- Header-->
-		<header class="bg-dark py-5">
 			<div class="container px-5" style="margin-top: 5%">
 				<div class="row gx-5 align-items-center justify-content-center">
 					<div class="col-lg-8 col-xl-7 col-xxl-6">
@@ -151,13 +55,15 @@
 						</h6>
 					</div>
 				</div>
-				<div>
-					<img src="/mm/resources/img/main2.jpg" class="img-fluid img-main">
+
+				<div class="ms-5">
+					<img src="/resources/img/main2.jpg" class="img-fluid img-main">
+
 				</div>
 			</div>
 		</section>
 
-		<section class="bg-dark py-5" id="features">
+		<section class="py-5" id="features" style="background-color: #343a40">
 			<div class="container px-5 my-5 ">
 				<div class="row gx-5">
 					<div class="col-lg-5 mb-5 mb-lg-5">
@@ -176,8 +82,12 @@
 						</h6>
 					</div>
 				</div>
-				<div>
-					<img src="/mm/resources/img/main3.jpg" class="img-fluid img-main">
+
+
+				<div class="ms-5">
+					<img src="/resources/img/main3.jpg" class="img-fluid img-main">
+
+
 				</div>
 			</div>
 		</section>
@@ -199,37 +109,25 @@
 						</h6>
 					</div>
 				</div>
-				<div>
-					<img src="/mm/resources/img/main1.jpg" class="img-fluid img-main">
+				
+				
+				
+				
+
+				<div class="ms-5">
+					<img src="/resources/img/main1.jpg" class="img-fluid img-main">
+
+
 				</div>
 			</div>
 		</section>
 	</main>
-	<!-- Footer-->
-	<footer class="bg-dark py-4 mt-auto">
-		<div class="container px-5">
-			<div
-				class="row align-items-center justify-content-between flex-column flex-sm-row">
-				<div class="col-auto">
-					<div class="small m-0 text-white">Copyright &copy; Your
-						Website 2021</div>
-				</div>
-				<div class="col-auto">
-					<a class="link-light small" href="#!">Privacy</a> <span
-						class="text-white mx-1">&middot;</span> <a
-						class="link-light small" href="#!">Terms</a> <span
-						class="text-white mx-1">&middot;</span> <a
-						class="link-light small" href="#!">Contact</a>
-				</div>
-			</div>
-		</div>
-	</footer>
+	
+	
+
+<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 
 
-	<script src="/mm/resources/js/main/jquery-3.3.1.min.js"></script>
-	<script src="/mm/resources/js/main/bootstrap.min.js"></script>
-	<script src="/mm/resources/js/main/jquery.sticky.js"></script>
-	<script src="/mm/resources/js/main/main.js"></script>
-
+<%@ include file="/WEB-INF/views/include/jsFiles.jsp" %>
 </body>
 </html>
