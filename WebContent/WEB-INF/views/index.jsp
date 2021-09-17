@@ -123,6 +123,8 @@
 		</section>
 	</main>
 	<!-- Footer-->
+	
+	
 
 <%@ include file="/WEB-INF/views/include/footer.jsp" %>
 
