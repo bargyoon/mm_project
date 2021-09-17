@@ -5,12 +5,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+
+
 <%@ include file="/WEB-INF/views/include/head.jsp" %>
 <link rel="stylesheet" href="/resources/css/member/style.css">
+
+
 
 </head>
 <body>
 	<!-- Navigation-->
+
 <%@ include file="/WEB-INF/views/include/nav.jsp" %>
 	
 
