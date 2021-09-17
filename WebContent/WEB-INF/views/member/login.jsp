@@ -7,9 +7,12 @@
 <title>Insert title here</title>
 <%@ include file="/WEB-INF/views/include/head.jsp" %>
 <link rel="stylesheet" href="/resources/css/member/style.css">
+
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/nav.jsp" %>
+	
+
 	<div class="section">
 		<div class="container">
 			<div class="row full-height justify-content-center">
