@@ -11341,7 +11341,7 @@ html {
 .user-name {
    flex-flow: row;
    text-align: center;
-   margin-top: 10%;
+   margin-top: 7%;
    font-family: 'Pretendard-Bold';
    
 }
@@ -11427,11 +11427,11 @@ checkbox{
   justify-content: center;  
   height: 50px;
   margin-top: 5%;
-  margin-bottom: 0.5%; 
+  margin-bottom: 5%; 
 }
 
 
-.wrapp-but>a {
+.wrap-but>a {
   
    width: 20%;
    height: 100%;
