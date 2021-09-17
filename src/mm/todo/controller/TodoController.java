@@ -1,4 +1,4 @@
-package todoController;
+package mm.todo.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
