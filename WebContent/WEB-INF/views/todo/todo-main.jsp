@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="utf-8" />
-<title>MENTOR & MENTEE</title>
+<title>TODO-MAIN</title>
 
 <%@ include file="/WEB-INF/views/include/head.jsp" %>
 <link rel="stylesheet" href="/resources/css/todo/reset.css">
