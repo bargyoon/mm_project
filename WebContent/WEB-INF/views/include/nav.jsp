@@ -29,12 +29,12 @@
 			<div class="site-navbar site-navbar-target js-sticky-header">
 				<div class="container">
 					<div class="row align-items-center">
-						<div class="col-2">
+						<div class="col-5">
 
 							<a class="navbar-brand" href="${contextPath}/index">MENTOR & MENTEE</a>
 
 						</div>
-						<div class="col-10"
+						<div class="col-7"
 							style="display: flex; justify-content: flex-end;">
 							<nav class="site-navigation text-right" role="navigation">
 								<div class="container">
@@ -66,7 +66,7 @@
 											<c:when test="${sessionScope.authentication eq null}">
 												<li><a href="${contextPath}/member/login-form" class="nav-link">로그인</a></li>
 
-												<li class="has-children"><a href="#" class="join-link">회원가입</a>
+												<li class="has-children"><a href="#" class="nav-link">회원가입</a>
 													<ul class="dropdown arrow-top" style="text-align: center;">
 														<li><a href="${contextPath}/member/join-form-mentor"
 															class="mentor-join">멘토 가입</a></li>

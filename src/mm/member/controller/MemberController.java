@@ -169,6 +169,7 @@ public class MemberController extends HttpServlet {
 		 response.sendRedirect("/");
 		 
 
+
 	}
 
 	private void loginForm(HttpServletRequest request, HttpServletResponse response)
