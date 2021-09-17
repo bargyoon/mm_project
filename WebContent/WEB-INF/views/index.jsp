@@ -10,8 +10,6 @@
 <body class="d-flex flex-column h-100">
 
 <%@ include file="/WEB-INF/views/include/nav.jsp" %>
-
-
 			<!-- Header-->
 		<header class="py-5" style="background-color: #343a40">
 
