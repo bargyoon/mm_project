@@ -31,9 +31,25 @@ public class MentoringController extends HttpServlet {
 		case "mentor-list":
 			mentorList(request, response);
 			break;
+		case "manage":
+			mentoringManage(request, response);
+			break;
+		case "mentor-rating":
+			mentorRating(request, response);
+			break;
 		default:
 			break;
 		}
+		
+	}
+
+	private void mentorRating(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("/mentoring/mentor-rating").forward(request, response);
+		
+	}
+
+	private void mentoringManage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("/mentoring/mentor-manage").forward(request, response);
 		
 	}
 
