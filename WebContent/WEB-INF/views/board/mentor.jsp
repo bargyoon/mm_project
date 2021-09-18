@@ -11,12 +11,12 @@
 	<%@ include file="/WEB-INF/views/include/nav.jsp"%>
 
 	<!-- Header-->
-	<div class="boardSection">
+	<div class="board_section">
 		<div id="boardHeader">
 			<div id="boardTitle">
 				<p>멘토 게시판</p>
 			</div>
-			<form class="wrapper" action="/board-list" method="get">
+			<form class="wrap_search" action="/board-list" method="get">
 				<div id="dateList">
 					<select id="dateBox" name="date">
 						<option value="entire-period">전체기간</option>
@@ -43,138 +43,138 @@
 			</form>
 		</div>
 		<hr>
-		<div id="board-body">
-			<table class="boardTable" border="1">
-				<thead class="boardThead">
-					<tr class="boardTr">
-						<th class="boardTh">No.</th>
-						<th class="boardTh">제목</th>
-						<th class="boardTh">작성자</th>
-						<th class="boardTh">작성일</th>
-						<th class="boardTh">조회수</th>
-						<th class="boardTh">추천수</th>
+		<div id="boardBody">
+			<table class="board_table" border="1">
+				<thead class="board_thead">
+					<tr class="board_tr">
+						<th class="board_th">No.</th>
+						<th class="board_th">제목</th>
+						<th class="board_th">작성자</th>
+						<th class="board_th">작성일</th>
+						<th class="board_th">조회수</th>
+						<th class="board_th">추천수</th>
 					</tr>
 				</thead>
-				<tbody class="boardTbody">
-					<tr class="boardTr">
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
+				<tbody class="board_tbody">
+					<tr class="board_tr">
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
 					</tr>
-					<tr class="boardTr">
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
+					<tr class="board_tr">
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
 					</tr>
-					<tr class="boardTr">
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
+					<tr class="board_tr">
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
 					</tr>
-					<tr class="boardTr">
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
+					<tr class="board_tr">
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
 					</tr>
-					<tr class="boardTr">
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
+					<tr class="board_tr">
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
 					</tr>
-					<tr class="boardTr">
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
+					<tr class="board_tr">
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
 					</tr>
-					<tr class="boardTr">
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
+					<tr class="board_tr">
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
 					</tr>
-					<tr class="boardTr">
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
+					<tr class="board_tr">
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
 					</tr>
-					<tr class="boardTr">
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
-						<td class="boardTd"><a></a></td>
+					<tr class="board_tr">
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
 					</tr>
-					<tr class="boardTr">
-						<td class="boardTd"></td>
-						<td class="boardTd"></td>
-						<td class="boardTd"></td>
-						<td class="boardTd"></td>
-						<td class="boardTd"></td>
-						<td class="boardTd"></td>
+					<tr class="board_tr">
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
 					</tr>
-					<tr class="boardTr">
-						<td class="boardTd"></td>
-						<td class="boardTd"></td>
-						<td class="boardTd"></td>
-						<td class="boardTd"></td>
-						<td class="boardTd"></td>
-						<td class="boardTd"></td>
+					<tr class="board_tr">
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
 					</tr>
-					<tr class="boardTr">
-						<td class="boardTd"></td>
-						<td class="boardTd"></td>
-						<td class="boardTd"></td>
-						<td class="boardTd"></td>
-						<td class="boardTd"></td>
-						<td class="boardTd"></td>
+					<tr class="board_tr">
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
 					</tr>
-					<tr class="boardTr">
-						<td class="boardTd"></td>
-						<td class="boardTd"></td>
-						<td class="boardTd"></td>
-						<td class="boardTd"></td>
-						<td class="boardTd"></td>
-						<td class="boardTd"></td>
+					<tr class="board_tr">
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
 					</tr>
-					<tr class="boardTr">
-						<td class="boardTd"></td>
-						<td class="boardTd"></td>
-						<td class="boardTd"></td>
-						<td class="boardTd"></td>
-						<td class="boardTd"></td>
-						<td class="boardTd"></td>
+					<tr class="board_tr">
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
 					</tr>
-					<tr class="boardTr">
-						<td class="boardTd"></td>
-						<td class="boardTd"></td>
-						<td class="boardTd"></td>
-						<td class="boardTd"></td>
-						<td class="boardTd"></td>
-						<td class="boardTd"></td>
+					<tr class="board_tr">
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
+						<td class="board_td"><a></a></td>
 					</tr>
 				</tbody>
 			</table>

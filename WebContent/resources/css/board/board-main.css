@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-.boardSection{
+.board_section{
 	position:relative;
 	width: 1600px;
 	height:100%;
@@ -23,7 +23,7 @@
 #boardTitle>p{
 	font-size: 25px;
 }
-.wrapper{
+.wrap_search{
 	position:relative;
 	left:795px;
 	display: flex;
@@ -67,32 +67,32 @@
 	color: rgba(255, 255, 255, 0.6);
 }
 
-#board-body{
+#boardBody{
 	height: 80%;
 }
 
-.boardTable{
+.board_table{
 	height: 800px;
 	text-align: center;
 	
 }
-.boardThead{
+.board_thead{
 	
 }
-.boardTbody{
+.board_tbody{
 	
 }
 
-.boardTh{
+.board_th{
 	height: 50px;
 	background-color: #343a40;
 	color: rgba(255, 255, 255, 0.6);
 }
 
-.boardTd{
+.board_td{
 	color: lightgray;
 }
-.boardTable, .boardTh, .boardTr, .boardTd{
+.board_table, .board_th, .board_tr, .board_td{
 	width: 1500px;
 	margin-left: 50px;
 	margin-right: 50px;
@@ -102,19 +102,19 @@
 	border-right: none;
 }
 
-.boardTd:nth-child(1){
+.board_td:nth-child(1){
 	width: 10%;
 }
-.boardTd:nth-child(2){
+.board_td:nth-child(2){
 	width: 50%;
 }
-.boardTd:nth-child(3){
+.board_td:nth-child(3){
 	width: 10%;
 }
-.boardTd:nth-child(4){
+.board_td:nth-child(4){
 	width: 10%;
 }
-.boardTd:nth-child(5){
+.board_td:nth-child(5){
 	width: 10%;
 }
 
