@@ -46,7 +46,10 @@ public class MemberController extends HttpServlet {
 			break;
 
 		case "join-form-mentor":
-			joinForm(request, response);
+			joinFormMentor(request, response);
+			break;
+		case "join-form-mentee":
+			joinFormMentee(request, response);
 			break;
 		case "join":
 			join(request, response);
@@ -136,9 +139,13 @@ public class MemberController extends HttpServlet {
 
 	}
 
-	private void joinForm(HttpServletRequest request, HttpServletResponse response)
+	private void joinFormMentor(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.getRequestDispatcher("/member/join-form-mentor").forward(request, response);
+	}
+	private void joinFormMentee(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.getRequestDispatcher("/member/join-form-mentee").forward(request, response);
 	}
 
 	private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

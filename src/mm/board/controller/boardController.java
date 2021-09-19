@@ -1,6 +1,7 @@
-package todoController;
+package mm.board.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,16 +9,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class TodoController
+ * Servlet implementation class boardController
  */
-@WebServlet("/todo/*")
-public class TodoController extends HttpServlet {
+@WebServlet("/board/*")
+public class boardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TodoController() {
+    public boardController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,22 +30,25 @@ public class TodoController extends HttpServlet {
 		String[] uriArr = request.getRequestURI().split("/");
 
 		switch (uriArr[uriArr.length - 1]) {
-		case "main":
-			todoMain(request, response);
+		case "mentor":
+			mentor(request, response);
 			break;
-		case "detail":
-			todoDetail(request, response);
+		case "mentee":
+			mentee(request, response);
 			break;
+			
 		default:
+
 		}
 	}
 
-	private void todoDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/todo/todo-detail").forward(request, response);		
+	private void mentee(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("/board/mentee").forward(request, response);
+		
 	}
 
-	private void todoMain(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/todo/todo-main").forward(request, response);
+	private void mentor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("/board/mentor").forward(request, response);
 	}
 
 	/**

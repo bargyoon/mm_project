@@ -17,10 +17,10 @@
 
     
     
-        <main class="flex-shrink-0">
+<main class="flex-shrink-0">
             
      
-	</main>
+
 	<!-- Footer-->
 
 <%@ include file="/WEB-INF/views/include/footer.jsp" %>
