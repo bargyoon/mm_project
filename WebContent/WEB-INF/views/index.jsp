@@ -60,6 +60,7 @@
 				<img src="/resources/img/main2.jpg" class="img-fluid img-main">
 				
 
+
 			</div>
 		</div>
 	</section>
