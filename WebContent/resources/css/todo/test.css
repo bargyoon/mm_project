@@ -11341,7 +11341,11 @@ html {
 .user-name {
    flex-flow: row;
    text-align: center;
+<<<<<<< HEAD
    margin-top: 7%;
+=======
+   margin-top: 8.5%;
+>>>>>>> refs/heads/dev
    font-family: 'Pretendard-Bold';
    
 }
@@ -11351,7 +11355,7 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 3%;
+  margin-top: 2.5%;
   height: 15px;
   
   
@@ -11374,10 +11378,9 @@ html {
 }
 
 .todo-list-wrap{
-	display: flex;
-	flex-flow: row;
-	align-items: center;
-	justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 	margin-top: 5%;
 	
 	
@@ -11421,6 +11424,7 @@ checkbox{
 }
 
 
+<<<<<<< HEAD
 .wrapp-but {
   display: flex;
   align-items: center;
@@ -11428,26 +11432,45 @@ checkbox{
   height: 50px;
   margin-top: 5%;
   margin-bottom: 5%; 
+=======
+.wrap-but{
+	flex-flow: row;
+    justify-content: center;
+    text-align: center;
+	height: 50px;
+	margin-top: 5%;
+	margin-bottom: 3%;
+	
+>>>>>>> refs/heads/dev
 }
 
+.wrap-but>a{
+	flex-flow: row;
+    justify-content: center;
+    text-align: center;
+}
 
+<<<<<<< HEAD
 .wrap-but>a {
   
    width: 20%;
    height: 100%;
+=======
+.submit-but {
+>>>>>>> refs/heads/dev
    background-color: #343a40;
+   height: 100%;
+   width: 25%;
    border-radius: 5px 5px 5px 5px;
-   text-align: center;
-   justify-content: center;
    font-family: 'Pretendard-SemiBold';
 }
 
 .submit-but>h5 {
-	text-align: center;
-	justify-content: center;
 	color: white;
-	margin-top: 10%
+	margin-top: 5px;
+	
 }
+
 
 main{
 	position:relative;
