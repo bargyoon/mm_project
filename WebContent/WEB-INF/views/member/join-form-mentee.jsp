@@ -8,29 +8,19 @@
 <%@ include file="/WEB-INF/views/include/head.jsp"%>
 <link rel="stylesheet" href="/resources/css/member/join-form.css">
 </head>
-<body style="height: 100vh">
+<body style="height: 100vh; background-color:#343a40"">
 
 	<%@ include file="/WEB-INF/views/include/nav.jsp"%>
-
-	<div class ="container pt-6">
-		<div class="row py-5 align-items-center">
+<div class="container" style="padding-top:100px">
+		<div class="row align-items-center"
+			style="border-style: solid; border-color: white;">
 			<!-- For Demo Purpose -->
-			<div class="col-md-5 pr-lg-5 mb-5 mb-md-0">
 
-				<h1>Create an Account</h1>
-				<p class="font-italic text-muted mb-0">Create a minimal
-					registeration page using Bootstrap 4 HTML form elements.</p>
-				<p class="font-italic text-muted">
-					Snippet By <a href="https://bootstrapious.com" class="text-muted">
-						<u>Bootstrapious</u>
-					</a>
-				</p>
-			</div>
 
 			<!-- Registeration Form -->
-			<div class="col-md-7 col-lg-6 ml-auto">
+			<div class="col-md-7 col-lg-6 m-auto">
 				<form action="#">
-					<div class="row">
+					<div class="row" style="padding: 22px;">
 
 						<!-- Name -->
 						<div class="input-group col-lg-12 mb-4">
@@ -281,7 +271,7 @@
 			</div>
 		</div>
 	</div>
-	</main>
+	
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 	<%@ include file="/WEB-INF/views/include/jsFiles.jsp"%>
 </body>
