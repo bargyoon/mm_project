@@ -9,7 +9,9 @@
 <link rel="stylesheet" href="/resources/css/member/style.css">
 
 </head>
-<body>
+<body style="height:100vh">
+	<!-- Navigation-->
+
 <%@ include file="/WEB-INF/views/include/nav.jsp" %>
 	
 
@@ -18,10 +20,7 @@
 			<div class="row full-height justify-content-center">
 				<div class="col-12 text-center align-self-center py-5">
 					<div class="section pb-5 pt-5 pt-sm-2 text-center">
-						<h6 class="mb-0 pb-3">
-							<span>MENTOR & MENTEE</span>
-						</h6>
-
+					
 						<div class="card-3d-wrap mx-auto">
 							<div class="card-3d-wrapper">
 								<div class="card-front">
@@ -52,7 +51,7 @@
 												</ul>
 												<div class="modal-footer d-flex justify-content-center">
 													<div class="signup-section">
-														Not a member yet? <a href="#a" class="text-info"> Sign
+														Not a member yet? <a href="#a"  style="color:orange"> Sign
 															Up</a>.
 													</div>
 												</div>

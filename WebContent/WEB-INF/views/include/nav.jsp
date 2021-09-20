@@ -41,7 +41,7 @@
 								<div class="container">
 									<div class="d-inline-block d-lg-none ml-md-0 mr-auto py-3">
 										<a href="#" class="site-menu-toggle js-menu-toggle text-white"><span
-											class="icon-menu h3"></span></a>
+											class="icon-menu h3" style="color:white"></span></a>
 									</div>
 
 									<ul class="site-menu main-menu js-clone-nav d-none d-lg-block">
