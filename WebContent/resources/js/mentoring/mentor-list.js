@@ -4,6 +4,6 @@
 	
 	let month = today.getMonth();
 	
-	document.querySelector(".montor-of-month").innerHTML = `${month}월의 우수 멘토`;
+	document.querySelector(".mentor-of-month").innerHTML = `${month}월의 우수 멘토`;
 	
 })();

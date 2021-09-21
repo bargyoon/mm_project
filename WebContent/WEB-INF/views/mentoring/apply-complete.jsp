@@ -13,7 +13,6 @@
 <body class="d-flex flex-column h-75">
 <%@ include file="/WEB-INF/views/include/nav.jsp" %>
 	<main class="flex-shrink-0">
-		<!-- Section -->
 		<section class="pt-5">
 			<div class="container px-5 my-5 py-5">
 				<div class="row gx-5 pt-5 justify-content-md-around" id="apply-page-1">
@@ -31,27 +30,9 @@
 			</div>
 		</section>
 	</main>
-	<!-- Footer-->
-	<footer class="py-4 mt-auto" style="background-color: #343a40">
-		<div class="container px-5">
-			<div
-				class="row align-items-center justify-content-between flex-column flex-sm-row">
-				<div class="col-auto">
-					<div class="small m-0 text-white">Copyright &copy; Your
-						Website 2021</div>
-				</div>
-				<div class="col-auto">
-					<a class="link-light small" href="#!">Privacy</a> <span
-						class="text-white mx-1">&middot;</span> <a
-						class="link-light small" href="#!">Terms</a> <span
-						class="text-white mx-1">&middot;</span> <a
-						class="link-light small" href="#!">Contact</a>
-				</div>
-			</div>
-		</div>
-	</footer>
-		
-<%@ include file="/WEB-INF/views/include/jsFiles.jsp" %>
+	
+	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
+	<%@ include file="/WEB-INF/views/include/jsFiles.jsp" %>
 	
 
 </body>
