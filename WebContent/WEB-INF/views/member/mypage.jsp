@@ -11,7 +11,8 @@
 	rel="stylesheet">
 <link href="/resources/css/member/mypage.css" rel="stylesheet">
 </head>
-<body>
+<body style="height:100vh">
+
 	<div class="main-content">
 		<!-- Top navbar -->
 		<%@ include file="/WEB-INF/views/include/nav.jsp"%>
@@ -91,7 +92,7 @@
 					</div>
 				</div>
 				<div class="col-xl-8 order-xl-1">
-					<div class="card bg-secondary shadow">
+					<div class="card bg-secondary shadow" style="margin-bottom:100px">
 						<div class="card-header bg-white border-0">
 							<div class="row align-items-center">
 								<div class="col-8">

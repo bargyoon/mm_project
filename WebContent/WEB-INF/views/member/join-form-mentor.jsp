@@ -8,29 +8,20 @@
 <%@ include file="/WEB-INF/views/include/head.jsp"%>
 <link rel="stylesheet" href="/resources/css/member/join-form.css">
 </head>
-<body style="height: 100vh">
+<body style="height: 100vh; background-color:#343a40">
 
 	<%@ include file="/WEB-INF/views/include/nav.jsp"%>
 
-	<div class="container pt-6">
-		<div class="row py-5 align-items-center">
+	<div class="container" style="padding-top:100px">
+		<div class="row align-items-center"
+			style="border-style: solid; border-color: white;">
 			<!-- For Demo Purpose -->
-			<div class="col-md-5 pr-lg-5 mb-5 mb-md-0">
 
-				<h1>Create an Account</h1>
-				<p class="font-italic text-muted mb-0">Create a minimal
-					registeration page using Bootstrap 4 HTML form elements.</p>
-				<p class="font-italic text-muted">
-					Snippet By <a href="https://bootstrapious.com" class="text-muted">
-						<u>Bootstrapious</u>
-					</a>
-				</p>
-			</div>
 
 			<!-- Registeration Form -->
-			<div class="col-md-7 col-lg-6 ml-auto">
+			<div class="col-md-7 col-lg-6 m-auto">
 				<form action="#">
-					<div class="row">
+					<div class="row" style="padding: 22px;">
 
 						<!-- Name -->
 						<div class="input-group col-lg-12 mb-4">
@@ -194,45 +185,23 @@
 								class="form-control bg-white border-left-0 border-md">
 						</div>
 
-						<!-- Grade -->
+						<!-- 현재학년 -->
 						<div class="input-group col-lg-12 mb-4">
 							<div class="input-group-prepend">
 								<span
 									class="input-group-text bg-white px-4 border-md border-right-0">
-									<i class="fa fa-envelope text-muted"></i>
+									<i class="fa fa-black-tie text-muted"></i>
 								</span>
 							</div>
-							<div id="email" name="email" placeholder="Email Address"
-								class="form-control bg-white border-left-0 border-md"
-								style="max-width: 80px; display: flex; align-content: center; flex-wrap: wrap; justify-content: flex-start;">학년</div>
-							<div
-								style="display: flex; justify-content: space-around; align-content: center; flex-wrap: wrap;"
-								class="form-control bg-white border-left-0 border-md h-70 font-weight-bold">
-								<div>
-									<input id="credit" name="paymentMethod" type="radio"
-										class="form-check-input" checked="" required=""> <label
-										class="form-check-label" for="credit">1학년 </label>
-								</div>
-								<div>
-									<input id="debit" name="paymentMethod" type="radio"
-										class="form-check-input" required=""> <label
-										class="form-check-label" for="debit">2학년</label>
-								</div>
-								<div>
-									<input id="credit" name="paymentMethod" type="radio"
-										class="form-check-input" checked="" required=""> <label
-										class="form-check-label" for="credit">3학년 </label>
-								</div>
-								<div>
-									<input id="debit" name="paymentMethod" type="radio"
-										class="form-check-input" required=""> <label
-										class="form-check-label" for="debit">4학년</label>
-								</div>
-
-
-							</div>
+							<select id="job" name="jobtitle"
+								class="form-control custom-select bg-white border-left-0 border-md">
+								<option value="">현재 학년</option>
+								<option value="">1학년</option>
+								<option value="">2학년</option>
+								<option value="">3학년</option>
+								<option value="">4학년</option>
+							</select>
 						</div>
-
 
 						<!-- Major -->
 
@@ -252,11 +221,11 @@
 						<div
 							class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">
 							<div class="border-bottom " style="width: 35%;"></div>
-							<span class="px-2 small text-muted font-weight-bold text-muted"
+							<span class="px-2 small text-muted font-weight-bold text-center"
 								style="width: 30%;">멘토링 요청사항</span>
 							<div class="border-bottom " style="width: 35%;"></div>
 						</div>
-						
+
 						<!-- Want day -->
 						<div class="input-group col-lg-6 mb-4">
 							<div class="input-group-prepend">
@@ -278,8 +247,8 @@
 								<option value="">무관</option>
 							</select>
 						</div>
-						
-							<!-- Want Time -->
+
+						<!-- Want Time -->
 						<div class="input-group col-lg-6 mb-4">
 							<div class="input-group-prepend">
 								<span
@@ -314,15 +283,16 @@
 								<option value="">기타</option>
 							</select>
 						</div>
-						
+
 						<!-- 이력사항 -->
-						
+
 						<div class="pl-lg-4">
-                  <div class="form-group focused">
-                    <label>이력사항</label>
-                    <textarea rows="4" class="form-control form-control-alternative" placeholder="A few words about you ...">A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</textarea>
-                  </div>
-                </div>
+							<div class="form-group focused">
+								<label>이력사항</label>
+								<textarea rows="4" class="form-control form-control-alternative"
+									placeholder="A few words about you ...">A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</textarea>
+							</div>
+						</div>
 
 
 						<!-- Submit Button -->
@@ -337,7 +307,8 @@
 						<!-- Already Registered -->
 						<div class="text-center w-100">
 							<p class="text-muted font-weight-bold">
-								이미 회원이신가요? <a href="/member/login-form" class="text-primary ml-2">Login</a>
+								이미 회원이신가요? <a href="/member/login-form"
+									class="text-primary ml-2">Login</a>
 							</p>
 						</div>
 
@@ -346,7 +317,6 @@
 			</div>
 		</div>
 	</div>
-	</main>
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 	<%@ include file="/WEB-INF/views/include/jsFiles.jsp"%>
 </body>
