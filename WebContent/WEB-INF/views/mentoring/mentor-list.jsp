@@ -11,9 +11,8 @@
 
 </head>
 <body class="d-flex flex-column h-75">
-<%@ include file="/WEB-INF/views/include/nav.jsp" %>
+	<%@ include file="/WEB-INF/views/include/nav.jsp" %>
 	<main class="flex-shrink-0">
-		<!-- Section -->
 		<section class="pt-5">
 			<div class="container px-5 mt-5 pt-5">
 				<div class="row gx-5">
@@ -31,7 +30,7 @@
 	            <div class="row gx-5 justify-content-center">
 	                <div class="col-lg-8 col-xl-6">
 	                    <div class="text-center">
-	                        <h2 class="fw-bolder fw-normaltext-muted mb-5 montor-of-month" style="color:#bf9667"></h2>
+	                        <h2 class="fw-bolder fw-normaltext-muted mb-5 mentor-of-month" style="color:#bf9667"></h2>
 	                    </div>
 	                </div>
 	            </div>
@@ -202,29 +201,10 @@
 	        </div>
         </section>
 	</main>
-	<!-- Footer-->
-	<footer class="py-4 mt-auto" style="background-color: #343a40">
-		<div class="container px-5">
-			<div
-				class="row align-items-center justify-content-between flex-column flex-sm-row">
-				<div class="col-auto">
-					<div class="small m-0 text-white">Copyright &copy; Your
-						Website 2021</div>
-				</div>
-				<div class="col-auto">
-					<a class="link-light small" href="#!">Privacy</a> <span
-						class="text-white mx-1">&middot;</span> <a
-						class="link-light small" href="#!">Terms</a> <span
-						class="text-white mx-1">&middot;</span> <a
-						class="link-light small" href="#!">Contact</a>
-				</div>
-			</div>
-		</div>
-	</footer>
-		
-<script src="/resources/js/mentoring/mentor-list.js"></script>
-<%@ include file="/WEB-INF/views/include/jsFiles.jsp" %>
-	
+
+	<%@ include file="/WEB-INF/views/include/footer.jsp"%>		
+	<script src="/resources/js/mentoring/mentor-list.js"></script>
+	<%@ include file="/WEB-INF/views/include/jsFiles.jsp" %>
 
 </body>
 </html>

@@ -44,9 +44,15 @@ public class MemberController extends HttpServlet {
 		case "logout":
 			logout(request, response);
 			break;
+		case "forget-password":
+			forgetPassword(request, response);
+			break;
 
 		case "join-form-mentor":
-			joinForm(request, response);
+			joinFormMentor(request, response);
+			break;
+		case "join-form-mentee":
+			joinFormMentee(request, response);
 			break;
 		case "join":
 			join(request, response);
@@ -57,6 +63,9 @@ public class MemberController extends HttpServlet {
 		case "id-check":
 			checkID(request, response);
 			break;
+		case "confirm-pw":
+			confirmPassword(request, response);
+			break;
 		case "mypage":
 			mypage(request, response);
 			break;
@@ -65,6 +74,15 @@ public class MemberController extends HttpServlet {
 
 		}
 
+	}
+
+	private void forgetPassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		request.getRequestDispatcher("/member/forget-password").forward(request, response);		
+	}
+
+	private void confirmPassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("/member/confirm-pw").forward(request, response);
+		
 	}
 
 	private void mypage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -136,9 +154,13 @@ public class MemberController extends HttpServlet {
 
 	}
 
-	private void joinForm(HttpServletRequest request, HttpServletResponse response)
+	private void joinFormMentor(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.getRequestDispatcher("/member/join-form-mentor").forward(request, response);
+	}
+	private void joinFormMentee(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.getRequestDispatcher("/member/join-form-mentee").forward(request, response);
 	}
 
 	private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

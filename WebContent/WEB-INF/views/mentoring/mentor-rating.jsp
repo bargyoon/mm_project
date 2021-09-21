@@ -4,115 +4,149 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>MENTOR & MENTEE - 멘토링 신청</title>
-<!-- Bootstrap icons-->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-<!-- Core theme CSS (includes Bootstrap)-->
-<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css'>
-<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.8.1/css/all.css'>
-<link rel='stylesheet' href='https://unicons.iconscout.com/release/v2.1.9/css/unicons.css'>
-<link href="/mm/resources/css/mentoring/style.css" rel="stylesheet" />
-<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
-	crossorigin="anonymous" />
-<link href="https://fonts.googleapis.com/css?family=Quicksand:400,600,700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/mm/resources/css/font/style.css">
-<link rel="stylesheet" href="/mm/resources/css/mentoring/styles.css">
+<title>MENTOR & MENTEE - 멘토 평가</title>
+
+<link rel="stylesheet" href="/resources/css/mentoring/toggle-btn.css">
+<%@ include file="/WEB-INF/views/include/head.jsp" %>
+
 </head>
-<body class="d-flex flex-column h-100">
+<body class="d-flex flex-column h-75">
+	<%@ include file="/WEB-INF/views/include/nav.jsp" %>
 	<main class="flex-shrink-0">
-		<!-- Navigation-->
-
-		<div class="site-mobile-menu site-navbar-target">
-			<div class="site-mobile-menu-header">
-				<div class="site-mobile-menu-close mt-3">
-					<span class="icon-close2 js-menu-toggle"></span>
-				</div>
-			</div>
-			<div class="site-mobile-menu-body"></div>
-		</div>
-
-		<div class="site-navbar-wrap">
-
-			<div class="site-navbar site-navbar-target js-sticky-header">
-				<div class="container">
-					<div class="row align-items-center">
-						<div class="col-2">
-								<a class="navbar-brand" href="index.html">MENTOR & MENTEE</a>
-						</div>
-						<div class="col-10" style="display:flex; justify-content: flex-end;">
-							<nav class="site-navigation text-right" role="navigation">
-								<div class="container">
-									<div class="d-inline-block d-lg-none ml-md-0 mr-auto py-3">
-										<a href="#" class="site-menu-toggle js-menu-toggle text-black"><span
-											class="icon-menu h3"></span></a>
-									</div>
-
-									<ul class="site-menu main-menu js-clone-nav d-none d-lg-block">
-										<li><a href="#classes-section" class="nav-link">멘토신청</a></li>
-										<li><a href="#gallery-section" class="nav-link">멘토링 관리</a></li>
-										<li class="has-children"><a href="#" class="nav-link">게시판</a>
-											<ul class="dropdown arrow-top" style="text-align: center;">
-												<li><a href="#" class="nav-link">멘토 게시판</a></li>
-												<li><a href="#" class="nav-link">멘티 게시판</a></li>
-											</ul></li>
-										<li><a href="#about-section" class="nav-link">일정관리</a></li>
-									</ul>
-								</div>
-							</nav>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-		<!-- Section -->
-		<section class="py-5" id="features">
-			<div class="container px-5 my-5 py-5">
+		<section class="pt-5">
+			<div class="container px-5 mt-5 pt-5">
 				<div class="row gx-5">
-					<div class="col-lg-5 mb-5 mb-lg-5">
-						<h5 class="fw-bolder mb-0" style="text-decoration: underline;">Mentor-Mentee
-							연결</h5>
-						<h3 class="fw-bolder mb-0 shadow-gray-2" style="margin-top: 0;">
-							<span style="background-color: orange; color: white;">M&M</span>은
-							사용자의 조건에 맞는<br>Mentor를 연결해줍니다.
-						</h3>
-						<h6 class="fw-bolder mb-0" style="margin-top: 2%; color: gray;">
-							학교, 학과, 원하는 조언 등<br>다양한 조건을 선택해 멘토를 선택할 수 있어요.
-						</h6>
-					</div>
-				</div>
-				<div>
-					<img src="/mm/resources/img/main3.jpg" class="img-fluid img-main">
+					<h5 class="fw-bolder px-sm-0 mb-3 pb-2" style="border-bottom: solid 2px gray;">멘토 평가</h5>
+					<div class="fw-bolder mb-0 py-2 small offcanvas-header"></div>
 				</div>
 			</div>
 		</section>
-	</main>
-	<!-- Footer-->
-	<footer class="bg-dark py-4 mt-auto">
-		<div class="container px-5">
-			<div
-				class="row align-items-center justify-content-between flex-column flex-sm-row">
-				<div class="col-auto">
-					<div class="small m-0 text-white">Copyright &copy; Your
-						Website 2021</div>
-				</div>
-				<div class="col-auto">
-					<a class="link-light small" href="#!">Privacy</a> <span
-						class="text-white mx-1">&middot;</span> <a
-						class="link-light small" href="#!">Terms</a> <span
-						class="text-white mx-1">&middot;</span> <a
-						class="link-light small" href="#!">Contact</a>
-				</div>
+		
+		<section class="py-3">
+	        <div class="container px-5 my-5" style="margin-top: 0;">
+	            <div class="row gx-5">
+	                <div class="mb-5">
+	                    <div class="card h-100 shadow border-0">
+	                        <div class="card-body p-4">
+	                            <div class="badge bg-dark bg-gradient rounded-pill mb-2">멘토 ${sessionScope.authentication}</div>
+	                            <p class="small card-text mb-0">멘토링 진행기간 : 2021.03 - 04</p>
+	                            <hr>
+	                            <h5 class="card-title mb-3 text-decoration-none mt-2">키워드 평가</h5>
+	                            <form action="/mentoring/regist-rating" class="mt-2">
+		                            <div class="d-flex flex-md-column mb-4">
+		                            	<div class="d-flex">
+				                            <div class="switch-holder my-md-2 mx-md-5">
+					                            <div class="switch-label">
+													<span>친절함</span>
+												</div>
+												<div class="switch-toggle">
+													<input type="checkbox" name="rating" value="kindness" id="kindness">
+													<label for="kindness"></label>
+												</div>
+											</div>
+											<div class="switch-holder my-md-2 mx-md-5">
+					                            <div class="switch-label">
+													<span>의사소통</span>
+												</div>
+												<div class="switch-toggle">
+													<input type="checkbox" name="rating" value="communication" id="communication">
+													<label for="communication"></label>
+												</div>
+											</div>
+											<div class="switch-holder my-md-2 mx-md-5">
+					                            <div class="switch-label">
+													<span>전문성</span>
+												</div>
+												<div class="switch-toggle">
+													<input type="checkbox" name="rating" value="professional" id="professional">
+													<label for="professional"></label>
+												</div>
+											</div>
+										</div>
+										<div class="d-flex">
+				                            <div class="switch-holder my-md-2 mx-md-5">
+					                            <div class="switch-label">
+													<span>수업진행방식</span>
+												</div>
+												<div class="switch-toggle">
+													<input type="checkbox" name="rating" value="process" id="process">
+													<label for="process"></label>
+												</div>
+											</div>
+											<div class="switch-holder my-md-2 mx-md-5">
+					                            <div class="switch-label">
+													<span>시간약속이행</span>
+												</div>
+												<div class="switch-toggle">
+													<input type="checkbox" name="rating" value="timeAppointment" id="time_appointment">
+													<label for="time_appointment"></label>
+												</div>
+											</div>
+											<div class="switch-holder my-md-2 mx-md-5">
+					                            <div class="switch-label">
+													<span>설명능력</span>
+												</div>
+												<div class="switch-toggle">
+													<input type="checkbox" name="rating" value="explain" id="explain">
+													<label for="explain"></label>
+												</div>
+											</div>
+										</div>									
+									</div>
+									<hr>
+									<h5 class="card-title mb-3 text-decoration-none mt-4">고생한 멘토에게 글남기기</h5>
+			                        <div class="switch-holder m-3">
+				                        <table style="width:100%;">
+										    <tr>
+												<th style="vertical-align: middle; text-align: center;">글자수 제한<br/>
+										            <sup>(<span id="nowByte">0</span>/100bytes)</sup>
+										        </th>
+										        <td>
+										           	<textarea rows="4" class="form-control" id="textArea_byteLimit" name="rating_comment" onkeyup="fn_checkByte(this)"></textarea>
+										        </td>
+										    </tr>
+										</table>
+				                    </div>
+				                    <div class="d-flex mt-5" style="justify-content: center;">
+										<button class="btn btn-primary-dark btn-lg px-4 ms-sm-3 fw-bolder">작성 완료</button>
+				                    </div>
+								</form>
+		                    </div>
+						</div>
+	                </div>
+	            </div>
+	        </div>
+        </section>
+        
+       <hr>
+       
+		<section class="py-3">
+			<div class="row gx-5 justify-content-center">
+			    <div class="col-lg-8 col-xl-6 mt-5">
+			        <div class="text-center">
+			            <h2 class="fw-bolder fw-normaltext-muted mb-5" style="color:#bf9667">멘토 ${sessionScope.authentication}님에 대한 평가</h2>
+			        </div>
+			    </div>
 			</div>
-		</div>
-	</footer>
-	
-	
-		<script src="/mm/resources/js/main/jquery-3.3.1.min.js"></script>
-		<script src="/mm/resources/js/main/bootstrap.min.js"></script>
-		<script src="/mm/resources/js/main/jquery.sticky.js"></script>
-		<script src="/mm/resources/js/main/main.js"></script>
-	
+		
+		
+			<div class="card-footer p-4 pt-0 bg-transparent border-top-0">
+			    <div class="d-flex align-items-end justify-content-between">
+			        <div class="d-flex align-items-center">
+			            <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." />
+			            <div class="small">
+			                <div class="fw-bold">멘티 님</div>
+			                <div class="text-muted">멘토링 진행기간 : 2021.01 - 02</div>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+		</section>
+	</main>
+
+	<%@ include file="/WEB-INF/views/include/footer.jsp"%>		
+	<script src="/resources/js/mentoring/mentor-rating.js"></script>
+	<%@ include file="/WEB-INF/views/include/jsFiles.jsp" %>
 
 </body>
 </html>
