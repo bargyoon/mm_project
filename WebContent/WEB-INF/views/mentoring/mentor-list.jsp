@@ -30,7 +30,7 @@
 	            <div class="row gx-5 justify-content-center">
 	                <div class="col-lg-8 col-xl-6">
 	                    <div class="text-center">
-	                        <h2 class="fw-bolder fw-normaltext-muted mb-5 montor-of-month" style="color:#bf9667"></h2>
+	                        <h2 class="fw-bolder fw-normaltext-muted mb-5 mentor-of-month" style="color:#bf9667"></h2>
 	                    </div>
 	                </div>
 	            </div>

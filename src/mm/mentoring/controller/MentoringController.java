@@ -22,9 +22,6 @@ public class MentoringController extends HttpServlet {
 		case "apply-page":
 			applyPage(request, response);
 			break;
-		case "apply-mentoring":
-			applyMentoring(request, response);
-			break;
 		case "apply-complete":
 			applyComolete(request, response);
 			break;
@@ -37,10 +34,45 @@ public class MentoringController extends HttpServlet {
 		case "mentor-rating":
 			mentorRating(request, response);
 			break;
+		case "regist-rating":
+			registRating(request, response);
+			break;
+		case "test":
+			test(request, response);
+			break;
+		case "test-submit":
+			testSubmit(request, response);
+			break;
 		default:
 			break;
 		}
 		
+	}
+
+	private void testSubmit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String[] params = request.getParameterValues("rating");
+		String param = request.getParameter("rating_comment");
+		
+		for (String para : params) {
+			System.out.println(para);
+		}
+		
+		System.out.println(param);
+	}
+
+	private void test(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("/mentoring/test").forward(request, response);
+	}
+
+	private void registRating(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String[] params = request.getParameterValues("rating");
+		String param = request.getParameter("rating_comment");
+		
+		for (String para : params) {
+			System.out.println(para);
+		}
+		
+		System.out.println(param);
 	}
 
 	private void mentorRating(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -60,11 +92,6 @@ public class MentoringController extends HttpServlet {
 
 	private void applyComolete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/mentoring/apply-complete").forward(request, response);
-	}
-
-	private void applyMentoring(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
 	}
 
 	private void applyPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

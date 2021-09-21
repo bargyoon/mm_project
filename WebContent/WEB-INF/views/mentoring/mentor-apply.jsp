@@ -50,8 +50,8 @@
 						<div class="offcanvas-header">
 							<h3>1/3</h3>
 							<div class="offcanvas-header">
-								<input class="btn btn-primary-dark btn-lg px-4 me-sm-3 fw-bolder" type="button" value="이전">
-								<input class="btn btn-primary-dark btn-lg px-4 me-sm-3 fw-bolder" type="button" value="다음">
+								<input class="btn btn-primary-dark btn-lg px-4 ms-sm-3 fw-bolder" type="button" value="이전">
+								<input class="btn btn-primary-dark btn-lg px-4 ms-sm-3 fw-bolder" type="button" value="다음">
 							</div>
 						</div>
 					</div>
@@ -134,9 +134,9 @@
 						</div>
 						<div class="offcanvas-header">
 							<h3>2/3</h3>
-							<div class="offcanvas-header">
-								<input class="btn btn-primary-dark btn-lg px-4 me-sm-3 fw-bolder" type="button" value="이전">
-								<input class="btn btn-primary-dark btn-lg px-4 me-sm-3 fw-bolder" type="button" value="다음">
+							<div class="offcanvas-header"  style="align-content: flex-end; ">
+								<input class="btn btn-primary-dark btn-lg px-4 ms-sm-3 fw-bolder" type="button" value="이전">
+								<input class="btn btn-primary-dark btn-lg px-4 ms-sm-3 fw-bolder" type="button" value="다음">
 							</div>
 						</div>
 					</div>
@@ -180,8 +180,8 @@
 						<div class="offcanvas-header">
 							<h3>3/3</h3>
 							<div class="offcanvas-header">
-								<input class="btn btn-primary-dark btn-lg px-4 me-sm-3 fw-bolder" type="button" value="이전">
-								<input class="btn btn-primary-dark btn-lg px-4 me-sm-3 fw-bolder" type="button" value="작성완료">
+								<input class="btn btn-primary-dark btn-lg px-4 ms-sm-3 fw-bolder" type="button" value="이전">
+								<input class="btn btn-primary-dark btn-lg px-4 ms-sm-3 fw-bolder" type="button" value="작성완료">
 							</div>
 						</div>
 					</div>
