@@ -11450,6 +11450,19 @@ checkbox{
 	
 }
 
+.wrap-calendar{
+  	margin-top: 10%;
+  	margin-left: 9%;
+  	margin-right: 9%;
+
+}
+
+
+.calendar{
+    font-family: 'Pretendard-SemiBold';	
+	
+}
+
 
 main{
 	position:relative;
