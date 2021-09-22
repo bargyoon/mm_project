@@ -5,113 +5,124 @@
 <head>
 <meta charset="UTF-8">
 <title>MENTOR & MENTEE - 멘토링 신청</title>
-<!-- Bootstrap icons-->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-<!-- Core theme CSS (includes Bootstrap)-->
-<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css'>
-<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.8.1/css/all.css'>
-<link rel='stylesheet' href='https://unicons.iconscout.com/release/v2.1.9/css/unicons.css'>
-<link href="/mm/resources/css/mentoring/style.css" rel="stylesheet" />
-<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
-	crossorigin="anonymous" />
-<link href="https://fonts.googleapis.com/css?family=Quicksand:400,600,700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/mm/resources/css/font/style.css">
-<link rel="stylesheet" href="/mm/resources/css/mentoring/styles.css">
+
+<link rel="stylesheet" href="/resources/css/mentoring/calender.css">
+<%@ include file="/WEB-INF/views/include/head.jsp" %>
+
 </head>
-<body class="d-flex flex-column h-100">
-	<main class="flex-shrink-0">
-		<!-- Navigation-->
-
-		<div class="site-mobile-menu site-navbar-target">
-			<div class="site-mobile-menu-header">
-				<div class="site-mobile-menu-close mt-3">
-					<span class="icon-close2 js-menu-toggle"></span>
-				</div>
-			</div>
-			<div class="site-mobile-menu-body"></div>
+<body class="d-flex flex-column h-75">
+	<%@ include file="/WEB-INF/views/include/nav.jsp" %>
+	<div class="container px-5 my-5 pt-5">
+	    <aside class="bg-primary bg-gradient rounded-3 p-4 p-sm-5 mt-5">
+		    <div class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start">
+		    	<div class="d-flex align-items-center">
+			    	<div class="mb-4 mb-xl-0">
+			        	<img class="rounded-circle me-3" src="https://dummyimage.com/100x100/ced4da/6c757d" alt="..." />
+			        </div>
+			        <div class="mb-4 mb-xl-0">
+			            <div class="fs-3 fw-bold text-white">멘토 ${sessionScope.authentication}님</div>
+			            <div class="text-white-50">Sign.</div>
+			        </div>
+		        </div>
+		        <div class="d-flex flex-column align-items-center">
+		            <div class="input-group mb-2">
+		                <div class="fs-5 fw-bold text-white">신청 중인 멘토링</div>
+		            </div>
+		            <div class="small text-white-50">
+		                <button class="btn btn-outline-light" id="button-newsletter" type="button" onclick="renderApplying()">1건</button>
+		            </div>
+		        </div>
+		        <div class="d-flex flex-column align-items-center">
+		            <div class="input-group mb-2">
+		                <div class="fs-5 fw-bold text-white">진행 중인 멘토링</div>
+		            </div>
+		            <div class="small text-white-50">
+		                <button class="btn btn-outline-light" id="button-newsletter" type="button" onclick="renderProceeding()">2건</button>
+		            </div>
+		        </div>
+		        <div class="d-flex flex-column align-items-center">
+		            <div class="input-group mb-2">
+		                <div class="fs-5 fw-bold text-white">완료한 멘토링</div>
+		            </div>
+		            <div class="small text-white-50">
+		                <button class="btn btn-outline-light" id="button-newsletter" type="button" onclick="renderCompleted()">3건</button>
+		            </div>
+		        </div>
+		    </div>
+		</aside>
+	</div>
+	<div class="container px-5 my-5 pt-4">
+		<div class="row gx-5">
+			<h5 class="fw-bolder px-sm-0 mb-3 pb-2" id="type_manage" style="border-bottom: solid 2px gray;">버튼에 따라 바뀌는 소제목</h5>
 		</div>
-
-		<div class="site-navbar-wrap">
-
-			<div class="site-navbar site-navbar-target js-sticky-header">
-				<div class="container">
-					<div class="row align-items-center">
-						<div class="col-2">
-								<a class="navbar-brand" href="index.html">MENTOR & MENTEE</a>
-						</div>
-						<div class="col-10" style="display:flex; justify-content: flex-end;">
-							<nav class="site-navigation text-right" role="navigation">
-								<div class="container">
-									<div class="d-inline-block d-lg-none ml-md-0 mr-auto py-3">
-										<a href="#" class="site-menu-toggle js-menu-toggle text-black"><span
-											class="icon-menu h3"></span></a>
-									</div>
-
-									<ul class="site-menu main-menu js-clone-nav d-none d-lg-block">
-										<li><a href="#classes-section" class="nav-link">멘토신청</a></li>
-										<li><a href="#gallery-section" class="nav-link">멘토링 관리</a></li>
-										<li class="has-children"><a href="#" class="nav-link">게시판</a>
-											<ul class="dropdown arrow-top" style="text-align: center;">
-												<li><a href="#" class="nav-link">멘토 게시판</a></li>
-												<li><a href="#" class="nav-link">멘티 게시판</a></li>
-											</ul></li>
-										<li><a href="#about-section" class="nav-link">일정관리</a></li>
-									</ul>
-								</div>
-							</nav>
+		<div class="row" >
+			<div class="text-muted text-sm-end" style="font-size: 0.75rem">* 신청일 기준 3일 내로 멘토의 수락이 없을 시 삭제됩니다.</div>
+		</div>
+	</div>
+	<section>
+        <div class="container px-5">
+            <div class="row gx-5 justify-content-center">
+                <div class="col-lg-8 col-xl-3">
+                    <div class="text-center">
+                        <h2 class="fw-bolder pb-3" style="border-bottom: solid 2px gray">8월</h2> <!-- userId로 mentoring history에서 현재 진행 상황에 맞는 멘토리스트를 데려오고 월 별로 끊어서 출력(여기에는 년도와 월 출력) -->
+                    </div>
+                </div>
+            </div>
+            <div class="row gx-5 justify-content-center">
+                <div class="col-lg-10 mb-4">
+					<div class="d-flex align-items-center justify-content-between">
+					    <div class="d-flex align-items-center">
+					    	<img class="rounded-circle me-3" src="https://dummyimage.com/60x60/ced4da/6c757d" alt="..." />
+					    	<div class="small">
+						        <div class="fw-bold">멘토 이름</div>
+						        <div class="text-muted">희망 멘토 진행 기간 : 가져와서 적용</div>
+					        </div>
+					    </div>
+						<div class="d-flex flex-column">
+						    <button class="btn btn-primary-dark my-1" style="font-size: 0.75rem" id="button-newsletter" type="button" onclick="renderCompleted()">재신청</button>
+						    <button class="btn btn-primary-dark my-1" style="font-size: 0.75rem" id="button-newsletter" type="button" onclick="renderCompleted()">결제하기</button>
 						</div>
 					</div>
-				</div>
+                <hr>
+                </div>
 			</div>
-		</div>
-		
-		<!-- Section -->
-		<section class="py-5" id="features">
-			<div class="container px-5 my-5 py-5">
-				<div class="row gx-5">
-					<div class="col-lg-5 mb-5 mb-lg-5">
-						<h5 class="fw-bolder mb-0" style="text-decoration: underline;">Mentor-Mentee
-							연결</h5>
-						<h3 class="fw-bolder mb-0 shadow-gray-2" style="margin-top: 0;">
-							<span style="background-color: orange; color: white;">M&M</span>은
-							사용자의 조건에 맞는<br>Mentor를 연결해줍니다.
-						</h3>
-						<h6 class="fw-bolder mb-0" style="margin-top: 2%; color: gray;">
-							학교, 학과, 원하는 조언 등<br>다양한 조건을 선택해 멘토를 선택할 수 있어요.
-						</h6>
+			 <div class="row gx-5 justify-content-center">
+                <div class="col-lg-10 mb-4">
+					<div class="d-flex align-items-center justify-content-between">
+					    <div class="d-flex align-items-center">
+					    	<img class="rounded-circle me-3" src="https://dummyimage.com/60x60/ced4da/6c757d" alt="..." />
+					    	<div class="small">
+						        <div class="fw-bold">멘토 이름</div>
+						        <div class="text-muted">멘토 진행 기간 : 가져와서 적용</div>
+					        </div>
+					    </div>
 					</div>
-				</div>
-				<div>
-					<img src="/mm/resources/img/main3.jpg" class="img-fluid img-main">
-				</div>
+                <hr>
+                </div>
 			</div>
-		</section>
-	</main>
-	<!-- Footer-->
-	<footer class="bg-dark py-4 mt-auto">
-		<div class="container px-5">
-			<div
-				class="row align-items-center justify-content-between flex-column flex-sm-row">
-				<div class="col-auto">
-					<div class="small m-0 text-white">Copyright &copy; Your
-						Website 2021</div>
-				</div>
-				<div class="col-auto">
-					<a class="link-light small" href="#!">Privacy</a> <span
-						class="text-white mx-1">&middot;</span> <a
-						class="link-light small" href="#!">Terms</a> <span
-						class="text-white mx-1">&middot;</span> <a
-						class="link-light small" href="#!">Contact</a>
-				</div>
+            <div class="row gx-5 justify-content-center">
+                <div class="col-lg-10 mb-4">
+					<div class="d-flex align-items-center justify-content-between">
+					    <div class="d-flex align-items-center">
+					    	<img class="rounded-circle me-3" src="https://dummyimage.com/60x60/ced4da/6c757d" alt="..." />
+					    	<div class="small">
+						        <div class="fw-bold">멘토 이름</div>
+						        <div class="text-muted">멘토 진행 기간 : 가져와서 적용</div>
+					        </div>
+					    </div>
+						<div class="d-flex flex-column">
+						    <button class="btn btn-primary-dark my-1" style="font-size: 0.75rem" id="button-newsletter" type="button" onclick="renderCompleted()">재신청</button>
+						    <button class="btn btn-primary-dark my-1" style="font-size: 0.75rem" id="button-newsletter" type="button" onclick="renderCompleted()">평가하기</button>
+						</div>
+					</div>
+                <hr>
+                </div>
 			</div>
 		</div>
-	</footer>
-	
-	
-		<script src="/mm/resources/js/main/jquery-3.3.1.min.js"></script>
-		<script src="/mm/resources/js/main/bootstrap.min.js"></script>
-		<script src="/mm/resources/js/main/jquery.sticky.js"></script>
-		<script src="/mm/resources/js/main/main.js"></script>
+
+    </section>
+	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
+	<%@ include file="/WEB-INF/views/include/jsFiles.jsp" %>
 	
 
 </body>
