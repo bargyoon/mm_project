@@ -50,8 +50,7 @@
 						<div class="offcanvas-header">
 							<h3>1/3</h3>
 							<div class="offcanvas-header">
-								<input class="btn btn-primary-dark btn-lg px-4 ms-sm-3 fw-bolder" type="button" value="이전">
-								<input class="btn btn-primary-dark btn-lg px-4 ms-sm-3 fw-bolder" type="button" value="다음">
+								<button class="btn btn-primary-dark btn-lg px-4 ms-sm-3 fw-bolder" onclick="nextBtn()">다음</button>
 							</div>
 						</div>
 					</div>
@@ -134,9 +133,9 @@
 						</div>
 						<div class="offcanvas-header">
 							<h3>2/3</h3>
-							<div class="offcanvas-header"  style="align-content: flex-end; ">
-								<input class="btn btn-primary-dark btn-lg px-4 ms-sm-3 fw-bolder" type="button" value="이전">
-								<input class="btn btn-primary-dark btn-lg px-4 ms-sm-3 fw-bolder" type="button" value="다음">
+							<div class="offcanvas-header">
+								<button class="btn btn-primary-dark btn-lg px-4 ms-sm-3 fw-bolder">이전</button>
+								<button class="btn btn-primary-dark btn-lg px-4 ms-sm-3 fw-bolder">다음</button>
 							</div>
 						</div>
 					</div>
@@ -147,7 +146,7 @@
 							<div class="year"></div>
 							<div class="month-choice">
 								<button class="calender_btn" onclick="prevMonth()">&lt;</button>
-								<button class="calender_btn today_month" onclick="todayMonth()">Today</button>
+								<button class="calender_btn today_month"></button>
 								<button class="calender_btn" onclick="nextMonth()">&gt;</button>
 							</div>
 						</div>
@@ -180,8 +179,8 @@
 						<div class="offcanvas-header">
 							<h3>3/3</h3>
 							<div class="offcanvas-header">
-								<input class="btn btn-primary-dark btn-lg px-4 ms-sm-3 fw-bolder" type="button" value="이전">
-								<input class="btn btn-primary-dark btn-lg px-4 ms-sm-3 fw-bolder" type="button" value="작성완료">
+								<button class="btn btn-primary-dark btn-lg px-4 ms-sm-3 fw-bolder">이전</button>
+								<button class="btn btn-primary-dark btn-lg px-4 ms-sm-3 fw-bolder">작성완료</button>
 							</div>
 						</div>
 					</div>
