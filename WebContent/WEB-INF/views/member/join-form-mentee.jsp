@@ -8,12 +8,11 @@
 <%@ include file="/WEB-INF/views/include/head.jsp"%>
 <link rel="stylesheet" href="/resources/css/member/join-form.css">
 </head>
-<body style="height: 100vh; background-color:#343a40"">
+<body style="height: 100vh;">
 
 	<%@ include file="/WEB-INF/views/include/nav.jsp"%>
 <div class="container" style="padding-top:100px">
-		<div class="row align-items-center"
-			style="border-style: solid; border-color: white;">
+		<div class="row align-items-center">
 			<!-- For Demo Purpose -->
 
 
