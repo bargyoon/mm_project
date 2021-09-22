@@ -11,12 +11,13 @@
 }
 
 .btn-primary {
-    background: #42AEEC;
+    background: #343a40;
+    color: white;
     border: none;
 }
 
 .btn-primary:hover, .btn-primary:focus {
-    background: #1799e4;
+    background: #808080;
 }
 
 
