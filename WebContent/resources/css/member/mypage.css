@@ -1035,6 +1035,10 @@ textarea.form-control {
   flex: 1 1 auto;
 }
 
+
+}
+
+
 .card-header {
   margin-bottom: 0;
   padding: 1.25rem 1.5rem;
@@ -1045,6 +1049,8 @@ textarea.form-control {
 .card-header:first-child {
   border-radius: calc(.375rem - 1px) calc(.375rem - 1px) 0 0;
 }
+
+
 
 @keyframes progress-bar-stripes {
   from {

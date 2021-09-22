@@ -37,24 +37,20 @@
 													placeholder="Your Password" id="logpass" autocomplete="off">
 												<i class="input-icon uil uil-lock-alt"></i>
 											</div>
-											<a href="/member/login" class="btn mt-4">submit</a>
 											<p class="mb-0 mt-4 text-center">
 												<a href="#0" class="link">Forgot your password?</a>
 											</p>
+											<a href="/member/login" class="btn original mt-2 mb-2">로그인</a>
+											<div class="border-bottom "></div>
+											<a href="/member/login" class="btn kakao mt-2">카카오로 로그인</a>
+											<a href="/member/login" class="btn naver mt-2">네이버로 로그인</a>
+											
 											<div class="col-md-12">
-												<ul class="social-network social-circle">
-													<li><a href="#" class="icoFacebook" title="Facebook"><i
-															class="fas fa-comment"></i></a></li>
-													<li><a href="#" class="icoTwitter" title="Twitter"><i
-															class="fab fa-neos"></i></a></li>
-
-												</ul>
-												<div class="modal-footer d-flex justify-content-center">
+												
 													<div class="signup-section">
 														Not a member yet? <a href="#a"  style="color:orange"> Sign
 															Up</a>.
 													</div>
-												</div>
 											</div>
 										</div>
 									</div>
