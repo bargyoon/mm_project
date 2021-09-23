@@ -77,7 +77,7 @@
 											</c:when>
 											<c:otherwise>
 												
-												<li class="has-children"><a href="#" class="profile">${sessionScope.authentication}</a>
+												<li class="has-children"><a href="#" class="profile">${authentication.userId}</a>
 													<ul class="dropdown arrow-top" style="text-align: center;">
 														<li><a href="${contextPath}/member/mypage"
 															class="mypage">마이페이지</a></li>
