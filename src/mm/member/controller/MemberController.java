@@ -1,10 +1,7 @@
 package mm.member.controller;
 
 import java.io.IOException;
-<<<<<<< HEAD
-=======
 import java.lang.reflect.Array;
->>>>>>> refs/heads/dev
 import java.util.Arrays;
 
 import javax.servlet.ServletException;
