@@ -1,7 +1,6 @@
 package mm.mentoring.controller;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,9 +8,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import mm.mentoring.model.dto.MentorList;
+import mm.mentoring.model.service.MentoringService;
+
 @WebServlet("/mentoring/*")
 public class MentoringController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private MentoringService mService = new MentoringService();
 	
     public MentoringController() {
         super();
@@ -88,17 +91,15 @@ public class MentoringController extends HttpServlet {
 	}
 
 	private void mentorList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String schoolType = request.getParameter("school_type");
-		String[] majorType = request.getParameterValues("major_type");
-		String wantTime = request.getParameter("want_time");
-		String[] wantDate = request.getParameterValues("want_date");
-		String wantPlace = request.getParameter("want_place");
+		MentorList mentorList = new MentorList();
 		
-		System.out.println("majorType : " + Arrays.toString(majorType));
-		System.out.println("wantDate : " + Arrays.toString(wantDate));
-		System.out.println("schoolType : " + schoolType);
-		System.out.println("wantTime : " + wantTime);
-		System.out.println("wantPlace : " + wantPlace);
+		mentorList.setUniversityType(request.getParameter("school_type"));
+		mentorList.setWantTime(request.getParameter("want_time"));
+		mentorList.setWantPlace(request.getParameter("want_place"));
+		mentorList.setMajorType(request.getParameterValues("major_type"));
+		mentorList.setWantDate(request.getParameterValues("want_date"));
+		
+		int[] mentorIdxArr = mService.getMentorIdx(mentorList);
 		
 	}
 
