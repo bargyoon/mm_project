@@ -28,7 +28,6 @@ public class MemberDao {
 
 			pstm.setString(1, userId);
 			pstm.setString(2, password);
-			System.out.println(userId);
 			rset = pstm.executeQuery();
 
 			// 5. ResultSet에 저장된 데이터를 DTO에 옮겨담기.
@@ -114,7 +113,6 @@ public class MemberDao {
 			pstm.setString(5, member.getGender());
 			pstm.setString(6, member.getAddress());
 			pstm.setString(7, member.getPhone());
-			
 			pstm.setString(8, member.getNickname());
 			pstm.setString(9, member.getRole());
 			

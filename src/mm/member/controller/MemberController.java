@@ -1,6 +1,10 @@
 package mm.member.controller;
 
 import java.io.IOException;
+<<<<<<< HEAD
+=======
+import java.lang.reflect.Array;
+>>>>>>> refs/heads/dev
 import java.util.Arrays;
 
 import javax.servlet.ServletException;
@@ -268,10 +272,12 @@ public class MemberController extends HttpServlet {
 		
 		String userId = request.getParameter("userId");
 		String password = request.getParameter("password");
-		
+		System.out.println(userId);
 		Member member = null;
 		
 		member = memberService.memberAuthenticate(userId, password);
+		
+		
 		
 		if (member == null) {
 			response.sendRedirect("/member/login-form?err=1");
