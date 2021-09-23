@@ -69,11 +69,19 @@ public class MemberController extends HttpServlet {
 		case "mypage":
 			mypage(request, response);
 			break;
+		case "modify-info-form":
+			modifyInfoForm(request, response);
+			break;
 
 		default:
 
 		}
 
+	}
+
+	private void modifyInfoForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		request.getRequestDispatcher("/member/modify-info").forward(request, response);	
+		
 	}
 
 	private void forgetPassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{

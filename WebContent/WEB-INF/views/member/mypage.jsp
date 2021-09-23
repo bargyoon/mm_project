@@ -11,7 +11,7 @@
 	rel="stylesheet">
 <link href="/resources/css/member/mypage.css" rel="stylesheet">
 </head>
-<body style="height:100vh">
+<body style="height: 100vh">
 
 	<div class="main-content">
 		<!-- Top navbar -->
@@ -51,8 +51,7 @@
 						<div
 							class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
 							<div class="d-flex justify-content-between">
-								<a href="#" class="btn btn-sm btn-info mr-4">Connect</a> <a
-									href="#" class="btn btn-sm btn-default float-right">Message</a>
+								
 							</div>
 						</div>
 						<div class="card-body pt-0 pt-md-4">
@@ -83,16 +82,13 @@
 									<i class="ni education_hat mr-2"></i>고려대학교
 								</div>
 
-								<p>Ryan — the name taken by Melbourne-raised, Brooklyn-based
-									Nick Murphy — writes, performs and records all of his own
-									music.</p>
-
+								
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="col-xl-8 order-xl-1">
-					<div class="card bg-secondary shadow" style="margin-bottom:100px">
+					<div class="card bg-secondary shadow" style="margin-bottom: 100px">
 						<div class="card-header bg-white border-0">
 							<div class="row align-items-center">
 								<div class="col-8">
@@ -109,62 +105,64 @@
 								<div class="pl-lg-4">
 									<div class="row">
 										<div class="col-lg-6">
-											<div class="form-group focused">
-												<label class="form-control-label" for="input-username">아이디</label>
+											<div data-update  class="form-group focused">
+													<label class="form-control-label" for="input-username">아이디</label>
 												<div id="input-username"
 													class="form-control form-control-alternative">
 													hong123</div>
 											</div>
 										</div>
 										<div class="col-lg-6">
-											<div class="form-group">
-												<label class="form-control-label" for="input-email">이메일</label>
+											<div data-update class="form-group">
+													<label class="form-control-label" for="input-email">이메일</label>
 												<div id="input-email"
 													class="form-control form-control-alternative">honghong@naver.com
 												</div>
 											</div>
-										</div></div>
-										<div class="row">
-											<div class="col-lg-6">
-												<div class="form-group focused">
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-lg-6">
+											<div data-update class="form-group focused">
 													<label class="form-control-label" for="input-first-name">전화번호</label>
-													<div id="input-first-name"
-														class="form-control form-control-alternative">010-1234-5678
-													</div>
+												<div id="input-first-name"
+													class="form-control form-control-alternative">010-1234-5678
 												</div>
 											</div>
-											<div class="col-lg-6">
-												<div class="form-group focused">
+										</div>
+										<div class="col-lg-6">
+											<div data-update class="form-group focused">
 													<label class="form-control-label" for="input-last-name">주소</label>
-													<div id="input-last-name"
-														class="form-control form-control-alternative">서울 성북구</div>
-												</div>
+												<div id="input-last-name"
+													class="form-control form-control-alternative">서울 성북구</div>
 											</div>
 										</div>
 									</div>
 								</div>
-
-
-
-								<hr class="my-4">
-								<!-- Description -->
-								<h6 class="heading-small text-muted mb-4">About me</h6>
-								<div class="pl-lg-4">
-									<div class="form-group focused">
-										<label>About Me</label>
-										<textarea rows="4"
-											class="form-control form-control-alternative"
-											placeholder="A few words about you ...">A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</textarea>
-									</div>
-								</div>
-							</form>
 						</div>
+
+
+
+						<hr class="my-4">
+						<!-- Description -->
+						<h6 class="heading-small text-muted mb-4">About me</h6>
+						<div class="pl-lg-4">
+							<div class="form-group focused">
+								<label>About Me</label>
+								<textarea rows="4" class="form-control form-control-alternative"
+									placeholder="A few words about you ...">A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</textarea>
+							</div>
+						</div>
+						</form>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 
-		<%@ include file="/WEB-INF/views/include/footer.jsp"%>
-		<%@ include file="/WEB-INF/views/include/jsFiles.jsp"%>
+	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
+	<%@ include file="/WEB-INF/views/include/jsFiles.jsp"%>
+
+	
 </body>
 </html>
