@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import mm.member.model.dto.Mentor;
 import mm.mentoring.model.dto.MentorList;
 import mm.mentoring.model.service.MentoringService;
 
@@ -99,7 +100,7 @@ public class MentoringController extends HttpServlet {
 		mentorList.setMajorType(request.getParameterValues("major_type"));
 		mentorList.setWantDate(request.getParameterValues("want_date"));
 		
-		int[] mentorIdxArr = mService.getMentorIdx(mentorList);
+		Mentor[] mentorArr = mService.getMentorIdx(mentorList);
 		
 	}
 
