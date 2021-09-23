@@ -1,6 +1,8 @@
 package mm.mentoring.controller;
 
 import java.io.IOException;
+import java.util.Arrays;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -86,7 +88,17 @@ public class MentoringController extends HttpServlet {
 	}
 
 	private void mentorList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/mentoring/mentor-list").forward(request, response);
+		String schoolType = request.getParameter("school_type");
+		String[] majorType = request.getParameterValues("major_type");
+		String wantTime = request.getParameter("want_time");
+		String[] wantDate = request.getParameterValues("want_date");
+		String wantPlace = request.getParameter("want_place");
+		
+		System.out.println("majorType : " + Arrays.toString(majorType));
+		System.out.println("wantDate : " + Arrays.toString(wantDate));
+		System.out.println("schoolType : " + schoolType);
+		System.out.println("wantTime : " + wantTime);
+		System.out.println("wantPlace : " + wantPlace);
 		
 	}
 
