@@ -29,22 +29,22 @@
 							<div class="card-3d-wrapper">
 								<div class="card-front">
 									<div class="center-wrap">
-										<div class="section text-center">
+										<form class="section text-center" action="/member/login" method="get">
 											<h4 class="mb-4 pb-3">Log In</h4>
 											<div class="form-group">
-												<input type="email" name="logemail" class="form-style"
-													placeholder="Your Email" id="logemail" autocomplete="off">
+												<input type="text" name="userId" class="form-style"
+													placeholder="아이디" id="userId" autocomplete="off">
 												<i class="input-icon uil uil-at"></i>
 											</div>
 											<div class="form-group mt-2">
-												<input type="password" name="logpass" class="form-style"
-													placeholder="Your Password" id="logpass" autocomplete="off">
+												<input type="password" name="password" class="form-style"
+													placeholder="비밀번호" id="password" autocomplete="off">
 												<i class="input-icon uil uil-lock-alt"></i>
 											</div>
 											<p class="mb-0 mt-4 text-center">
-												<a href="#0" class="link">Forgot your password?</a>
+												<a href="/member/forget-password" class="link">비밀번호를 잊으셨습니까?</a>
 											</p>
-											<a href="/member/login" class="btn original mt-2 mb-2">로그인</a>
+											<input type="submit" class="btn original mt-2 mb-2" value="로그인">
 											<div class="border-bottom "></div>
 											<a href="/member/login" class="btn kakao mt-2">카카오로 로그인</a>
 											<a href="/member/login" class="btn naver mt-2">네이버로 로그인</a>
@@ -52,7 +52,7 @@
 											<div class="col-md-12">
 												
 													<div class="signup-section">
-														Not a member yet? <a href="#a"  style="color:orange"> Sign
+														Not a member yet? <a href="#"  style="color:orange"> Sign
 															Up</a>.
 													</div>
 <<<<<<< HEAD
@@ -60,7 +60,7 @@
 												</div>
 >>>>>>> refs/heads/dev
 											</div>
-										</div>
+										</form>
 									</div>
 								</div>
 

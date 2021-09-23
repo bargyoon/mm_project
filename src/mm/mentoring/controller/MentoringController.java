@@ -1,15 +1,21 @@
 package mm.mentoring.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import mm.member.model.dto.Mentor;
+import mm.mentoring.model.dto.MentorList;
+import mm.mentoring.model.service.MentoringService;
+
 @WebServlet("/mentoring/*")
 public class MentoringController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private MentoringService mService = new MentoringService();
 	
     public MentoringController() {
         super();
@@ -86,7 +92,15 @@ public class MentoringController extends HttpServlet {
 	}
 
 	private void mentorList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/mentoring/mentor-list").forward(request, response);
+		MentorList mentorList = new MentorList();
+		
+		mentorList.setUniversityType(request.getParameter("school_type"));
+		mentorList.setWantTime(request.getParameter("want_time"));
+		mentorList.setWantPlace(request.getParameter("want_place"));
+		mentorList.setMajorType(request.getParameterValues("major_type"));
+		mentorList.setWantDate(request.getParameterValues("want_date"));
+		
+		Mentor[] mentorArr = mService.getMentorIdx(mentorList);
 		
 	}
 

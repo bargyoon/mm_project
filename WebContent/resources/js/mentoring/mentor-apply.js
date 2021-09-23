@@ -1,6 +1,8 @@
 
 let renderDate = new Date();
-	
+
+let params = [];
+
 let renderCalender = () => {
 	
 	let year = renderDate.getFullYear();
@@ -69,9 +71,107 @@ let nextMonth = () => {
 }
 
 
-let nextBtn = () => {
-	
-	document.getElementById("apply-page-1").style.display = 'none';
-	
+let deleteParams = () => {
 	
 }
+
+let prevBtn = () => {
+		
+	if(document.getElementById("apply-page-2").style.display == 'flex'){
+		document.getElementById("apply-page-1").style.display = 'flex';
+		document.getElementById("apply-page-2").style.display = 'none';
+		let firstParams = deleteParams(1);
+		for(i = 0; i < 2; i++){
+			params.pop()
+		}
+	} else {
+		document.getElementById("apply-page-2").style.display = 'flex';
+		document.getElementById("apply-page-3").style.display = 'none';
+		for(i = 0; i < 2; i++){
+			params.pop()
+		}
+	}
+	
+	console.dir(params);
+}
+
+let registParams = (pageNum) => {
+	let selectedSingle = [];
+	let selectedMultiple = [];
+	let singleChoice = '';
+	let multipleChoice  = [];
+	
+	let j = 0;
+	
+	if(pageNum == 1){
+		selectedSingle = document.getElementsByName("school_type");
+		selectedMultiple = document.getElementsByName("major_type");
+	} else if(pageNum == 2){
+		selectedSingle = document.getElementsByName("want_time");
+		selectedMultiple = document.getElementsByName("want_date");
+	} else if(pageNum == 3){
+		selectedSingle = document.getElementsByName("want_place");
+	}
+	
+	for(i = 0; i < selectedSingle.length; i++){
+		if(selectedSingle[i].checked){
+			singleChoice = selectedSingle[i].value;
+		}
+	}
+	
+	if(pageNum == 3){
+		return singleChoice;
+	} else {
+		for(i = 0; i < selectedMultiple.length; i++){
+			if(selectedMultiple[i].checked){
+				multipleChoice.push(selectedMultiple[i].value)
+			}
+		}
+		return [singleChoice, multipleChoice];
+	}
+}
+
+let nextBtn = () => {
+	
+	if(document.getElementById("apply-page-1").style.display != 'none'){
+		document.getElementById("apply-page-1").style.display = 'none';
+		document.getElementById("apply-page-2").style.display = 'flex';
+		let firstParams = registParams(1);
+		for(i = 0; i < firstParams.length; i++){
+			params.push(firstParams[i]);
+		}
+	} else {
+		document.getElementById("apply-page-2").style.display = 'none';
+		document.getElementById("apply-page-3").style.display = 'flex';
+		let secondParams = registParams(2);
+		for(i = 0; i < secondParams.length; i++){
+			params.push(secondParams[i]);
+		}
+	}
+	
+	console.dir(params);
+}
+
+let submitBtn = () => {
+	let lastParams = registParams(3);
+	params.push(lastParams);
+	
+	console.dir(params);
+	
+	location.href = "/mentoring/mentor-list?school_type="+params[0]+"&major_type="+params[1]+"&want_time="+params[2]+"&want_date="+params[3]+"&want_place="+params[4];
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
