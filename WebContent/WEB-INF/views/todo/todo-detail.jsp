@@ -36,8 +36,13 @@
             left: 'prev,next today',
             center: 'title',
             right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+
           },
+          
           initialDate: '2020-09-12',
+
+          initialView: 'dayGridMonth',
+          locale: 'ko',
           navLinks: true, // can click day/week names to navigate views
           businessHours: true, // display business hours
           editable: true,
