@@ -15,6 +15,10 @@
 <%@ include file="/WEB-INF/views/include/nav.jsp" %>
 	
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/heads/dev
 	<div class="section">
 		<div class="container">
 			<div class="row full-height justify-content-center">
@@ -51,6 +55,10 @@
 														Not a member yet? <a href="#a"  style="color:orange"> Sign
 															Up</a>.
 													</div>
+<<<<<<< HEAD
+=======
+												</div>
+>>>>>>> refs/heads/dev
 											</div>
 										</div>
 									</div>

@@ -257,7 +257,8 @@ h6 span{
   text-align: center;
   border: none;
   background-color: orange;
-  color: white;
+
+  color: #102770;
   box-shadow: 0 8px 24px 0 rgba(255,235,167,.2);
 }
 .kakao{
@@ -270,8 +271,15 @@ h6 span{
 	color: white;
 }
 .btn:active,
-.btn:focus,
+
+.btn:focus{  
+  background-color: orange;
+  box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
+}
 .btn:hover{  
+
+  background-color: orange;
+
   box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
 }
 
