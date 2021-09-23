@@ -63,10 +63,6 @@ let prevMonth = () => {
 	renderCalender();
 }
 	
-let todayMonth = () => {
-	renderCalender();
-}
-	
 let nextMonth = () => {
 	renderDate.setMonth(renderDate.getMonth()+1);
 	renderCalender();
@@ -75,7 +71,7 @@ let nextMonth = () => {
 
 let nextBtn = () => {
 	
-	
+	document.getElementById("apply-page-1").style.display = 'none';
 	
 	
 }
