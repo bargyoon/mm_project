@@ -26,7 +26,7 @@
 <script>
 
       document.addEventListener('DOMContentLoaded', function() {
-    	plugins: ['interaction', 'dayGrid'];
+    	plugins: ['interaction', 'dayGrid', 'interactionPlugin'];
       
         var calendarEl = document.getElementById('calendar');
         var calendarEl = document.getElementById('calendar');
@@ -47,7 +47,10 @@
           businessHours: true, // display business hours
           editable: true,
           selectable: true,
+          
           events: [
+        	  
+        	  
             {
               title: 'Business Lunch',
               start: '2020-09-03T13:00:00',
@@ -101,14 +104,29 @@
           ]
         });
 
+        
+        
         calendar.render();
+        
       });
 
     </script>
 
+<div class="wrap-calendar"><div id='calendar' class="calendar"></div></div>
 
 
-</script>
+
+
+
+
+	<!-- Footer-->
+
+<%@ include file="/WEB-INF/views/include/footer.jsp" %>
+<%@ include file="/WEB-INF/views/include/jsFiles.jsp" %>
+</body>
+</html>
+
+
 
 <div class="wrap-calendar"><div id='calendar' class="calendar"></div></div>
 
