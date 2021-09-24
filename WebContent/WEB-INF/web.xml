@@ -28,6 +28,14 @@
   	<filter-name>authorizationFilter</filter-name>
   	<url-pattern>/*</url-pattern>
   </filter-mapping>
+  <filter>
+  	<filter-name>validatorFilter</filter-name>
+  	<filter-class>mm.common.filter.ValidatorFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>validatorFilter</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
   
    <error-page>
   	<error-code>404</error-code>

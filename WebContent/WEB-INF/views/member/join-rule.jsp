@@ -21,9 +21,9 @@
 			<!-- For Demo Purpose -->
 
 
-			<!-- Registeration Form -->
-			<div class="col-md-7 col-lg-6 m-auto">
-				<form action="/member/join-mentee" method="post">
+			
+			<div  style="display:flex; justify-content:center;">
+				<form action="/member/join-mentee" method="post" style="max-width: 600px;">
 					<div style="padding: 22px;">
 
 						<div>

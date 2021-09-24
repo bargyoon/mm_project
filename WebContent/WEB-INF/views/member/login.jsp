@@ -39,6 +39,9 @@
 													placeholder="비밀번호" id="password" autocomplete="off">
 												<i class="input-icon uil uil-lock-alt"></i>
 											</div>
+											<span style="color:moccasin"><c:if test="${not empty param.err}">
+                			아이디 또는 비밀번호가 틀렸습니다.
+                		</c:if></span>
 											<p class="mb-0 mt-4 text-center">
 												<a href="/member/forget-password" class="link">비밀번호를
 													잊으셨습니까?</a>

@@ -123,17 +123,18 @@ public class MemberController extends HttpServlet {
 		request.getSession().removeAttribute("authentication");
 		response.sendRedirect("/index");
 	}
-
+	
 	private void checkID(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		/*
-		 * String userId = request.getParameter("userId");
-		 * 
-		 * Member member = memberService.selectMemberById(userId);
-		 * 
-		 * if (member == null) { response.getWriter().print("available"); } else {
-		 * response.getWriter().print("disable"); }
-		 */
+		String userId = request.getParameter("userId");
+
+		Member member = memberService.selectMemberById(userId);
+
+		if (member == null) {
+			response.getWriter().print("available");
+		} else {
+			response.getWriter().print("disable");
+		}
 
 	}
 

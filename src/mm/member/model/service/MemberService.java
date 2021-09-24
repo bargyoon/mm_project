@@ -90,4 +90,20 @@ public class MemberService {
 		return member;
 	}
 
+
+	public Member selectMemberById(String userId) {
+		Connection conn = template.getConnection();
+		Member member = null;
+
+		try {
+
+			member = memberDao.selectMemberById(userId, conn);
+
+		} finally {
+			template.close(conn);
+		}
+
+		return member;
+	}
+
 }
