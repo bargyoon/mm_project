@@ -1,12 +1,26 @@
 /**
  * 
  */
-      document.addEventListener('DOMContentLoaded', function() {	//document.ready
+
+let $ = (selector,text) =>{
+	if(text){
+		document.querySelector(selector).innerHTML += `${text}<br>` ;
+	}
+ 	return document.querySelector(selector);
+}
+
+
+
+
+document.addEventListener('DOMContentLoaded', function() {	//document.ready
     	plugins: ['interaction', 'dayGrid', 'interactionPlugin'];
       
         var calendarEl = document.getElementById('calendar');
         var calendarEl = document.getElementById('calendar');
     	
+
+
+
         var calendar = new FullCalendar.Calendar(calendarEl, {
           headerToolbar: {
             left: 'prev,next today',
@@ -23,7 +37,34 @@
           businessHours: true, // display business hours
           editable: true,
           selectable: true,
-          
+
+		  dateClick: function(info) {
+		     var result = confirm("일정을 수정할까요 ?");
+		        
+		        if(result)
+		        {
+		            open("WEB-INF/views/todo/popup.jsp","popup","width=500, height=500, left=0, top=0")
+		        }
+		        else
+		        {
+		            return;
+		        }
+		  
+		 	 },
+		 eventClick:  function(info) {
+		     var result = confirm("일정을 수정할까요 ?");
+		        
+		        if(result)
+		        {
+		            open("WEB-INF/views/todo/popup.jsp","popup","width=500, height=500, left=0, top=0")
+		        }
+		        else
+		        {
+		            return;
+		        }
+		  
+		 	 },
+
           events: [
         	  
         	  
@@ -85,6 +126,3 @@
         calendar.render();
         
       });
-
-
-

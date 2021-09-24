@@ -11437,9 +11437,9 @@ checkbox{
 }
 
 .submit-but {
-   background-color: #343a40;
    height: 100%;
-   width: 25%;
+   width: 20%;
+   background-color: #343a40;
    border-radius: 5px 5px 5px 5px;
    font-family: 'Pretendard-SemiBold';
 }
@@ -11451,7 +11451,6 @@ checkbox{
 }
 
 .wrap-calendar{
-  	margin-top: 10%;
   	margin-left: 9%;
   	margin-right: 9%;
   	margin-bottom: 10%;
@@ -11465,9 +11464,20 @@ checkbox{
 }
 
 
-.vv{
+.wrap-plus{
+	flex-flow: row-reverse;
+	justify-content: center;
+    text-align: right;
+	 margin-top: 10%;
+	 margin-right: 9%;
+}
+
+.plus{
 	
-	
+	 background-color: #343a40;
+	 color: white;
+	 border-radius: 5px 5px 5px 5px;
+   	 font-family: 'Pretendard-SemiBold';
 	
 }
 

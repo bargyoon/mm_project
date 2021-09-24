@@ -11,7 +11,8 @@
 <link rel="stylesheet" href="/resources/css/todo/test.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css">
-<script src='https://cdn.jsdelivr.net/combine/npm/fullcalendar@5.9.0/main.min.js,
+ 
+ <script src='https://cdn.jsdelivr.net/combine/npm/fullcalendar@5.9.0/main.min.js,
 											npm/fullcalendar@5.9.0/locales-all.min.js'></script>
 
 </head>
@@ -23,7 +24,9 @@
  
 <main class="flex-shrink-0">
 
-	<div class="vv">+</div>
+	<div class="wrap-plus">
+	      <a href="${contextPath}/todo/main"><button class="plus">일정추가</button></a>
+	</div>
 
 
 <div class="wrap-calendar"><div id='calendar' class="calendar"></div></div>
