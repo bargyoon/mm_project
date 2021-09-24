@@ -11342,7 +11342,11 @@ html {
    flex-flow: row;
    text-align: center;
 <<<<<<< HEAD
+<<<<<<< HEAD
    margin-top: 7%;
+=======
+   margin-top: 8.5%;
+>>>>>>> refs/heads/dev
 =======
    margin-top: 8.5%;
 >>>>>>> refs/heads/dev
@@ -11425,6 +11429,7 @@ checkbox{
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 .wrapp-but {
   display: flex;
   align-items: center;
@@ -11432,6 +11437,16 @@ checkbox{
   height: 50px;
   margin-top: 5%;
   margin-bottom: 5%; 
+=======
+.wrap-but{
+	flex-flow: row;
+    justify-content: center;
+    text-align: center;
+	height: 50px;
+	margin-top: 5%;
+	margin-bottom: 3%;
+	
+>>>>>>> refs/heads/dev
 =======
 .wrap-but{
 	flex-flow: row;
@@ -11451,10 +11466,14 @@ checkbox{
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 .wrap-but>a {
   
    width: 20%;
    height: 100%;
+=======
+.submit-but {
+>>>>>>> refs/heads/dev
 =======
 .submit-but {
 >>>>>>> refs/heads/dev
@@ -11471,6 +11490,22 @@ checkbox{
 	
 }
 
+<<<<<<< HEAD
+=======
+.wrap-calendar{
+  	margin-top: 10%;
+  	margin-left: 9%;
+  	margin-right: 9%;
+
+}
+
+
+.calendar{
+    font-family: 'Pretendard-SemiBold';	
+	
+}
+
+>>>>>>> refs/heads/dev
 
 main{
 	position:relative;

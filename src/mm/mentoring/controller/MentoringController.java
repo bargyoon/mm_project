@@ -1,6 +1,8 @@
 package mm.mentoring.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import mm.member.model.dto.Mentor;
-import mm.mentoring.model.dto.MentorList;
+import mm.mentoring.model.dto.MentorCondition;
 import mm.mentoring.model.service.MentoringService;
 
 @WebServlet("/mentoring/*")
@@ -92,16 +94,32 @@ public class MentoringController extends HttpServlet {
 	}
 
 	private void mentorList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		MentorList mentorList = new MentorList();
+		MentorCondition mentorCondition = new MentorCondition();
+		ArrayList<String> majorList = new ArrayList<String>();
+		ArrayList<String> dateList = new ArrayList<String>();
 		
-		mentorList.setUniversityType(request.getParameter("school_type"));
-		mentorList.setWantTime(request.getParameter("want_time"));
-		mentorList.setWantPlace(request.getParameter("want_place"));
-		mentorList.setMajorType(request.getParameterValues("major_type"));
-		mentorList.setWantDate(request.getParameterValues("want_date"));
+		String[] majorArr = request.getParameterValues("major_type");
+		System.out.println(Arrays.toString(majorArr));
+		String[] dateArr = request.getParameterValues("want_date");
+		System.out.println(Arrays.toString(dateArr));
 		
-		Mentor[] mentorArr = mService.getMentorIdx(mentorList);
+		for (int i = 0; i < majorArr.length; i++) {
+			majorList.add(majorArr[i]);
+		}
 		
+		for (int i = 0; i < dateArr.length; i++) {
+			dateList.add(dateArr[i]);
+		}
+		
+		mentorCondition.setUniversityType(request.getParameter("school_type"));
+		mentorCondition.setWantTime(request.getParameter("want_time"));
+		mentorCondition.setWantPlace(request.getParameter("want_place"));
+		mentorCondition.setMajorType(majorList);
+		mentorCondition.setWantDate(dateList);
+		
+		ArrayList<Mentor> mentorList = mService.getMentorIdx(mentorCondition);
+		
+		System.out.println(mentorList.toString());
 	}
 
 	private void applyComolete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

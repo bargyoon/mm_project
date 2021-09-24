@@ -1,15 +1,15 @@
 package mm.mentoring.model.dto;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 
-public class MentorList {
+public class MentorCondition {
 	private String universityType;
 	private String wantTime;
 	private String wantPlace;
-	private String[] majorType;
-	private String[] wantDate;
+	private ArrayList<String> majorType;
+	private ArrayList<String> wantDate;
 	
-	public MentorList() {
+	public MentorCondition() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -37,27 +37,29 @@ public class MentorList {
 		this.wantPlace = wantPlace;
 	}
 
-	public String[] getMajorType() {
+	public ArrayList<String> getMajorType() {
 		return majorType;
 	}
 
-	public void setMajorType(String[] majorType) {
+	public void setMajorType(ArrayList<String> majorType) {
 		this.majorType = majorType;
 	}
 
-	public String[] getWantDate() {
+	public ArrayList<String> getWantDate() {
 		return wantDate;
 	}
 
-	public void setWantDate(String[] wantDate) {
+	public void setWantDate(ArrayList<String> wantDate) {
 		this.wantDate = wantDate;
 	}
 
 	@Override
 	public String toString() {
 		return "MentorList [universityType=" + universityType + ", wantTime=" + wantTime + ", wantPlace=" + wantPlace
-				+ ", majorType=" + Arrays.toString(majorType) + ", wantDate=" + Arrays.toString(wantDate) + "]";
+				+ ", majorType=" + majorType + ", wantDate=" + wantDate + "]";
 	}
+
+
 	
 	
 }
