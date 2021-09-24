@@ -56,7 +56,6 @@
 							</div>
 							<input id="password" type="password" name="password"
 								placeholder="비밀번호"
-<<<<<<< HEAD
 								class="form-control bg-white border-left-0 border-md">
 						</div>
 
@@ -274,7 +273,6 @@
 		</div>
 	</div>
 	
-=======
 
 	<div class ="container pt-6">
 		<div class="row py-5 align-items-center">
@@ -330,7 +328,6 @@
 							</div>
 							<input id="password" type="password" name="password"
 								placeholder="Password"
-=======
 								class="form-control bg-white border-left-0 border-md">
 						</div>
 
