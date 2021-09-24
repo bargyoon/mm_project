@@ -8,14 +8,10 @@
 <%@ include file="/WEB-INF/views/include/head.jsp"%>
 <link rel="stylesheet" href="/resources/css/member/join-form.css">
 </head>
-<<<<<<< HEAD
-<body style="height: 100vh;">
-=======
 <body style="height: 100vh">
->>>>>>> refs/heads/dev
 
 	<%@ include file="/WEB-INF/views/include/nav.jsp"%>
-<<<<<<< HEAD
+
 <div class="container" style="padding-top:100px">
 		<div class="row align-items-center">
 			<!-- For Demo Purpose -->
@@ -60,6 +56,7 @@
 							</div>
 							<input id="password" type="password" name="password"
 								placeholder="비밀번호"
+<<<<<<< HEAD
 								class="form-control bg-white border-left-0 border-md">
 						</div>
 
@@ -333,6 +330,7 @@
 							</div>
 							<input id="password" type="password" name="password"
 								placeholder="Password"
+=======
 								class="form-control bg-white border-left-0 border-md">
 						</div>
 
@@ -345,7 +343,7 @@
 								</span>
 							</div>
 							<input id="passwordConfirmation" type="text"
-								name="passwordConfirmation" placeholder="Confirm Password"
+								name="passwordConfirmation" placeholder="비밀번호 확인"
 								class="form-control bg-white border-left-0 border-md">
 						</div>
 
@@ -359,7 +357,7 @@
 								</span>
 							</div>
 							<input id="email" type="email" name="email"
-								placeholder="Email Address"
+								placeholder="이메일"
 								class="form-control bg-white border-left-0 border-md">
 						</div>
 						<!-- Gender -->
@@ -367,24 +365,24 @@
 							<div class="input-group-prepend">
 								<span
 									class="input-group-text bg-white px-4 border-md border-right-0">
-									<i class="fa fa-envelope text-muted"></i>
+									<i class="fas fa-venus-mars text-muted"></i>
 								</span>
 							</div>
-							<div id="email" name="email" placeholder="Email Address"
-								class="form-control bg-white border-left-0 border-md"
+							<div id="gender" name="gender" placeholder="성별"
+								class="form-control bg-white border-left-0 border-md text-muted"
 								style="max-width: 80px; display: flex; align-content: center; flex-wrap: wrap; justify-content: flex-start;">성별</div>
 							<div
 								style="display: flex; justify-content: space-around; align-content: center; flex-wrap: wrap;"
 								class="form-control bg-white border-left-0 border-md h-70 font-weight-bold">
 								<div>
-									<input id="credit" name="paymentMethod" type="radio"
-										class="form-check-input" checked="" required=""> <label
-										class="form-check-label" for="credit">남 </label>
+									<input type="radio" id="gender-radio" name="gender-radio" value="male"
+										class="form-check-input" > <label
+										class="form-check-label" for="male" >남 </label>
 								</div>
 								<div>
-									<input id="debit" name="paymentMethod" type="radio"
-										class="form-check-input" required=""> <label
-										class="form-check-label" for="debit">여</label>
+									<input id="gender-radio" name="gender-radio" type="radio" value="female"
+										class="form-check-input"  >
+										<label class="form-check-label" for="female">여</label>
 								</div>
 
 
@@ -396,10 +394,10 @@
 							<div class="input-group-prepend">
 								<span
 									class="input-group-text bg-white px-4 border-md border-right-0">
-									<i class="fa fa-lock text-muted"></i>
+									<i class="fas fa-home text-muted"></i>
 								</span>
 							</div>
-							<input id="password" type="password" name="password"
+							<input id="address" type="text" name="address"
 								placeholder="주소"
 								class="form-control bg-white border-left-0 border-md">
 						</div>
@@ -415,12 +413,12 @@
 							<select id="countryCode" name="countryCode"
 								style="max-width: 80px"
 								class="custom-select form-control bg-white border-left-0 border-md h-100 font-weight-bold text-muted">
-								<option value="">010</option>
-								<option value="">011</option>
-								<option value="">019</option>
-								<option value="">017</option>
-							</select> <input id="phoneNumber" type="tel" name="phone"
-								placeholder="Phone Number"
+								<option value="010">010</option>
+								<option value="011">011</option>
+								<option value="019">019</option>
+								<option value="017">017</option>
+							</select> <input id="phone" type="tel" name="phone"
+								placeholder="전화번호(-빼고 입력)"
 								class="form-control bg-white border-md border-left-0 pl-3">
 						</div>
 
@@ -430,11 +428,11 @@
 							<div class="input-group-prepend">
 								<span
 									class="input-group-text bg-white px-4 border-md border-right-0">
-									<i class="fa fa-lock text-muted"></i>
+									<i class="fa fa-user text-muted"></i>
 								</span>
 							</div>
-							<input id="passwordConfirmation" type="text"
-								name="passwordConfirmation" placeholder="닉네임"
+							<input id="nickname" type="text"
+								name="nickname" placeholder="닉네임"
 								class="form-control bg-white border-left-0 border-md">
 						</div>
 
@@ -453,11 +451,11 @@
 							<div class="input-group-prepend">
 								<span
 									class="input-group-text bg-white px-4 border-md border-right-0">
-									<i class="fa fa-lock text-muted"></i>
+									<i class="fas fa-school text-muted"></i>
 								</span>
 							</div>
-							<input id="passwordConfirmation" type="text"
-								name="passwordConfirmation" placeholder="재학중인 대학명"
+							<input id="schoolName" type="text"
+								name="schoolName" placeholder="재학중인 학교명"
 								class="form-control bg-white border-left-0 border-md">
 						</div>
 
@@ -466,16 +464,16 @@
 							<div class="input-group-prepend">
 								<span
 									class="input-group-text bg-white px-4 border-md border-right-0">
-									<i class="fa fa-black-tie text-muted"></i>
+									<i class="fas fa-user-graduate text-muted"></i>
 								</span>
 							</div>
-							<select id="job" name="jobtitle"
-								class="form-control custom-select bg-white border-left-0 border-md">
-								<option value="">현재 계열</option>
-								<option value="">문과</option>
-								<option value="">이과</option>
-								<option value="">예체능</option>
-								<option value="">미정</option>
+							<select id="major" name="major"
+								class="form-control custom-select bg-white border-left-0 border-md text-muted">
+								<option selected disabled>현재 계열</option>
+								<option value="문과">문과</option>
+								<option value="이과">이과</option>
+								<option value="예체능">예체능</option>
+								<option value="미정">미정</option>
 							</select>
 						</div>
 						
@@ -484,16 +482,16 @@
 							<div class="input-group-prepend">
 								<span
 									class="input-group-text bg-white px-4 border-md border-right-0">
-									<i class="fa fa-black-tie text-muted"></i>
+									<i class="fas fa-user-graduate text-muted"></i>
 								</span>
 							</div>
-							<select id="job" name="jobtitle"
-								class="form-control custom-select bg-white border-left-0 border-md">
-								<option value="">현재 학년</option>
-								<option value="">1학년</option>
-								<option value="">2학년</option>
-								<option value="">3학년</option>
-								<option value="">홈스쿨링</option>
+							<select id="grade" name="grade"
+								class="form-control custom-select bg-white border-left-0 border-md text-muted">
+								<option selected disabled>현재 학년</option>
+								<option value="1">1학년</option>
+								<option value="2">2학년</option>
+								<option value="3">3학년</option>
+								<option value="0">홈스쿨링</option>
 							</select>
 						</div>
 						
@@ -502,11 +500,11 @@
 							<div class="input-group-prepend">
 								<span
 									class="input-group-text bg-white px-4 border-md border-right-0">
-									<i class="fa fa-lock text-muted"></i>
+									<i class="fas fa-university text-muted"></i>
 								</span>
 							</div>
-							<input id="passwordConfirmation" type="text"
-								name="passwordConfirmation" placeholder="희망 대학"
+							<input id="hopeUniversity" type="text"
+								name="hopeUniversity" placeholder="희망 대학"
 								class="form-control bg-white border-left-0 border-md">
 						</div>
 						
@@ -517,10 +515,10 @@
 							<div class="input-group-prepend">
 								<span
 									class="input-group-text bg-white px-4 border-md border-right-0">
-									<i class="fa fa-lock text-muted"></i>
+									<i class="fas fa-university text-muted"></i>
 								</span>
 							</div>
-							<input id="password" type="password" name="password"
+							<input id="hopeMajor" type="text" name="hopeMajor"
 								placeholder="희망 학과"
 								class="form-control bg-white border-left-0 border-md">
 						</div>
@@ -529,9 +527,10 @@
 
 						<!-- Submit Button -->
 						<div class="form-group col-lg-12 mx-auto mb-0">
-							<a href="#" class="btn btn-primary btn-block py-2"> <span
-								class="font-weight-bold">Create your account</span>
-							</a>
+							<input type="submit" class="btn btn-primary btn-block py-2"> <span
+								class="font-weight-bold" value="계정 생성"></span>
+								
+							
 						</div>
 
 
@@ -549,7 +548,6 @@
 		</div>
 	</div>
 	</main>
->>>>>>> refs/heads/dev
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 	<%@ include file="/WEB-INF/views/include/jsFiles.jsp"%>
 </body>

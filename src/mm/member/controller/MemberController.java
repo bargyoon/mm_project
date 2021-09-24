@@ -70,6 +70,9 @@ public class MemberController extends HttpServlet {
 		case "join-impl":
 			joinImpl(request, response);
 			break;
+		case "join-rule":
+			joinRule(request, response);
+			break;
 		case "id-check":
 			checkID(request, response);
 			break;
@@ -90,6 +93,11 @@ public class MemberController extends HttpServlet {
 	}
 
 	
+
+	private void joinRule(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		request.getRequestDispatcher("/member/join-rule").forward(request, response);
+		
+	}
 
 	private void modifyInfoForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		request.getRequestDispatcher("/member/modify-info").forward(request, response);	

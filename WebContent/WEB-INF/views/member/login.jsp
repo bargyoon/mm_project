@@ -15,10 +15,7 @@
 <%@ include file="/WEB-INF/views/include/nav.jsp" %>
 	
 
-<<<<<<< HEAD
-=======
 
->>>>>>> refs/heads/dev
 	<div class="section">
 		<div class="container">
 			<div class="row full-height justify-content-center">
@@ -52,13 +49,10 @@
 											<div class="col-md-12">
 												
 													<div class="signup-section">
-														Not a member yet? <a href="#"  style="color:orange"> Sign
+														Not a member yet? <a href="/member/join-rule" style="color:orange"> Sign
 															Up</a>.
 													</div>
-<<<<<<< HEAD
-=======
 												</div>
->>>>>>> refs/heads/dev
 											</div>
 										</form>
 									</div>
@@ -74,6 +68,7 @@
 
 
 
+	<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 	<%@ include file="/WEB-INF/views/include/jsFiles.jsp" %>
 	<script src="/resources/js/member/script.js"></script>
 </body>
