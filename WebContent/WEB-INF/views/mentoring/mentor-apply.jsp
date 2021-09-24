@@ -35,13 +35,13 @@
 							<span>2. 전공 계열</span>
 							<span style="font-size: 11px">*중복선택가능</span>
 						</div>
-						<div class="offcanvas-header">
+						<div class="offcanvas-header" style="font-size: 13px;">
 							<label><input class="me-md-1" type="checkbox" name="major_type" value="all">상관없음</label>
 							<label><input class="me-md-1" type="checkbox" name="major_type" value="humanities">인문계열</label>
 							<label><input class="me-md-1" type="checkbox" name="major_type" value="education">교육계열</label>
 							<label><input class="me-md-1" type="checkbox" name="major_type" value="engineering">공학계열</label>
 						</div>						
-						<div class="offcanvas-header">
+						<div class="offcanvas-header" style="font-size: 13px;">
 							<label><input class="me-md-1" type="checkbox" name="major_type" value="society">사회계열</label>
 							<label><input class="me-md-1" type="checkbox" name="major_type" value="nature">자연계열</label>
 							<label><input class="me-md-1" type="checkbox" name="major_type" value="anp">예체능계열</label>

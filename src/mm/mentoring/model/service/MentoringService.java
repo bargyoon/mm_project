@@ -2,6 +2,7 @@ package mm.mentoring.model.service;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.List;
 
 import mm.common.db.JDBCTemplate;
 import mm.member.model.dto.Mentor;
@@ -13,8 +14,8 @@ public class MentoringService {
 	private MentoringDao mDao = new MentoringDao();
 	private JDBCTemplate template = JDBCTemplate.getInstance();
 	
-	public ArrayList<Mentor> getMentorIdx(MentorCondition mentorCondition) {
-		ArrayList<Mentor> mentorList = null;
+	public List<Mentor> getMentorIdx(MentorCondition mentorCondition) {
+		List<Mentor> mentorList = new ArrayList<Mentor>();
 		
 		Connection conn = template.getConnection();
 		

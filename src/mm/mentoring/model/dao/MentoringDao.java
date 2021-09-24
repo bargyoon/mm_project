@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import mm.common.db.JDBCTemplate;
 import mm.common.exception.DataAccessException;
@@ -16,24 +17,21 @@ public class MentoringDao {
 
 	JDBCTemplate template = JDBCTemplate.getInstance();
 	
-	public ArrayList<Mentor> getMentorIdx(MentorCondition mentorCondition, Connection conn) {
-		ArrayList<Mentor> mentorList = null;
+	public List<Mentor> getMentorIdx(MentorCondition mentorCondition, Connection conn) {
+		List<Mentor> mentorList = new ArrayList<Mentor>();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String query = "select * from user_mentor where university_type = ? and major in (?) and want_day in (?) and want_time = ? and requirement = ?";
+		String query = "select * from user_mentor where want_time in (?)";
 		
 		try {
 			pstm = conn.prepareStatement(query);
-			pstm.setString(1, mentorCondition.getUniversityType());
-			pstm.setArray(2, (Array) mentorCondition.getMajorType());
-			pstm.setArray(3, (Array) mentorCondition.getWantDate());
-			pstm.setString(4, mentorCondition.getWantTime());
-			pstm.setString(5, mentorCondition.getWantPlace());
+			pstm.setString(1, mentorCondition.getWantTime());
 			
 			rset = pstm.executeQuery();
 			
-			if(rset.next()) {
-				mentorList.add(convertToMentor(rset));
+			while(rset.next()) {
+				Mentor mentor = convertToMentor(rset);
+				mentorList.add(mentor);
 			}
 			
 		} catch (SQLException e) {
@@ -41,7 +39,6 @@ public class MentoringDao {
 		} finally {
 			template.close(rset, pstm);
 		}
-		
 		
 		return mentorList;
 	}

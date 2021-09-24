@@ -3,6 +3,7 @@ package mm.mentoring.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -95,31 +96,26 @@ public class MentoringController extends HttpServlet {
 
 	private void mentorList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		MentorCondition mentorCondition = new MentorCondition();
-		ArrayList<String> majorList = new ArrayList<String>();
-		ArrayList<String> dateList = new ArrayList<String>();
-		
 		String[] majorArr = request.getParameterValues("major_type");
-		System.out.println(Arrays.toString(majorArr));
 		String[] dateArr = request.getParameterValues("want_date");
-		System.out.println(Arrays.toString(dateArr));
-		
-		for (int i = 0; i < majorArr.length; i++) {
-			majorList.add(majorArr[i]);
-		}
-		
-		for (int i = 0; i < dateArr.length; i++) {
-			dateList.add(dateArr[i]);
-		}
+		String wantMajor = ParameterValuesToString(majorArr);
+		String wantDate = ParameterValuesToString(dateArr);
 		
 		mentorCondition.setUniversityType(request.getParameter("school_type"));
 		mentorCondition.setWantTime(request.getParameter("want_time"));
 		mentorCondition.setWantPlace(request.getParameter("want_place"));
-		mentorCondition.setMajorType(majorList);
-		mentorCondition.setWantDate(dateList);
+		mentorCondition.setMajorType(wantMajor);
+		mentorCondition.setWantDate(wantDate);
 		
-		ArrayList<Mentor> mentorList = mService.getMentorIdx(mentorCondition);
+		System.out.println(mentorCondition.toString());
 		
-		System.out.println(mentorList.toString());
+		List<Mentor> mentorList = mService.getMentorIdx(mentorCondition);
+		
+		for (int i = 0; i < mentorList.size(); i++) {
+			System.out.println(mentorList.get(i).toString());
+		}
+		
+		request.getRequestDispatcher("/mentoring/mentor-list").forward(request, response);
 	}
 
 	private void applyComolete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -134,4 +130,22 @@ public class MentoringController extends HttpServlet {
 		doGet(request, response);
 	}
 
+	
+	private String ParameterValuesToString (String[] params) {
+		String values = "";
+		
+		if(params[0].equals("all")) {
+			values = "all";
+		} else {
+			for (int i = 0; i < params.length; i++) {
+				if(i == params.length-1) {
+					values += params[i];
+				} else {
+					values += params[i] + ", ";
+				}
+			}
+		}
+		
+		return values;
+	}
 }

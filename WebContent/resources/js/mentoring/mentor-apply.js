@@ -91,17 +91,13 @@ let prevBtn = () => {
 			params.pop()
 		}
 	}
-	
-	console.dir(params);
 }
 
 let registParams = (pageNum) => {
 	let selectedSingle = [];
 	let selectedMultiple = [];
-	let singleChoice = '';
+	let firstChoice = '';
 	let multipleChoice  = [];
-	
-	let j = 0;
 	
 	if(pageNum == 1){
 		selectedSingle = document.getElementsByName("school_type");
@@ -115,19 +111,19 @@ let registParams = (pageNum) => {
 	
 	for(i = 0; i < selectedSingle.length; i++){
 		if(selectedSingle[i].checked){
-			singleChoice = selectedSingle[i].value;
+			firstChoice = selectedSingle[i].value;
 		}
 	}
 	
 	if(pageNum == 3){
-		return singleChoice;
+		return firstChoice;
 	} else {
 		for(i = 0; i < selectedMultiple.length; i++){
 			if(selectedMultiple[i].checked){
 				multipleChoice.push(selectedMultiple[i].value)
 			}
 		}
-		return [singleChoice, multipleChoice];
+		return [firstChoice, multipleChoice];
 	}
 }
 
@@ -148,15 +144,12 @@ let nextBtn = () => {
 			params.push(secondParams[i]);
 		}
 	}
-	
-	console.dir(params);
 }
 
 let submitBtn = () => {
 	let lastParams = registParams(3);
 	params.push(lastParams);
 	
-	console.dir(params);
 	
 	location.href = "/mentoring/mentor-list?school_type="+params[0]+"&major_type="+params[1]+"&want_time="+params[2]+"&want_date="+params[3]+"&want_place="+params[4];
 }
