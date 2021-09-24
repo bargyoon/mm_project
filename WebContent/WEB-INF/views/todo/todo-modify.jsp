@@ -6,7 +6,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+<!-- 
+<link rel="stylesheet" href="/resources/css/todo/reset.css"> 
+-->
+
 <link rel="stylesheet" href="/resources/css/todo/test.css">
+
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css">
  
@@ -17,14 +22,19 @@
 <body>
 
 
+<input type="text" placeholder="일정을 입력하세요">
+<p><input type="text" placeholder="카테고리"></p>
 
-<input type="text">
+<button id="addBtn">일정  추가</button>
+
 <ul></ul>
-<script type="text/javascript">
-	document.getElementsByTagName("input")[0].onchange = (event) => {
-		document.getElementsByTagName("ul")[0].innerHTML += `<li>${event.target.value}</li>`
-	};
-</script>
+<table id="todoTable">
+	<tr>
+		<td class="td">checkbox</td>
+		<td class="td">to-do</td>
+		<td class="td">category</td>
+		<td class="td">delete</td>
+	</tr>
+</table>
 
  <script src="/resources/js/todo/calendar.js"></script>
-

@@ -35,8 +35,15 @@ public class TodoController extends HttpServlet {
 		case "detail":
 			todoDetail(request, response);
 			break;
+		case "modify":
+			todoModify(request, response);
+			break;
 		default:
 		}
+	}
+
+	private void todoModify(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("/todo/todo-modify").forward(request, response);			
 	}
 
 	private void todoDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

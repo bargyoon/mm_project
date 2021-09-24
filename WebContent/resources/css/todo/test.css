@@ -11464,6 +11464,33 @@ checkbox{
 }
 
 
+
+
+
+
+
+
+
+
+
+input:checked + span{
+	text-decoration: line-through;
+	
+}
+
+
+.td{
+	border: 1px solid black;
+	padding: 5px;
+}
+
+
+
+
+
+
+
+
 .wrap-plus{
 	flex-flow: row-reverse;
 	justify-content: center;
