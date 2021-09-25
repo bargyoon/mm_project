@@ -22,10 +22,11 @@
 <body>
 
 
-<p><input type="text" placeholder="일정을 입력하세요"></p>
+<p><input type="text" placeholder="일정을 입력하세요" id="titleInput"></p>
 
 <p><input type="date" id="dateInput"></p>
 <p><input type="time" id="timeInput"></p>
+<p><input type="color" id="colorInput"></p>
 
 <button id="addBtn">일정  추가</button>
 <p><button id="sortBtn">일정 정렬</button></p>
@@ -41,4 +42,5 @@
 	</tr>
 </table>
 
- <script src="/resources/js/todo/calendar.js"></script>
+ <script src="/resources/js/todo/todo-modify.js"></script>
+ 

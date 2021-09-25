@@ -19,6 +19,10 @@
 
 
 <body class="d-flex flex-column h-100">
+
+<input type="hidden" name="start" value="" id="startValue" />
+<input type="hidden" name="title" value="" id="titleValue" />
+<input type="hidden" name="time" value="" id="timeValue" />
     
 <%@ include file="/WEB-INF/views/include/nav.jsp" %>
  
@@ -30,10 +34,7 @@
 
 
 <div class="wrap-calendar"><div id='calendar' class="calendar"></div></div>
-<script src="/resources/js/todo/calendar.js"></script>
-
-
-
+<script src="/resources/js/todo/todo-detail.js"></script>
 
 
 	<!-- Footer-->
