@@ -1,4 +1,3 @@
-
 let renderDate = new Date();
 
 let params = [];
@@ -96,7 +95,7 @@ let prevBtn = () => {
 let registParams = (pageNum) => {
 	let selectedSingle = [];
 	let selectedMultiple = [];
-	let firstChoice = '';
+	let firstChoice = [];
 	let multipleChoice  = [];
 	
 	if(pageNum == 1){
@@ -109,18 +108,34 @@ let registParams = (pageNum) => {
 		selectedSingle = document.getElementsByName("want_place");
 	}
 	
-	for(i = 0; i < selectedSingle.length; i++){
-		if(selectedSingle[i].checked){
-			firstChoice = selectedSingle[i].value;
+	//첫번째 선택항목에서 value값이 all인 항목에 체크되어있다면 모든 항목의 값을 넣어줌
+	if(selectedSingle[0].checked){
+		for(i = 0; i < selectedSingle.length; i++){
+			firstChoice.push(selectedSingle[i].value);
+		}
+	} else {
+		//아니라면 체크된 항목만 넣어줌
+		for(i = 0; i < selectedSingle.length; i++){
+			if(selectedSingle[i].checked){
+				firstChoice.push(selectedSingle[i].value);
+			}
 		}
 	}
 	
 	if(pageNum == 3){
 		return firstChoice;
 	} else {
-		for(i = 0; i < selectedMultiple.length; i++){
-			if(selectedMultiple[i].checked){
-				multipleChoice.push(selectedMultiple[i].value)
+		//두번째 선택항목에서 value값이 all인 항목에 체크되어있다면 모든 항목의 값을 넣어줌
+		if(selectedMultiple[0].checked){
+			for(i = 0; i < selectedMultiple.length; i++){
+				multipleChoice.push(selectedMultiple[i].value);
+			}
+		} else {
+			//아니라면 체크된 항목만 넣어줌
+			for(i = 0; i < selectedMultiple.length; i++){
+				if(selectedMultiple[i].checked){
+					multipleChoice.push(selectedMultiple[i].value)
+				}
 			}
 		}
 		return [firstChoice, multipleChoice];
@@ -150,12 +165,67 @@ let submitBtn = () => {
 	let lastParams = registParams(3);
 	params.push(lastParams);
 	
-	
+	console.dir(params);
 	location.href = "/mentoring/mentor-list?school_type="+params[0]+"&major_type="+params[1]+"&want_time="+params[2]+"&want_date="+params[3]+"&want_place="+params[4];
 }
 
 
 
+for(i = 0; i < 3; i++){
+	let checkList = '';
+	let checkList2 = '';
+	
+	if(i == 2){
+		checkList = document.querySelectorAll('.check-4');
+		
+		document.querySelectorAll('.next-btn-'+ i).forEach(e =>{
+			e.addEventListener('click', event =>{
+				let flg = false;
+				checkList.forEach(c =>{
+					if(c.checked){
+						flg = true;	
+					}
+				})
+				
+				if(!flg){
+					alert('필수 동의항목에 체크 하셔야합니다.');
+					return;
+				} else {
+					submitBtn();
+				}
+			})
+		})
+	} else {
+		let j = i+1;
+		checkList = document.querySelectorAll('.check-' + (i+i));
+		checkList2 = document.querySelectorAll('.check-' + (i+j));
+		
+		document.querySelectorAll('.next-btn-'+ i).forEach(e =>{
+			e.addEventListener('click', event =>{
+				let flg = false;
+				let flg2 = false;
+				checkList.forEach(c =>{
+					if(c.checked){
+						flg = true;	
+					}
+				})
+				
+				checkList2.forEach(c =>{
+					if(c.checked){
+						flg2 = true;	
+					}
+				})
+				
+				if(!flg || !flg2){
+					alert('필수 동의항목에 체크 하셔야합니다.');
+					return;
+				} else {
+					nextBtn();
+				}
+			})
+		})
+	}
+}
 
 
 

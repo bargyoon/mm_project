@@ -19,13 +19,14 @@
 					<h5 class="fw-bolder px-sm-0 mb-3 pb-2" style="border-bottom: solid 2px gray;">멘토링 리스트</h5>
 					<div class="fw-bolder mb-0 py-2 small offcanvas-header">
 						<span></span>
-						<span style="font-size: 11px">${sessionScope.authentication} 님의 선택에 따른 추천 멘토 리스트 입니다.</span>
+						<span style="font-size: 11px">${sessionScope.authentication.userName} 님의 선택에 따른 추천 멘토 리스트 입니다.</span>
 					</div>
 				</div>
 			</div>
 		</section>
 		
 		<section class="py-3">
+		<div>${requestScope.selected-mentors[0]}</div>
 	        <div class="container px-5 my-5">
 	            <div class="row gx-5 justify-content-center">
 	                <div class="col-lg-8 col-xl-6">
@@ -107,7 +108,7 @@
 	            <div class="row gx-5 justify-content-center">
 	                <div class="col-lg-8 col-xl-6">
 	                    <div class="text-center">
-	                        <h2 class="fw-bolder">추천 멘토</h2>
+	                        <h2 class="fw-bolder">선택한 조건에 따른 추천 멘토</h2>
 	                        <p class="lead fw-normal text-muted mb-5"></p>
 	                    </div>
 	                </div>

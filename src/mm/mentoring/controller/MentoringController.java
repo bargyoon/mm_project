@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import mm.member.model.dto.Member;
 import mm.member.model.dto.Mentor;
 import mm.mentoring.model.dto.MentorCondition;
 import mm.mentoring.model.service.MentoringService;
@@ -74,14 +75,14 @@ public class MentoringController extends HttpServlet {
 	}
 
 	private void registRating(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String[] params = request.getParameterValues("rating");
-		String param = request.getParameter("rating_comment");
+		String[] ratings = request.getParameterValues("rating");
+		String comment = request.getParameter("rating_comment");
 		
-		for (String para : params) {
-			System.out.println(para);
+		for (String rating : ratings) {
+			System.out.println("rating : " + rating);
 		}
 		
-		System.out.println(param);
+		System.out.println("comment : " + comment);
 	}
 
 	private void mentorRating(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -96,24 +97,29 @@ public class MentoringController extends HttpServlet {
 
 	private void mentorList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		MentorCondition mentorCondition = new MentorCondition();
-		String[] majorArr = request.getParameterValues("major_type");
-		String[] dateArr = request.getParameterValues("want_date");
-		String wantMajor = ParameterValuesToString(majorArr);
-		String wantDate = ParameterValuesToString(dateArr);
+		List<Member> memberList = new ArrayList<Member>();
 		
-		mentorCondition.setUniversityType(request.getParameter("school_type"));
-		mentorCondition.setWantTime(request.getParameter("want_time"));
-		mentorCondition.setWantPlace(request.getParameter("want_place"));
-		mentorCondition.setMajorType(wantMajor);
-		mentorCondition.setWantDate(wantDate);
+		mentorCondition.setUniversityType(request.getParameter("school_type").split(","));
+		mentorCondition.setWantTime(request.getParameter("want_time").split(","));
+		mentorCondition.setWantPlace(request.getParameter("want_place").split(","));
+		mentorCondition.setMajorType(request.getParameter("major_type").split(","));
+		mentorCondition.setWantDate(request.getParameter("want_date").split(","));
 		
-		System.out.println(mentorCondition.toString());
+		List<Mentor> mentorList = mService.getMentorByCondition(mentorCondition);
 		
-		List<Mentor> mentorList = mService.getMentorIdx(mentorCondition);
+		for (int i = 0; i < mentorList.size(); i++) {
+			memberList.add(mService.getMemberByIdx(mentorList.get(i).getUserIdx()));
+		}
 		
+		for (int i = 0; i < memberList.size(); i++) {
+			System.out.println(memberList.get(i).toString());
+		}
 		for (int i = 0; i < mentorList.size(); i++) {
 			System.out.println(mentorList.get(i).toString());
 		}
+		
+		request.setAttribute("selected-mentors", mentorList);
+		request.setAttribute("selected-members", memberList);
 		
 		request.getRequestDispatcher("/mentoring/mentor-list").forward(request, response);
 	}
