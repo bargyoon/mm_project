@@ -24,8 +24,8 @@
 
 <p><input type="text" placeholder="일정을 입력하세요" id="titleInput"></p>
 
-<p><input type="date" id="dateInput"></p>
-<p><input type="time" id="timeInput"></p>
+<p><input type="datetime-local" id="startInput"></p>
+<p><input type="datetime-local" id="endInput"></p>
 <p><input type="color" id="colorInput"></p>
 
 <button id="addBtn">일정  추가</button>
@@ -35,8 +35,8 @@
 <table id="todoTable">
 	<tr>
 		<td></td>
-		<td>Date</td>
-		<td>Time</td>
+		<td>start</td>
+		<td>end</td>
 		<td>to-do</td>
 		<td>delete</td>
 	</tr>

@@ -9,8 +9,8 @@ todoModify();
 
 function todoModify(){
 	let inputElem, 
-		dateInput, 
-		timeInput, 
+		startInput, 
+		endInput, 
 		addButton, 
 		sortButton, 
 		ulElem, 
@@ -23,8 +23,8 @@ function todoModify(){
 	
 	function getElements(){
 		inputElem = document.getElementsByTagName("input")[0];	//일정제목
-		dateInput = document.getElementById("dateInput");
-		timeInput = document.getElementById("timeInput");
+		startInput = document.getElementById("startInput");
+		endInput = document.getElementById("endInput");
 		addButton = document.getElementById("addBtn");	//일정추가버튼
 		sortButton = document.getElementById("sortBtn");	//일정정렬버튼 
 	}
@@ -42,11 +42,11 @@ function todoModify(){
 		let inputValue = inputElem.value;
 		inputElem.value = "";
 		
-		let dateValue = dateInput.value;
-		dateInput.value = "";
+		let startValue = startInput.value;
+		startInput.value = "";
 		
-		let timeValue = timeInput.value;
-		timeInput.value = "";
+		let endValue = endInput.value;
+		endInput.value = "";
 		
 		let colorValue = colorInput.value;
 		colorInput.value = "";
@@ -54,8 +54,8 @@ function todoModify(){
 		let obj = {
 			id : _uuid(),	//체크박스의 데이터 아이디 
 			todo : inputValue,
-			date : dateValue,
-			time : timeValue,
+			start : startValue,
+			end : endValue,
 			done : false,
 			color : colorValue
 		}
@@ -85,14 +85,13 @@ function todoModify(){
 			if(todoList == null){
 				todoList = [];
 			}
-			
-			var date = opener.document.getElementById('startValue').value;
 			var title = opener.document.getElementById('titleValue').value;
-			var time = opener.document.getElementById('timeValue').value;
+			var start = opener.document.getElementById('startValue').value;
+			var end = opener.document.getElementById('endValue').value;
 			
-			document.getElementById('dateInput').value = date;
 			document.getElementById('titleInput').value = title;
-			document.getElementById('timeInput').value = time;
+			document.getElementById('startInput').value = start;
+			document.getElementById('endInput').value = end;
 		}
 		
 		
@@ -104,7 +103,7 @@ function todoModify(){
 			
 		}
 		
-		function renderRow({id, todo : inputValue, date, time, done} = obj){
+		function renderRow({id, todo : inputValue, start, end, done} = obj){
 /*			
 		let inputValue = obj.todo;
 		let {todo : inputValue} = obj;
@@ -129,14 +128,14 @@ function todoModify(){
 		tdElem2.innerText = inputValue;
 		trElem.appendChild(tdElem2);
 
-		//date cell
-		let dateElem = document.createElement("td");
-		dateElem.innerText = date;
-		trElem.appendChild(dateElem);		
+		//start cell
+		let startElem = document.createElement("td");
+		startElem.innerText = start;
+		trElem.appendChild(startElem);		
 		
-		//time cell
+		//end cell
 		let timeElem = document.createElement("td");
-		timeElem.innerText = time;
+		timeElem.innerText = end;
 		trElem.appendChild(timeElem);
 		
 		//delete cell
@@ -199,9 +198,9 @@ function todoModify(){
 
 	function sortEntry() {	 
 		todoList.sort((a,b) => {
-			let aDate = Date.parse(a.date);	//밀리세컨으로 파싱
-			let bDate = Date.parse(b.date);
-			return aDate - bDate;
+			let aStart = Date.parse(a.start);	//밀리세컨으로 파싱
+			let aStart = Date.parse(b.start);
+			return aStart - aStart;
 		});	//date 오름차순으로 일정 정렬
 		
 	save();	//sort한거 저장 
@@ -212,8 +211,8 @@ function todoModify(){
 	table.innerHTML = `
 		<tr>
 		<td></td>
-		<td>Date</td>
-		<td>Time</td>
+		<td>start</td>
+		<td>end</td>
 		<td>to-do</td>
 		<td>delete</td>
 	</tr>`;
