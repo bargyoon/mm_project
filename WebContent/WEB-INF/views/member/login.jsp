@@ -9,11 +9,7 @@
 <link rel="stylesheet" href="/resources/css/member/style.css">
 
 </head>
-<<<<<<< HEAD
-<body style="height:100vh">
-=======
 <body style="height: 100vh">
->>>>>>> branch 'main' of https://github.com/bargyoon/mm_project.git
 	<!-- Navigation-->
 
 	<%@ include file="/WEB-INF/views/include/nav.jsp"%>
@@ -24,11 +20,7 @@
 			<div class="row full-height justify-content-center">
 				<div class="col-12 text-center align-self-center py-5">
 					<div class="section pb-5 pt-5 pt-sm-2 text-center">
-<<<<<<< HEAD
-					
-=======
 
->>>>>>> branch 'main' of https://github.com/bargyoon/mm_project.git
 						<div class="card-3d-wrap mx-auto">
 							<div class="card-3d-wrapper">
 								<div class="card-front">
@@ -59,20 +51,6 @@
 											<a href="/member/login" class="btn kakao mt-2">카카오로 로그인</a> <a
 												href="/member/login" class="btn naver mt-2">네이버로 로그인</a>
 
-<<<<<<< HEAD
-												</ul>
-												<div class="modal-footer d-flex justify-content-center">
-													<div class="signup-section">
-														Not a member yet? <a href="#a"  style="color:orange"> Sign
-															Up</a>.
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-
-=======
 											<div class="col-md-12">
 
 												<div class="signup-section">
@@ -83,7 +61,6 @@
 										</form>
 									</div>
 								</div>
->>>>>>> branch 'main' of https://github.com/bargyoon/mm_project.git
 							</div>
 						</div>
 					</div>
