@@ -1,27 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
-
-
-
-
-<%@ include file="/WEB-INF/views/include/head.jsp" %>
+<%@ include file="/WEB-INF/views/include/head.jsp"%>
 <link rel="stylesheet" href="/resources/css/member/style.css">
 
-
-
-
 </head>
+<<<<<<< HEAD
 <body style="height:100vh">
+=======
+<body style="height: 100vh">
+>>>>>>> branch 'main' of https://github.com/bargyoon/mm_project.git
 	<!-- Navigation-->
 
-<%@ include file="/WEB-INF/views/include/nav.jsp" %>
-	
+	<%@ include file="/WEB-INF/views/include/nav.jsp"%>
 
 
 	<div class="section">
@@ -29,34 +24,42 @@
 			<div class="row full-height justify-content-center">
 				<div class="col-12 text-center align-self-center py-5">
 					<div class="section pb-5 pt-5 pt-sm-2 text-center">
+<<<<<<< HEAD
 					
+=======
+
+>>>>>>> branch 'main' of https://github.com/bargyoon/mm_project.git
 						<div class="card-3d-wrap mx-auto">
 							<div class="card-3d-wrapper">
 								<div class="card-front">
 									<div class="center-wrap">
-										<div class="section text-center">
+										<form class="section text-center" action="/member/login"
+											method="get">
 											<h4 class="mb-4 pb-3">Log In</h4>
 											<div class="form-group">
-												<input type="email" name="logemail" class="form-style"
-													placeholder="Your Email" id="logemail" autocomplete="off">
-												<i class="input-icon uil uil-at"></i>
+												<input type="text" name="userId" class="form-style"
+													placeholder="아이디" id="userId" autocomplete="off"> <i
+													class="input-icon uil uil-at"></i>
 											</div>
 											<div class="form-group mt-2">
-												<input type="password" name="logpass" class="form-style"
-													placeholder="Your Password" id="logpass" autocomplete="off">
+												<input type="password" name="password" class="form-style"
+													placeholder="비밀번호" id="password" autocomplete="off">
 												<i class="input-icon uil uil-lock-alt"></i>
 											</div>
-											<a href="/member/login" class="btn mt-4">submit</a>
+											<span style="color:moccasin"><c:if test="${not empty param.err}">
+                			아이디 또는 비밀번호가 틀렸습니다.
+                		</c:if></span>
 											<p class="mb-0 mt-4 text-center">
-												<a href="#0" class="link">Forgot your password?</a>
+												<a href="/member/forget-password" class="link">비밀번호를
+													잊으셨습니까?</a>
 											</p>
-											<div class="col-md-12">
-												<ul class="social-network social-circle">
-													<li><a href="#" class="icoFacebook" title="Facebook"><i
-															class="fas fa-comment"></i></a></li>
-													<li><a href="#" class="icoTwitter" title="Twitter"><i
-															class="fab fa-neos"></i></a></li>
+											<input type="submit" class="btn original mt-2 mb-2"
+												value="로그인">
+											<div class="border-bottom "></div>
+											<a href="/member/login" class="btn kakao mt-2">카카오로 로그인</a> <a
+												href="/member/login" class="btn naver mt-2">네이버로 로그인</a>
 
+<<<<<<< HEAD
 												</ul>
 												<div class="modal-footer d-flex justify-content-center">
 													<div class="signup-section">
@@ -69,6 +72,18 @@
 									</div>
 								</div>
 
+=======
+											<div class="col-md-12">
+
+												<div class="signup-section">
+													Not a member yet? <a href="/member/join-rule"
+														style="color: orange"> Sign Up</a>.
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+>>>>>>> branch 'main' of https://github.com/bargyoon/mm_project.git
 							</div>
 						</div>
 					</div>
@@ -79,7 +94,8 @@
 
 
 
-	<%@ include file="/WEB-INF/views/include/jsFiles.jsp" %>
+	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
+	<%@ include file="/WEB-INF/views/include/jsFiles.jsp"%>
 	<script src="/resources/js/member/script.js"></script>
 </body>
 </html>

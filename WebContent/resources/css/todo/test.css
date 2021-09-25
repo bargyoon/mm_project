@@ -11420,6 +11420,9 @@ checkbox{
 }
 
 
+
+
+
 .wrap-but{
 	flex-flow: row;
     justify-content: center;
@@ -11428,6 +11431,7 @@ checkbox{
 	margin-top: 5%;
 	margin-bottom: 3%;
 	
+
 }
 
 .wrap-but>a{
@@ -11436,10 +11440,18 @@ checkbox{
     text-align: center;
 }
 
-.submit-but {
-   height: 100%;
+
+
+.wrap-but>a {
+  
    width: 20%;
+   height: 100%;
+}
+
+.submit-but {
    background-color: #343a40;
+   height: 100%;
+   width: 25%;
    border-radius: 5px 5px 5px 5px;
    font-family: 'Pretendard-SemiBold';
 }
@@ -11450,63 +11462,21 @@ checkbox{
 	
 }
 
+
+
 .wrap-calendar{
+  	margin-top: 10%;
   	margin-left: 9%;
   	margin-right: 9%;
-  	margin-bottom: 10%;
 
 }
+
 
 .calendar{
     font-family: 'Pretendard-SemiBold';	
 	
 }
 
-
-
-
-
-
-
-
-.strike{
-	text-decoration: line-through;
-	
-}
-
-
-td{
-	border: 1px solid black;
-	padding: 5px;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-.wrap-plus{
-	flex-flow: row-reverse;
-	justify-content: center;
-    text-align: right;
-	 margin-top: 10%;
-	 margin-right: 9%;
-}
-
-.plus{
-	
-	 background-color: #343a40;
-	 color: white;
-	 border-radius: 5px 5px 5px 5px;
-   	 font-family: 'Pretendard-SemiBold';
-	
-}
 
 
 main{

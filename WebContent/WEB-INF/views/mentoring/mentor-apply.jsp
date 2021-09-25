@@ -11,9 +11,8 @@
 
 </head>
 <body class="d-flex flex-column h-75">
-<%@ include file="/WEB-INF/views/include/nav.jsp" %>
+	<%@ include file="/WEB-INF/views/include/nav.jsp" %>
 	<main class="flex-shrink-0">
-		<!-- Section -->
 		<section class="pt-5">
 			<div class="container px-5 my-5 py-5">
 				<div class="row gx-5">
@@ -27,36 +26,35 @@
 							<span>1. 학교 유형</span>
 						</div>
 						<div class="offcanvas-header">
-							<label class=""><input class="me-md-1" type="radio" name="school_type" value="all">전체</label>
-							<label class="px-sm-3"><input class="me-md-1" type="radio" name="school_type" value="university">대학교</label>
-							<label class="px-sm-3"><input class="me-md-1" type="radio" name="school_type" value="college">전문대</label>
+							<label class=""><input class="me-md-1 check-0" type="radio" name="school_type" value="all">상관없음</label>
+							<label class="px-sm-3"><input class="me-md-1 check-0" type="radio" name="school_type" value="university">대학교</label>
+							<label class="px-sm-3"><input class="me-md-1 check-0" type="radio" name="school_type" value="college">전문대</label>
 						</div>
 						<hr>
 						<div class="fw-bolder mb-0 py-3 small offcanvas-header">
 							<span>2. 전공 계열</span>
 							<span style="font-size: 11px">*중복선택가능</span>
 						</div>
-						<div class="offcanvas-header">
-							<label><input class="me-md-1" type="checkbox" name="major_type" value="all">전체</label>
-							<label><input class="me-md-1" type="checkbox" name="major_type" value="humanities">인문계열</label>
-							<label><input class="me-md-1" type="checkbox" name="major_type" value="education">교육계열</label>
-							<label><input class="me-md-1" type="checkbox" name="major_type" value="Engineering">공학계열</label>
+						<div class="offcanvas-header" style="font-size: 13px;">
+							<label><input class="me-md-1 check-1" type="checkbox" name="major_type" value="all">상관없음</label>
+							<label><input class="me-md-1 check-1" type="checkbox" name="major_type" value="humanities">인문계열</label>
+							<label><input class="me-md-1 check-1" type="checkbox" name="major_type" value="education">교육계열</label>
+							<label><input class="me-md-1 check-1" type="checkbox" name="major_type" value="engineering">공학계열</label>
 						</div>						
-						<div class="offcanvas-header">
-							<label><input class="me-md-1" type="checkbox" name="major_type" value="society">사회계열</label>
-							<label><input class="me-md-1" type="checkbox" name="major_type" value="nature">자연계열</label>
-							<label><input class="me-md-1" type="checkbox" name="major_type" value="anp">예체능계열</label>
-							<label><input class="me-md-1" type="checkbox" name="major_type" value="medicine">의약계열</label>
+						<div class="offcanvas-header" style="font-size: 13px;">
+							<label><input class="me-md-1 check-1" type="checkbox" name="major_type" value="society">사회계열</label>
+							<label><input class="me-md-1 check-1" type="checkbox" name="major_type" value="nature">자연계열</label>
+							<label><input class="me-md-1 check-1" type="checkbox" name="major_type" value="anp">예체능계열</label>
+							<label><input class="me-md-1 check-1" type="checkbox" name="major_type" value="medicine">의약계열</label>
 						</div>
 						<div class="offcanvas-header">
 							<h3>1/3</h3>
 							<div class="offcanvas-header">
-								<input class="btn btn-primary-dark btn-lg px-4 me-sm-3 fw-bolder" type="button" value="이전">
-								<input class="btn btn-primary-dark btn-lg px-4 me-sm-3 fw-bolder" type="button" value="다음">
+								<button class="btn btn-primary-dark btn-lg px-4 ms-sm-3 fw-bolder next-btn-0" >다음</button>
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-5 mb-5 mb-lg-5 navbar-nav-scroll">
+					<div class="col-lg-5 mb-5 mb-lg-5 navbar-nav-scroll" style="max-height: 50vh">
 						<h5 class="fw-bolder mb-0 text-sm-center">계열 안내</h5>
 						<hr>
 						<div class="mb-0 py-3 small list-group">
@@ -104,7 +102,7 @@
 					</div>
 				</div>
 				
-				<div class="row gx-5 pt-5 justify-content-md-around" id="apply-page-2">	
+				<div class="row gx-5 pt-5 justify-content-md-around" id="apply-page-2" style="display: none">	
 					<div class="col-lg-5 mb-5 mb-lg-5">
 						<h5 class="fw-bolder mb-0 text-sm-center">희망 요일 및 시간 선택</h5>
 						<hr>
@@ -113,31 +111,32 @@
 							<span style="font-size: 11px">*중복선택가능</span>
 						</div>
 						<div class="offcanvas-header">
-							<label><input class="me-md-1" type="checkbox" name="want_date" value="all">전체</label>
-							<label><input class="me-md-1" type="checkbox" name="want_date" value="humanities">월요일</label>
-							<label><input class="me-md-1" type="checkbox" name="want_date" value="education">화요일</label>
-							<label><input class="me-md-1" type="checkbox" name="want_date" value="Engineering">수요일</label>
+							<label><input class="me-md-1 check-2" type="checkbox" name="want_date" value="all">상관없음</label>
+							<label><input class="me-md-1 check-2" type="checkbox" name="want_date" value="mon">월요일</label>
+							<label><input class="me-md-1 check-2" type="checkbox" name="want_date" value="tue">화요일</label>
+							<label><input class="me-md-1 check-2" type="checkbox" name="want_date" value="wed">수요일</label>
 						</div>						
 						<div class="offcanvas-header">
-							<label><input class="me-md-1" type="checkbox" name="want_date" value="society">목요일</label>
-							<label><input class="me-md-1" type="checkbox" name="want_date" value="nature">금요일</label>
-							<label><input class="me-md-1" type="checkbox" name="want_date" value="anp">토요일</label>
-							<label><input class="me-md-1" type="checkbox" name="want_date" value="medicine">일요일</label>
+							<label><input class="me-md-1 check-2" type="checkbox" name="want_date" value="thu">목요일</label>
+							<label><input class="me-md-1 check-2" type="checkbox" name="want_date" value="fri">금요일</label>
+							<label><input class="me-md-1 check-2" type="checkbox" name="want_date" value="sat">토요일</label>
+							<label><input class="me-md-1 check-2" type="checkbox" name="want_date" value="sun">일요일</label>
 						</div>
 						<hr>
 						<div class="fw-bolder mb-0 py-3 small offcanvas-header">
 							<span>2. 원하는 시간</span>
 						</div>
 						<div class="list-group">
-							<label class="ms-4"><input class="me-md-1" type="radio" name="want_time" value="all">전체</label>
-							<label class="ms-4"><input class="me-md-1" type="radio" name="want_time" value="am">오전(00:00 ~ 12:00)</label>
-							<label class="ms-4"><input class="me-md-1" type="radio" name="want_time" value="pm">오후(12:00 ~ 24:00)</label>
+							<label class="ms-4"><input class="me-md-1 check-3" type="radio" name="want_time" value="all">상관없음</label>
+							<label class="ms-4"><input class="me-md-1 check-3" type="radio" name="want_time" value="am">오전(09:00 ~ 12:00)</label>
+							<label class="ms-4"><input class="me-md-1 check-3" type="radio" name="want_time" value="pm">오후(12:00 ~ 17:00)</label>
+							<label class="ms-4"><input class="me-md-1 check-3" type="radio" name="want_time" value="evening">저녁(17:00 ~ 21:00)</label>
 						</div>
 						<div class="offcanvas-header">
 							<h3>2/3</h3>
 							<div class="offcanvas-header">
-								<input class="btn btn-primary-dark btn-lg px-4 me-sm-3 fw-bolder" type="button" value="이전">
-								<input class="btn btn-primary-dark btn-lg px-4 me-sm-3 fw-bolder" type="button" value="다음">
+								<button class="btn btn-primary-dark btn-lg px-4 ms-sm-3 fw-bolder" onclick="prevBtn()">이전</button>
+								<button class="btn btn-primary-dark btn-lg px-4 ms-sm-3 fw-bolder next-btn-1" >다음</button>
 							</div>
 						</div>
 					</div>
@@ -148,7 +147,7 @@
 							<div class="year"></div>
 							<div class="month-choice">
 								<button class="calender_btn" onclick="prevMonth()">&lt;</button>
-								<button class="calender_btn today_month" onclick="todayMonth()">Today</button>
+								<button class="calender_btn today_month"></button>
 								<button class="calender_btn" onclick="nextMonth()">&gt;</button>
 							</div>
 						</div>
@@ -167,22 +166,22 @@
 					</div>
 				</div>
 				
-				<div class="row gx-5 pt-5 justify-content-md-around" id="apply-page-3">	
+				<div class="row gx-5 pt-5 justify-content-md-around" id="apply-page-3" style="display: none">	
 					<div class="col-lg-5 mb-5 mb-lg-5">
 						<h5 class="fw-bolder mb-0 text-sm-center">원하는 진행 방식 선택</h5>
 						<hr>
 						<div class="list-group">
-							<label><input class="me-md-1" type="radio" name="want_place" value="all">상관없음</label>
-							<label><input class="me-md-1" type="radio" name="want_place" value="all">비대면(화상채팅)을 원해요</label>
-							<label><input class="me-md-1" type="radio" name="want_place" value="humanities">저희 동네로 와주세요</label>
-							<label><input class="me-md-1" type="radio" name="want_place" value="education">멘토의 동네로 갈게요</label>
-							<label><input class="me-md-1" type="radio" name="want_place" value="Engineering">카페/스터디룸 등 대여 공간을 원해요.</label>
+							<label><input class="me-md-1 check-4" type="radio" name="want_place" value="all">상관없음</label>
+							<label><input class="me-md-1 check-4" type="radio" name="want_place" value="videoChat">비대면(화상채팅)을 원해요</label>
+							<label><input class="me-md-1 check-4" type="radio" name="want_place" value="myTown">저희 동네로 와주세요</label>
+							<label><input class="me-md-1 check-4" type="radio" name="want_place" value="yourTown">멘토의 동네로 갈게요</label>
+							<label><input class="me-md-1 check-4" type="radio" name="want_place" value="rentalSpace">카페/스터디룸 등 대여 공간을 원해요.</label>
 						</div>
 						<div class="offcanvas-header">
 							<h3>3/3</h3>
 							<div class="offcanvas-header">
-								<input class="btn btn-primary-dark btn-lg px-4 me-sm-3 fw-bolder" type="button" value="이전">
-								<input class="btn btn-primary-dark btn-lg px-4 me-sm-3 fw-bolder" type="button" value="작성완료">
+								<button class="btn btn-primary-dark btn-lg px-4 ms-sm-3 fw-bolder" onclick="prevBtn()">이전</button>
+								<button class="btn btn-primary-dark btn-lg px-4 ms-sm-3 fw-bolder next-btn-2">작성완료</button>
 							</div>
 						</div>
 					</div>
@@ -199,28 +198,9 @@
 			</div>
 		</section>
 	</main>
-	<!-- Footer-->
-	<footer class="py-4 mt-auto" style="background-color: #343a40">
-		<div class="container px-5">
-			<div
-				class="row align-items-center justify-content-between flex-column flex-sm-row">
-				<div class="col-auto">
-					<div class="small m-0 text-white">Copyright &copy; Your
-						Website 2021</div>
-				</div>
-				<div class="col-auto">
-					<a class="link-light small" href="#!">Privacy</a> <span
-						class="text-white mx-1">&middot;</span> <a
-						class="link-light small" href="#!">Terms</a> <span
-						class="text-white mx-1">&middot;</span> <a
-						class="link-light small" href="#!">Contact</a>
-				</div>
-			</div>
-		</div>
-	</footer>
-		
-		<script src="/resources/js/mentoring/mentor-apply.js"></script>
-<%@ include file="/WEB-INF/views/include/jsFiles.jsp" %>
+	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
+	<script src="/resources/js/mentoring/mentor-apply.js"></script>
+	<%@ include file="/WEB-INF/views/include/jsFiles.jsp" %>
 	
 
 </body>

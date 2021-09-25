@@ -5,6 +5,7 @@
 * ==========================================
 *
 */
+<<<<<<< HEAD
 
 .border-md {
     border-width: 2px;
@@ -51,4 +52,83 @@ select.form-control {
 }
 .form-control:focus {
     box-shadow: none;
+}
+=======
+.border-md {
+	border-width: 2px;
+}
+
+.btn-primary {
+	background: #343a40;
+	color:white;
+	border: none;
+}
+
+.btn-primary:hover, .btn-primary:focus {
+	background: gray;
+}
+
+/*
+*
+* ==========================================
+* FOR DEMO PURPOSES
+* ==========================================
+*
+*/
+body {
+	min-height: 100vh;
+}
+
+.form-control:not(select) {
+	padding: 1.5rem 0.5rem;
+}
+
+select.form-control {
+	height: 52px;
+	padding-left: 0.5rem;
+}
+
+.form-control::placeholder {
+	color: #ccc;
+	font-weight: bold;
+	font-size: 0.9rem;
+}
+
+.form-control:focus {
+	box-shadow: none;
+}
+
+.valid-msg{
+	color: red;
+	font-size: 13px;
+}
+
+#idCheck{
+	position: absolute;
+	top:148px;
+}
+
+#pwCheck{
+	position: absolute;
+	top: 225px;
+	
+}
+
+#tellCheck{
+	position: absolute;
+	top: 528px;
+}
+
+.checkIdBtn {
+	position: absolute;
+	right: -63px;
+	top: 7px;
+	border: 3px solid;
+	background: white;
+	color: #000000;
+	font-size: 12px;
+	font-weight: bolder;
+	padding: 8px;
+	border-color: #000000;
+	
 }

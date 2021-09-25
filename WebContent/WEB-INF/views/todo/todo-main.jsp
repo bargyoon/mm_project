@@ -48,8 +48,9 @@
       </div>
 	
 	<div class="wrap-but">
-	      <a href="${contextPath}/todo/detail"><button class="submit-but"><h5>세부 일정 관리</h5></button></a>
+	      <a href="${contextPath}/todo/detail"><button class="submit-but"><h5>세부 일정 관리<h5></button></a>
 	</div>
+
 
 	<!-- Footer-->
 

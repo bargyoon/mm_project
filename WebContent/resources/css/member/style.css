@@ -234,6 +234,7 @@ h6 span{
 .btn{  
   border-radius: 4px;
   height: 44px;
+  width: 100%;
   font-size: 13px;
   font-weight: 600;
   text-transform: uppercase;
@@ -256,19 +257,32 @@ h6 span{
   text-align: center;
   border: none;
   background-color: orange;
+
+
   color: #102770;
   box-shadow: 0 8px 24px 0 rgba(255,235,167,.2);
 }
-.btn:active,
-.btn:focus{  
-  background-color: orange;
-  box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
+.kakao{
+	background-color: rgb(249, 224, 0);
+	color: black;
 }
-.btn:hover{  
-  background-color: orange;
+
+.naver{
+	background-color: rgb(30, 200, 0);
+	color: white;
+}
+.btn:active,
+.btn:hover,
+.btn:focus{  
+
 
   box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
 }
+
+
+
+
+
 
 ul.social-network {
     list-style: none;

@@ -476,6 +476,7 @@ a, a:hover {
 	text-align: center;
 	cursor: pointer;
 	border-radius: 50%;
+	color: black;
 }
 
 .site-mobile-menu .site-nav-wrap .arrow-collapse:hover {

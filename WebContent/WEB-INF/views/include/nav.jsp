@@ -67,17 +67,11 @@
 											<c:when test="${sessionScope.authentication eq null}">
 												<li><a href="${contextPath}/member/login-form" class="nav-link">로그인</a></li>
 
-												<li class="has-children"><a href="#" class="nav-link">회원가입</a>
-													<ul class="dropdown arrow-top" style="text-align: center;">
-														<li><a href="${contextPath}/member/join-form-mentor"
-															class="mentor-join">멘토 가입</a></li>
-														<li><a href="${contextPath}/member/join-form-mentee"
-															class="mentee-join">멘티 가입</a></li>
-													</ul></li>
+												<li><a href="${contextPath}/member/join-rule" class="nav-link">회원가입</a></li>
 											</c:when>
 											<c:otherwise>
 												
-												<li class="has-children"><a href="#" class="profile">${sessionScope.authentication}</a>
+												<li class="has-children"><a href="#" class="profile">${authentication.userName}님</a>
 													<ul class="dropdown arrow-top" style="text-align: center;">
 														<li><a href="${contextPath}/member/mypage"
 															class="mypage">마이페이지</a></li>
