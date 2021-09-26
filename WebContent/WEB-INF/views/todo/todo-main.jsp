@@ -20,7 +20,7 @@
         <main class="flex-shrink-0">
             
       <div class="user-name">
-         <h2>${sessionScope.authentication} 님<h2>
+         <h2>${authentication.userName} 님<h2>
          <h3>오늘의 할 일입니다.</h3>
       </div>
       

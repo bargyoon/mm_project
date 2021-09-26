@@ -70,8 +70,8 @@ public class TodoDao {
 	
 	
 	//일정 체크, 미체크 
-	public int doneTodo(Todo todo, Connection conn) {		
-		int res = 0;		
+	public boolean doneTodo(Todo todo, Connection conn) {		
+		boolean res = false;		
 		PreparedStatement pstm = null;
 		String query = "UPDATE TODO SET DONE = ? WHERE TODO_IDX = ?";
 		
@@ -79,7 +79,7 @@ public class TodoDao {
 			pstm = conn.prepareStatement(query);
 			pstm.setBoolean(1, todo.isDone());
 			pstm.setInt(2, todo.getTodoIdx());
-			res = pstm.executeUpdate();
+			res = pstm.execute();
 		} catch (SQLException e) {
 			throw new DataAccessException(e);
 		}finally {
