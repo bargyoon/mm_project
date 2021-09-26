@@ -100,7 +100,7 @@
 
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 	<script type="text/javascript">
-	let checkList = document.querySelectorAll('.check');
+	let checkList = document.querySelectorAll('.check')
 	
 	document.querySelectorAll('.join-btn').forEach(e =>{
 		e.addEventListener('click', event =>{
