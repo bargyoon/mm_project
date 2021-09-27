@@ -1,8 +1,6 @@
 /**
  * 
  */
-
-
 todoModify();
 
 function todoModify(){
@@ -12,59 +10,75 @@ function todoModify(){
 		colorInput, 
 		modifyButton,
 		deleteButton,
-		todoList[];	
-	
+		todoList = [];	
 	
 	getElements();
 	addListeners();
 	load();
 	
-	function getElements(){
-	titleInput = document.getElementById("titleInput");	//일정제목
-	startInput = document.getElementById("startInput");
-	endInput = document.getElementById("endInput");
-	colorInput = document.getElementById("colorInput");		
-	modifyButton = document.getElementById("modifyButton");
-	deleteButton = document.getElementById("deleteButton");
-	}
+		function getElements(){
+		titleInput = document.getElementById("titleInput");	//일정제목
+		startInput = document.getElementById("startInput");
+		endInput = document.getElementById("endInput");
+		colorInput = document.getElementById("colorInput");		
+		modifyButton = document.getElementById("modifyButton");
+		deleteButton = document.getElementById("deleteButton");
+		}
 }
 	
 	
 function addListeners(){
-		modifyButton.addEventListener("click", modifyEntry);	//클릭시 일정등록
-		deleteButton.addEventListener("click", deleteEntry);	//클릭시 일정정렬
+		modifyButton.addEventListener("click", modifyEntry);	//클릭시 일정수정
+		deleteButton.addEventListener("click", deleteEntry);	//클릭시 일정삭제
 }
 	
 function modifyEntry(event){
-		
-		//let flag = true;
-		
 		let titleValue = titleInput.value;
-		titleInput.value = "";
+		if(!titleValue){
+			alert('제목을 입력해주세요');
+			return;
+		}
 		
 		let startValue = startInput.value;
-		startInput.value = "";
-		
+		if(!startValue){
+			alert('날짜를 입력해주세요');
+			return;
+		}			
 		let endValue = endInput.value;
-		endInput.value = "";
+		if(!endValue){
+			alert('날짜를 입력해주세요');
+			return;
+		}			
+		
+		if(startValue>endValue){
+			alert('날짜를 다시 확인해주세요');
+			return;
+		}
 		
 		let colorValue = colorInput.value;
-		colorInput.value = "";
-
+	
 		let obj = {
-			id : id,
+			id : todoIdx,
 			title : titleValue,
 			start : startValue,
 			end : endValue,
 			done : false,
 			color : colorValue
 		}
-		
+
 		todoList.push(obj);
-		
+		console.log(obj);
 		save();
 		load();
 		
+		alert('일정이 수정되었습니다.');
+		
+		//일정등록시 인풋창 초기화
+		titleInput = "";
+		startValue = "";
+		endValue = "";
+		colorValue = "";
+
 		// 등록 끝
 		opener.document.location.reload();
 }		
@@ -88,10 +102,10 @@ function load(){
 		}
 		
 		
-		var title = opener.document.getElementById('titleValue').value;
-		var start = opener.document.getElementById('startValue').value;
-		var end = opener.document.getElementById('endValue').value;
-		var color = opener.document.getElementById('colorValue').value;
+		var title = opener.document.getElementById('titleInput').value;
+		var start = opener.document.getElementById('startInput').value;
+		var end = opener.document.getElementById('endInput').value;
+		var color = opener.document.getElementById('colorInput').value;
 		
 		document.getElementById('titleInput').value = title;
 		document.getElementById('startInput').value = start;
@@ -102,7 +116,7 @@ function load(){
 }
 
 
-function deleteItem(){
+function deleteEntry(){
 	trElem.remove();	//row 삭제
 	
 	for(let i = 1; i < todoList.length; i++){

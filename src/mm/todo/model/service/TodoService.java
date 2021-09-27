@@ -1,6 +1,7 @@
 package mm.todo.model.service;
 
 import java.sql.Connection;
+import java.util.List;
 
 import mm.common.db.JDBCTemplate;
 import mm.todo.model.dao.TodoDao;
@@ -12,17 +13,14 @@ public class TodoService {
 	private JDBCTemplate template = JDBCTemplate.getInstance();
 	
 	public int insertTodo(Todo todo) {
+		//커넥션 연결
 		Connection conn = template.getConnection();
 		int res = 0;
 		try {
+			res = todoDao.insertTodo(todo, conn);
 			
-			if(todoDao.insertTodo(todo, conn) != 0) {
-				
-				res = todoDao.insertTodo(todo, conn);
-			}
-			
-			System.out.println(todo.getTodoIdx());
-			template.commit(conn);
+			if( res != 0 )
+				template.commit(conn);
 		} catch (Exception e) {
 			template.rollback(conn);
 			throw e;
@@ -36,6 +34,21 @@ public class TodoService {
 	}
 	
 	
+	
+	//todo-main(오늘의 일정)
+	public List<Todo> todoMain(int userIdx) {
+		List<Todo> todayList = null;
+		Connection conn = template.getConnection();
+
+		try {
+			todayList = todoDao.todoMain(userIdx, conn);
+
+		} finally {
+			template.close(conn);
+		}
+		return todayList;
+	}
+
 	
 	
 }

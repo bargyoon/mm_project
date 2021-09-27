@@ -53,15 +53,15 @@ function todoInsert(){
 				return;
 			}			
 			
-			if(endValue>startValue){
-				alert('틀림');
+			if(startValue>endValue){
+				alert('날짜를 다시 확인해주세요');
 				return;
 			}
+			
 			let colorValue = colorInput.value;
 		
-			
 			let obj = {
-				id : _uuid(),	//체크박스의 데이터 아이디 
+				id : todoIdx(),	
 				title : titleValue,
 				start : startValue,
 				end : endValue,
@@ -102,10 +102,10 @@ function todoInsert(){
 		if(todoList == null){
 			todoList = [];
 		}
-		var title = document.getElementById('titleValue').value;
-		var start = document.getElementById('startValue').value;
-		var end = document.getElementById('endValue').value;
-		var color = document.getElementById('colorValue').value;
+		var title = document.getElementById('titleInput').value;
+		var start = document.getElementById('startInput').value;
+		var end = document.getElementById('endInput').value;
+		var color = document.getElementById('colorInput').value;
 		
 		document.getElementById('titleInput').value = title;
 		document.getElementById('startInput').value = start;
@@ -114,15 +114,8 @@ function todoInsert(){
 	}
 		
 
-	function _uuid() {	//아이디 랜덤으로 만들기 
-	  var d = Date.now();
-	  if (typeof performance !== 'undefined' && typeof performance.now === 'function'){
-	    d += performance.now(); //use high-precision timer if available
-	  }
-	  return 'xxxxxxxx'.replace(/[xy]/g, function (c) {
-	    var r = (d + Math.random() * 16) % 16 | 0;
-	    d = Math.floor(d / 16);
-	      return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-	  });
+	function todoIdx() {	//아이디 랜덤으로 만들기 
+		const rand_0_10000000 = Math.floor(Math.random() * 10000001);
+		return rand_0_10000000;
 	}
 }
