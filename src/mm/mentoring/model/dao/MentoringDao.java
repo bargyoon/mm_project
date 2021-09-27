@@ -11,7 +11,9 @@ import mm.common.db.JDBCTemplate;
 import mm.common.exception.DataAccessException;
 import mm.member.model.dto.Member;
 import mm.member.model.dto.Mentor;
+import mm.mentoring.model.dto.ApplyHistory;
 import mm.mentoring.model.dto.MentorCondition;
+import mm.mentoring.model.dto.MentoringHistory;
 
 public class MentoringDao {
 
@@ -66,6 +68,86 @@ public class MentoringDao {
 		}
 		
 		return member;
+	}
+	
+	public List<MentoringHistory> getMtHistoryByUserIdx(int userIdx, Connection conn) {
+		List<MentoringHistory> mhList = new ArrayList<MentoringHistory>();
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		String query = "select * from mentoring_history where user_idx = ?";
+		
+		try {
+			
+			pstm = conn.prepareStatement(query);
+			pstm.setInt(1, userIdx);
+			rset = pstm.executeQuery();
+			
+			while(rset.next()) {
+				MentoringHistory mh = convertToManageDTO(rset);
+				mhList.add(mh);
+			}
+			
+		} catch (Exception e) {
+			new DataAccessException(e);
+		} finally {
+			template.close(pstm, conn);
+		}
+		
+		
+		return mhList;
+	}
+	
+	public List<ApplyHistory> getApHistoryByUserIdx(int userIdx, Connection conn) {
+		List<ApplyHistory> ahList = new ArrayList<ApplyHistory>();
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		String query = "select * from apply_history where user_idx = ?";
+		
+		try {
+			
+			pstm = conn.prepareStatement(query);
+			pstm.setInt(1, userIdx);
+			rset = pstm.executeQuery();
+			
+			while(rset.next()) {
+				ApplyHistory ah = convertToApplyDTO(rset);
+				ahList.add(ah);
+			}
+			
+		} catch (Exception e) {
+			new DataAccessException(e);
+		} finally {
+			template.close(pstm, conn);
+		}
+		
+		return ahList;
+	}
+	
+	
+	
+	private ApplyHistory convertToApplyDTO(ResultSet rset) throws SQLException {
+		ApplyHistory ah = new ApplyHistory();
+		ah.setaIdx(rset.getInt("a_idx"));
+		ah.setUserIdx(rset.getInt("user_idx"));
+		ah.setMentorIdx(rset.getInt("mentor_idx"));
+		ah.setMentorName(rset.getString("mentor_name"));
+		ah.setEpDate(rset.getDate("ep_date"));
+		
+		return ah;
+	}
+	
+	private MentoringHistory convertToManageDTO(ResultSet rset) throws SQLException {
+		MentoringHistory mh = new MentoringHistory();
+		mh.setmIdx(rset.getInt("m_idx"));
+		mh.setUserIdx(rset.getInt("user_idx"));
+		mh.setMentorIdx(rset.getInt("mentor_idx"));
+		mh.setMentorName(rset.getString("mentor_name"));
+		mh.setStartDate(rset.getDate("start_date"));
+		mh.setEndDate(rset.getDate("end_date"));
+		mh.setPrice(rset.getInt("price"));
+		mh.setState(rset.getString("state"));
+
+		return mh;
 	}
 	
 	private String createQueryPart (String[] types) {
@@ -133,4 +215,6 @@ public class MentoringDao {
 
 		return member;
 	}
+
+
 }

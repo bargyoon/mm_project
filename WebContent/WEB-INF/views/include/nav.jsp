@@ -47,8 +47,7 @@
 									<ul class="site-menu main-menu js-clone-nav d-none d-lg-block">
 
 										<li><a href="${contextPath}/mentoring/apply-page" class="nav-link">멘토신청</a></li>
-										<li><a href="${contextPath}/mentoring/manage" class="nav-link">멘토링
-												관리</a></li>
+										<li><a href="${contextPath}/mentoring/manage-page" class="nav-link">멘토링 관리</a></li>
 										<li class="has-children"><a href="#" class="nav-link">게시판</a>
 											<ul class="dropdown arrow-top" style="text-align: center;">
 												<li><a href="${contextPath}/board/mentor" class="nav-link">멘토

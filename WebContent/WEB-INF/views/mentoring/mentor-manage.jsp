@@ -20,7 +20,7 @@
 			        	<img class="rounded-circle me-3" src="https://dummyimage.com/100x100/ced4da/6c757d" alt="..." />
 			        </div>
 			        <div class="mb-4 mb-xl-0">
-			            <div class="fs-3 fw-bold text-white">멘토 ${sessionScope.authentication}님</div>
+			            <div class="fs-3 fw-bold text-white">멘토 ${sessionScope.authentication.userName}님</div>
 			            <div class="text-white-50">Sign.</div>
 			        </div>
 		        </div>
@@ -29,7 +29,7 @@
 		                <div class="fs-5 fw-bold text-white">신청 중인 멘토링</div>
 		            </div>
 		            <div class="small text-white-50">
-		                <button class="btn btn-outline-light" id="button-newsletter" type="button" onclick="renderApplying()">1건</button>
+		                <button class="btn btn-outline-light" onclick="renderApplying()">1건</button>
 		            </div>
 		        </div>
 		        <div class="d-flex flex-column align-items-center">
@@ -37,7 +37,7 @@
 		                <div class="fs-5 fw-bold text-white">진행 중인 멘토링</div>
 		            </div>
 		            <div class="small text-white-50">
-		                <button class="btn btn-outline-light" id="button-newsletter" type="button" onclick="renderProceeding()">2건</button>
+		                <button class="btn btn-outline-light" onclick="renderProceeding()">2건</button>
 		            </div>
 		        </div>
 		        <div class="d-flex flex-column align-items-center">
@@ -45,7 +45,7 @@
 		                <div class="fs-5 fw-bold text-white">완료한 멘토링</div>
 		            </div>
 		            <div class="small text-white-50">
-		                <button class="btn btn-outline-light" id="button-newsletter" type="button" onclick="renderCompleted()">3건</button>
+		                <button class="btn btn-outline-light" onclick="renderCompleted()">3건</button>
 		            </div>
 		        </div>
 		    </div>
@@ -53,10 +53,10 @@
 	</div>
 	<div class="container px-5 my-5 pt-4">
 		<div class="row gx-5">
-			<h5 class="fw-bolder px-sm-0 mb-3 pb-2" id="type_manage" style="border-bottom: solid 2px gray;">버튼에 따라 바뀌는 소제목</h5>
+			<h5 class="fw-bolder px-sm-0 mb-3 pb-2" id="type_manage" style="border-bottom: solid 2px gray;">진행중인 멘토링</h5>
 		</div>
-		<div class="row" >
-			<div class="text-muted text-sm-end" style="font-size: 0.75rem">* 신청일 기준 3일 내로 멘토의 수락이 없을 시 삭제됩니다.</div>
+		<div class="row">
+			<div class="text-muted text-sm-end" id="expiration-date" style="font-size: 0.75rem"></div>
 		</div>
 	</div>
 	<section>
@@ -122,6 +122,7 @@
 
     </section>
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
+	<script src="/resources/js/mentoring/mentor-manage.js"></script>
 	<%@ include file="/WEB-INF/views/include/jsFiles.jsp" %>
 	
 

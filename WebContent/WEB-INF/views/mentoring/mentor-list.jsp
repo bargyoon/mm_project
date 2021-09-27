@@ -16,7 +16,7 @@
 		<section class="pt-5">
 			<div class="container px-5 mt-5 pt-5">
 				<div class="row gx-5">
-					<h5 class="fw-bolder px-sm-0 mb-3 pb-2" style="border-bottom: solid 2px gray;">멘토링 리스트</h5>
+					<h5 class="fw-bolder px-sm-0 mb-3 pb-2" style="border-bottom: solid 2px gray;">추천 멘토 리스트</h5>
 					<div class="fw-bolder mb-0 py-2 small offcanvas-header">
 						<span></span>
 						<span style="font-size: 11px">${sessionScope.authentication.userName} 님의 선택에 따른 추천 멘토 리스트 입니다.</span>
@@ -26,178 +26,45 @@
 		</section>
 		
 		<section class="py-3">
-		<div>${requestScope.selected-mentors[0]}</div>
+		<c:set var="Members" value="${requestScope.selectedMembers}"/>
+		<c:set var="Mentors" value="${requestScope.selectedMentors}"/>
 	        <div class="container px-5 my-5">
-	            <div class="row gx-5 justify-content-center">
-	                <div class="col-lg-8 col-xl-6">
-	                    <div class="text-center">
-	                        <h2 class="fw-bolder fw-normaltext-muted mb-5 mentor-of-month" style="color:#bf9667"></h2>
-	                    </div>
-	                </div>
-	            </div>
 	            <div class="row gx-5">
-	                <div class="col-lg-4 mb-5">
-	                    <div class="card h-100 shadow border-0">
-	                        <div class="card-body p-4">
-	                            <div class="badge bg-primary bg-gradient rounded-pill mb-2">${sessionScope.authentication} 멘토</div>
-	                            <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3">Blog post title</h5></a>
-	                            <p class="card-text mb-0">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-	                        </div>
-	                        <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
-	                            <div class="d-flex align-items-end justify-content-between">
-	                                <div class="d-flex align-items-center">
-	                                    <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." />
-	                                    <div class="small">
-	                                        <div class="fw-bold">Kelly Rowan</div>
-	                                        <div class="text-muted">March 12, 2021 &middot; 6 min read</div>
-	                                    </div>
-	                                </div>
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
-	                <div class="col-lg-4 mb-5">
-	                    <div class="card h-100 shadow border-0">
-	                        <img class="card-img-top" src="https://dummyimage.com/600x350/adb5bd/495057" alt="..." />
-	                        <div class="card-body p-4">
-	                            <div class="badge bg-primary bg-gradient rounded-pill mb-2">Media</div>
-	                            <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3">Another blog post title</h5></a>
-	                            <p class="card-text mb-0">This text is a bit longer to illustrate the adaptive height of each card. Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-	                        </div>
-	                        <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
-	                            <div class="d-flex align-items-end justify-content-between">
-	                                <div class="d-flex align-items-center">
-	                                    <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." />
-	                                    <div class="small">
-	                                        <div class="fw-bold">Josiah Barclay</div>
-	                                        <div class="text-muted">March 23, 2021 &middot; 4 min read</div>
-	                                    </div>
-	                                </div>
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
-	                <div class="col-lg-4 mb-5">
-	                    <div class="card h-100 shadow border-0">
-	                        <img class="card-img-top" src="https://dummyimage.com/600x350/6c757d/343a40" alt="..." />
-	                        <div class="card-body p-4">
-	                            <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div>
-	                            <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3">The last blog post title is a little bit longer than the others</h5></a>
-	                            <p class="card-text mb-0">Some more quick example text to build on the card title and make up the bulk of the card's content.</p>
-	                        </div>
-	                        <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
-	                            <div class="d-flex align-items-end justify-content-between">
-	                                <div class="d-flex align-items-center">
-	                                    <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." />
-	                                    <div class="small">
-	                                        <div class="fw-bold">Evelyn Martinez</div>
-	                                        <div class="text-muted">April 2, 2021 &middot; 10 min read</div>
-	                                    </div>
-	                                </div>
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
-        </section>
-        
-        <hr>
-        <section class="py-3">
-	        <div class="container px-5 my-5">
-	            <div class="row gx-5 justify-content-center">
-	                <div class="col-lg-8 col-xl-6">
-	                    <div class="text-center">
-	                        <h2 class="fw-bolder">선택한 조건에 따른 추천 멘토</h2>
-	                        <p class="lead fw-normal text-muted mb-5"></p>
-	                    </div>
-	                </div>
-	            </div>
-	            <div class="row gx-5">
-	                <div class="col-lg-4 mb-5">
-	                    <div class="card h-100 shadow border-0">
-	                        <img class="card-img-top" src="https://dummyimage.com/600x350/ced4da/6c757d" alt="..." />
-	                        <div class="card-body p-4">
-	                            <div class="badge bg-primary bg-gradient rounded-pill mb-2">멘토 ${sessionScope.authentication}</div>
-	                            <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3">Blog post title</h5></a>
-	                            <p class="card-text mb-0">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-	                        </div>
-	                        <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
-	                            <div class="d-flex align-items-end justify-content-between">
-	                                <div class="d-flex align-items-center">
-	                                    <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." />
-	                                    <div class="small">
-	                                        <div class="fw-bold">Kelly Rowan</div>
-	                                        <div class="text-muted">March 12, 2021 &middot; 6 min read</div>
-	                                    </div>
-	                                </div>
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
-	                <div class="col-lg-4 mb-5">
-	                    <div class="card h-100 shadow border-0">
-	                        <img class="card-img-top" src="https://dummyimage.com/600x350/adb5bd/495057" alt="..." />
-	                        <div class="card-body p-4">
-	                            <div class="badge bg-primary bg-gradient rounded-pill mb-2">Media</div>
-	                            <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3">Another blog post title</h5></a>
-	                            <p class="card-text mb-0">This text is a bit longer to illustrate the adaptive height of each card. Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-	                        </div>
-	                        <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
-	                            <div class="d-flex align-items-end justify-content-between">
-	                                <div class="d-flex align-items-center">
-	                                    <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." />
-	                                    <div class="small">
-	                                        <div class="fw-bold">Josiah Barclay</div>
-	                                        <div class="text-muted">March 23, 2021 &middot; 4 min read</div>
-	                                    </div>
-	                                </div>
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
-	                <div class="col-lg-4 mb-5">
-	                    <div class="card h-100 shadow border-0">
-	                        <img class="card-img-top" src="https://dummyimage.com/600x350/6c757d/343a40" alt="..." />
-	                        <div class="card-body p-4">
-	                            <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div>
-	                            <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3">The last blog post title is a little bit longer than the others</h5></a>
-	                            <p class="card-text mb-0">Some more quick example text to build on the card title and make up the bulk of the card's content.</p>
-	                        </div>
-	                        <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
-	                            <div class="d-flex align-items-end justify-content-between">
-	                                <div class="d-flex align-items-center">
-	                                    <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." />
-	                                    <div class="small">
-	                                        <div class="fw-bold">Evelyn Martinez</div>
-	                                        <div class="text-muted">April 2, 2021 &middot; 10 min read</div>
-	                                    </div>
-	                                </div>
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
-	               	<div class="col-lg-4 mb-5">
-	                    <div class="card h-100 shadow border-0">
-	                        <img class="card-img-top" src="https://dummyimage.com/600x350/6c757d/343a40" alt="..." />
-	                        <div class="card-body p-4">
-	                            <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div>
-	                            <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3">The last blog post title is a little bit longer than the others</h5></a>
-	                            <p class="card-text mb-0">Some more quick example text to build on the card title and make up the bulk of the card's content.</p>
-	                        </div>
-	                        <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
-	                            <div class="d-flex align-items-end justify-content-between">
-	                                <div class="d-flex align-items-center">
-	                                    <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." />
-	                                    <div class="small">
-	                                        <div class="fw-bold">Evelyn Martinez</div>
-	                                        <div class="text-muted">April 2, 2021 &middot; 10 min read</div>
-	                                    </div>
-	                                </div>
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
+	            	<c:choose>
+						<c:when test="${Mentors == null}">
+							당신의 선택과 일치하는 멘토가 존재하지 않습니다.
+							<a href="/memtoring/apply-page"><button>뒤로가기</button></a>
+						</c:when>
+						<c:otherwise>
+			            	<c:forEach var="i" begin="0" step="1" end="${Mentors.size()-1}">
+				                <div class="col-lg-4 mb-5">
+				                    <div class="card h-100 shadow border-0">
+				                        <div class="card-body p-4">
+				                            <div class="badge bg-primary bg-gradient rounded-pill mb-4">우수 멘토</div>
+				                        	<div class="d-flex align-items-end justify-content-between">
+				                                <div class="d-flex align-items-center">
+				                                    <img class="rounded-circle me-3" src="https://dummyimage.com/50x50/ced4da/6c757d" alt="..." />
+				                                    <div class="small">
+				                                        <div class="fw-bold">${Members[i].userName}</div>
+				                                        <div class="text-muted">${Mentors[i].universityName} &middot; ${Mentors[i].grade}학년</div>
+				                                    </div>
+				                                </div>
+				                            </div>
+				                            <div class="text-decoration-none link-dark stretched-link"><h6 class="card-title mb-3 mt-4">이력사항</h6></div>
+				                            <p class="card-text mb-0 small">${Mentors[i].history}</p>
+				                        </div>
+				                        <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
+				                            <div class="d-flex align-items-center justify-content-between">
+				                            		<a class="btn bg-primary btn-lg px-3 me-sm-3 fw-bolder" href="/member/mypage" style="box-shadow: 4px 3px 3px black; color: white;">이력 자세히 보기</a>
+				                            		<a class="btn bg-primary btn-lg px-3 me-sm-3 fw-bolder" href="/mentoring/apply-complete" style="box-shadow: 4px 3px 3px black; color: white;">멘토링 신청하기</a>
+				                            </div>
+				                        </div>
+				                    </div>
+				                </div>
+			            	</c:forEach>
+			            	<hr>
+						</c:otherwise>
+					</c:choose>
 	            </div>
 	        </div>
         </section>
