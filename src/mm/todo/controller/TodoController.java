@@ -119,6 +119,12 @@ public class TodoController extends HttpServlet {
 		case "insert":
 			insert(request, response);
 			break;
+		case "modify":
+			modify(request, response);
+			break;
+		case "":
+			insert(request, response);
+			break;
 		case "todaySave":
 			todaySave(request, response);
 			break;
@@ -126,6 +132,8 @@ public class TodoController extends HttpServlet {
 		}
 	}
 	
+
+
 	private void insert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
@@ -153,6 +161,12 @@ public class TodoController extends HttpServlet {
 		todo.setColor(color);
 		
 		todoService.insertTodo(todo);
+		
+	}
+	
+	
+	private void modify(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		
 	}
 	

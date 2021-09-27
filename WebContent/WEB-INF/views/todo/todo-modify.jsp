@@ -18,17 +18,23 @@
 
 </head> 
 <body>
-
+<form action="/todo/modify" method="post">
 <div class="wrap-input">
 	<div><input type="text" placeholder="일정을 입력하세요" id="titleInput"></div>
 	<div><input type="date" id="startInput"></div>
 	<div><input type="date" id="endInput"></div>
 	<div><input type="color" id="colorInput"></div>
 </div>
+	<input type="submit" value="일정 수정" />
+	<input type="submit" value="일정 삭제" />
+</form>
+
+
+<!-- 
 <div class="wrap-button">
 	<button id="modifyButton">일정  수정</button>
 	<button id="deleteButton">일정 삭제</button>
 </div>
-
+ -->
  <script src="/resources/js/todo/todo-modify.js"></script>
  
