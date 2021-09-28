@@ -144,8 +144,8 @@ public class TodoController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Member member = (Member) session.getAttribute("authentication");
 		
-		System.out.println("userId : " + member.getUserId());
-		System.out.println("userIdx : " + member.getUserIdx());
+		System.out.println("컨트롤러 userId : " + member.getUserId());
+		System.out.println("컨트롤러 userIdx : " + member.getUserIdx());
 		
 		int userIdx = member.getUserIdx();
 		String startDate = request.getParameter("startDate");
@@ -179,7 +179,9 @@ public class TodoController extends HttpServlet {
 		System.out.println("userIdx : " + member.getUserIdx());
 		
 		int userIdx = member.getUserIdx();
+		//todoIdx값을 받아올 수 없음
 		int todoIdx = todo.getTodoIdx();
+		
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
 		String title = request.getParameter("title");
@@ -206,11 +208,13 @@ public class TodoController extends HttpServlet {
 	private void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		Member member = (Member) session.getAttribute("authentication");
+		
+		//여기도
 		Todo todo = (Todo) session.getAttribute("todoIdx");
 
 		int userIdx = member.getUserIdx();
 		int todoIdx = todo.getTodoIdx();
-//		int todoIdx = Integer.parseInt(request.getParameter("todoIdx")); 
+
 
 		System.out.println("############# @TodoController - todoDelete()");
 		System.out.println("todoIdx : " + todoIdx);

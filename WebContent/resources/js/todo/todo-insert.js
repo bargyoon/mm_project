@@ -9,14 +9,13 @@ function todoInsert(){
 	let titleInput, 
 		startInput, 
 		endInput,
-		colorInput, 
-		addButton,
-		todoList = [];	
-	
+		colorInput,	
+		addButton;
+		
 	getElements();
 	addListeners();
-	save();
-//	load();
+
+
 	
 	function getElements(){
 		titleInput = document.getElementById("titleInput");	//일정제목
@@ -39,6 +38,7 @@ function todoInsert(){
 			let titleValue = titleInput.value;
 			if(!titleValue){
 				alert('제목을 입력해주세요');
+				document.getElementById("titleInput").focus();
 				return;
 			}
 			
@@ -53,26 +53,13 @@ function todoInsert(){
 				return;
 			}			
 			
-			if(startValue>endValue){
-				alert('날짜를 다시 확인해주세요');
-				return;
+			if( Number(startValue.replace(/-/gi,"")) > Number(endValue.replace(/-/gi,"")) ){
+			alert("시작일이 종료일보다 클 수 없습니다.");
+             	return;
 			}
 			
 			let colorValue = colorInput.value;
-		
-			let obj = {
-				id : todoIdx(),	
-				title : titleValue,
-				start : startValue,
-				end : endValue,
-				done : false,
-				color : colorValue
-			}
-	
-			todoList.push(obj);
-			console.log(obj);
-			save();
-			load();
+
 			
 			alert('일정이 등록되었습니다.');
 			
@@ -85,37 +72,5 @@ function todoInsert(){
 			// 등록 끝
 			opener.document.location.reload();
 		}		
-		
-	
-	function save(){
-		let stringified = JSON.stringify(todoList);	//todoList는 String타입이므로 배열의 메서드인 forEach 사용불가므로 
-													//todoList 값들을 String으로 만들어 배열화함 
-		localStorage.setItem("todoList", stringified);	
-	}
 
-	function load(){
-		//value값은 아직 String이므로
-		let retrieved = localStorage.getItem("todoList");
-		todoList = JSON.parse(retrieved)
-		console.log(typeof todoList);	//오브젝트
-		console.log(todoList); 
-		if(todoList == null){
-			todoList = [];
-		}
-		var title = document.getElementById('titleInput').value;
-		var start = document.getElementById('startInput').value;
-		var end = document.getElementById('endInput').value;
-		var color = document.getElementById('colorInput').value;
-		
-		document.getElementById('titleInput').value = title;
-		document.getElementById('startInput').value = start;
-		document.getElementById('endInput').value = end;
-		document.getElementById('colorInput').value = color;
-	}
-		
-
-	function todoIdx() {	//아이디 랜덤으로 만들기 
-		const rand_0_10000000 = Math.floor(Math.random() * 10000001);
-		return rand_0_10000000;
-	}
 }

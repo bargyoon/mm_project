@@ -96,12 +96,24 @@ public class TodoService {
 		return todayList;
 	}
 
-	
-	public void todaySave(ArrayList<Integer> todoIdxList) {
-
-		todoDao.todaySave(todoIdxList);
+	//
+	public int todaySave(ArrayList<Integer> todoIdxList) {
+		int res = 0;
+		Connection conn = template.getConnection();
+		
+		try {
+			while(res != 0){
+				res = todoDao.todoSave(todoIdxList, conn);
+				template.commit(conn);
+			}
+		}catch (Exception e) {
+			template.rollback(conn);
+			e.printStackTrace();
+		} finally {
+			template.close(conn);
+		}
+		return res;
 	}
 
-	
-	
 }
+

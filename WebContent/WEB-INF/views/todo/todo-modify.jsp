@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,15 +22,15 @@
 <body>
 <form method="post">
 <div class="wrap-input">
-	<div>일정 제목 <input type="text" name="title" id="titleInput" ></div>
-	<div>일정 시작일 <input type="date" name="startDate" id="startInput"></div>
-	<div>일정 종료일 <input type="date" name="endDate" id="endInput"></div>
-	<div>색상 <input type="color" name="color" id="colorInput"></div>
+	<div>일정 제목 <input type="text" name="title" id="titleInput" value="${todo.title}" /></div>
+	<div>일정 시작일 <input type="date" name="startDate" id="startInput" value="${todo.startDate}" /></div>
+	<div>일정 종료일 <input type="date" name="endDate" id="endInput" value="${todo.endDate}" /></div>
+	<div>색상 <input type="color" name="color" id="colorInput" value="${todo.color}" /></div>
 	
 </div>
 <div class="wrap-button">
-	<input type="submit" value="일정 수정" formaction="/todo/modify" />
-	<input type="submit" value="일정 삭제" formaction="/todo/delete" />
+	<input type="submit" value="일정 수정" formaction="/todo/modify" id="modifyButton"/>
+	<input type="submit" value="일정 삭제" formaction="/todo/delete" id="deleteButton"/>
 </div>
 </form>
 </body>

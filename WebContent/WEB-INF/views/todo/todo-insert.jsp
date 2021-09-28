@@ -27,15 +27,10 @@
 	
 </div>
 <div class="wrap-button">
-	<input type="submit" value="일정 추가" />
+	<input type="submit" value="일정 추가" id="addButton"/>
 </div>
 </form>
 
-<!-- 
-<div class="wrap-button">
-	<button id="addButton">일정  추가</button>
-</div>
- -->
 
 <script src="/resources/js/todo/todo-insert.js"></script>
  

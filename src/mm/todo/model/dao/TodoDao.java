@@ -155,25 +155,22 @@ public class TodoDao {
 		return todayList;
 	}
 	
-	
-	// 오늘의 일정
-	public void todaySave(ArrayList<Integer> todoIdxList) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	
-	//일정 체크
-	public boolean todaySave(Todo todo, Connection conn) {		
-		boolean res = false;		
+
+	//체크박스 값 변경 
+
+	public int todoSave(ArrayList<Integer> todoIdxList, Connection conn) {
+		int res = 0;	
+		Todo todo = null;
 		PreparedStatement pstm = null;
 		String query = "UPDATE TODO SET DONE = ? WHERE TODO_IDX = ?";
 		
+		//체크여부 넣어주기
 		try {
 			pstm = conn.prepareStatement(query);
 			pstm.setBoolean(1, todo.isDone());
 			pstm.setInt(2, todo.getTodoIdx());
-			res = pstm.execute();
+			//res = pstm.execute();
 		} catch (SQLException e) {
 			throw new DataAccessException(e);
 		}finally {
@@ -181,10 +178,8 @@ public class TodoDao {
 		}
 		
 		return res;
-	}
-	
-	
-	
+	}			
+
 	
 	
 	
@@ -208,5 +203,5 @@ public class TodoDao {
 	}
 
 
-		
+
 }
