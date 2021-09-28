@@ -14,6 +14,7 @@ import mm.member.model.dto.Mentor;
 import mm.mentoring.model.dto.ApplyHistory;
 import mm.mentoring.model.dto.MentorCondition;
 import mm.mentoring.model.dto.MentoringHistory;
+import oracle.jdbc.proxy.annotation.Pre;
 
 public class MentoringDao {
 
@@ -61,7 +62,7 @@ public class MentoringDao {
 			}
 			
 			
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			new DataAccessException(e);
 		} finally {
 			template.close(pstm, conn);
@@ -87,7 +88,7 @@ public class MentoringDao {
 				mhList.add(mh);
 			}
 			
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			new DataAccessException(e);
 		} finally {
 			template.close(pstm, conn);
@@ -114,7 +115,7 @@ public class MentoringDao {
 				ahList.add(ah);
 			}
 			
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			new DataAccessException(e);
 		} finally {
 			template.close(pstm, conn);
@@ -123,7 +124,42 @@ public class MentoringDao {
 		return ahList;
 	}
 	
+	public int increaseReapplyCnt(int ahIdx, Connection conn) {
+		int res = 0;
+		PreparedStatement pstm = null;
+		String query = "update apply_history set reapply_cnt = reapply_cnt + 1, apply_date = SYSDATE, ep_date = SYSDATE+3 where a_idx = ?";
 	
+		try {
+			pstm = conn.prepareStatement(query);
+			pstm.setInt(1, ahIdx);
+			res = pstm.executeUpdate();
+		} catch (SQLException e) {
+			new DataAccessException(e);
+		} finally {
+			template.close(pstm);
+		}
+	
+		return res;
+	}
+	
+	public int registApply(MentoringHistory mh, Connection conn) {
+		int res = 0;
+		PreparedStatement pstm = null;
+		String query = "insert into apply_history (a_idx, user_idx, mentor_name, mentor_idx) VALUES (SC_A_IDX.nextval, ?, ?, ?)";
+		
+		try {
+			pstm = conn.prepareStatement(query);
+			pstm.setInt(1, mh.getUserIdx());
+			pstm.setString(2, mh.getMentorName());
+			pstm.setInt(3, mh.getMentorIdx());
+			res = pstm.executeUpdate();
+		} catch (SQLException e) {
+			new DataAccessException(e);
+		} finally {
+			template.close(pstm);
+		}
+		return res;
+	}
 	
 	private ApplyHistory convertToApplyDTO(ResultSet rset) throws SQLException {
 		ApplyHistory ah = new ApplyHistory();
@@ -131,7 +167,9 @@ public class MentoringDao {
 		ah.setUserIdx(rset.getInt("user_idx"));
 		ah.setMentorIdx(rset.getInt("mentor_idx"));
 		ah.setMentorName(rset.getString("mentor_name"));
+		ah.setApplyDate(rset.getDate("apply_date"));
 		ah.setEpDate(rset.getDate("ep_date"));
+		ah.setReapplyCnt(rset.getInt("reapply_cnt"));
 		
 		return ah;
 	}
@@ -215,6 +253,4 @@ public class MentoringDao {
 
 		return member;
 	}
-
-
 }

@@ -31,7 +31,7 @@
 	        <div class="container px-5 my-5">
 	            <div class="row gx-5">
 	            	<c:choose>
-						<c:when test="${Mentors == null}">
+						<c:when test="${Mentors.size() == 0}">
 							당신의 선택과 일치하는 멘토가 존재하지 않습니다.
 							<a href="/memtoring/apply-page"><button>뒤로가기</button></a>
 						</c:when>
@@ -50,13 +50,13 @@
 				                                    </div>
 				                                </div>
 				                            </div>
-				                            <div class="text-decoration-none link-dark stretched-link"><h6 class="card-title mb-3 mt-4">이력사항</h6></div>
+				                            <div class="text-decoration-none link-dark"><h6 class="card-title mb-3 mt-4">이력사항</h6></div>
 				                            <p class="card-text mb-0 small">${Mentors[i].history}</p>
 				                        </div>
 				                        <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
 				                            <div class="d-flex align-items-center justify-content-between">
-				                            		<a class="btn bg-primary btn-lg px-3 me-sm-3 fw-bolder" href="/member/mypage" style="box-shadow: 4px 3px 3px black; color: white;">이력 자세히 보기</a>
-				                            		<a class="btn bg-primary btn-lg px-3 me-sm-3 fw-bolder" href="/mentoring/apply-complete" style="box-shadow: 4px 3px 3px black; color: white;">멘토링 신청하기</a>
+				                            	<button class="btn bg-primary btn-lg px-3 me-sm-3 fw-bolder" onclick="checkHistory(${Members[i].userIdx})" style="box-shadow: 4px 3px 3px black; color: white;">이력 자세히 보기</button>
+				                            	<button class="btn bg-primary btn-lg px-3 me-sm-3 fw-bolder" href="/mentoring/apply-complete" style="box-shadow: 4px 3px 3px black; color: white;">멘토링 신청하기</button>
 				                            </div>
 				                        </div>
 				                    </div>

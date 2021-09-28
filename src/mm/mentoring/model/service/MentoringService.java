@@ -78,6 +78,43 @@ public class MentoringService {
 		return ahList;
 	}
 
+	public int increaseReapplyCnt(int ahIdx) {
+		int res = 0;
+		
+		Connection conn = template.getConnection();
+		
+		try {
+			res = mDao.increaseReapplyCnt(ahIdx, conn);
+			template.commit(conn);
+		} catch (Exception e) {
+			template.rollback(conn);
+			throw e;
+		} finally {
+			template.close(conn);
+		}
+		
+		return res;
+	}
+
+	public int registApply(MentoringHistory mh) {
+		int res = 0;
+		
+		Connection conn = template.getConnection();
+		
+		try {
+			res = mDao.registApply(mh, conn);
+			template.commit(conn);
+		} catch (Exception e) {
+			template.rollback(conn);
+			throw e;
+		} finally {
+			template.close(conn);
+		}
+		
+		
+		return res;
+	}
+
 	
 	
 	
