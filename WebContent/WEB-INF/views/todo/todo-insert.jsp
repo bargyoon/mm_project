@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,12 +20,15 @@
 <body>
 <form action="/todo/insert" method="post">
 <div class="wrap-input">
-	<div><input type="text" name="title" placeholder="일정을 입력하세요" id="titleInput" ></div>
-	<div><input type="date" name="startDate" id="startInput"></div>
-	<div><input type="date" name="endDate" id="endInput"></div>
-	<div><input type="color" name="color" id="colorInput"></div>
+	<div>일정 제목 <input type="text" name="title" placeholder="일정을 입력하세요" id="titleInput" ></div>
+	<div>일정 시작일 <input type="date" name="startDate" id="startInput"></div>
+	<div>일정 종료일 <input type="date" name="endDate" id="endInput"></div>
+	<div>색상 <input type="color" name="color" id="colorInput"></div>
+	
 </div>
+<div class="wrap-button">
 	<input type="submit" value="일정 추가" />
+</div>
 </form>
 
 <!-- 

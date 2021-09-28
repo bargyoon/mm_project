@@ -18,17 +18,20 @@
 
 </head> 
 <body>
-<form action="/todo/modify" method="post">
+<form method="post">
 <div class="wrap-input">
-	<div><input type="text" placeholder="일정을 입력하세요" id="titleInput"></div>
-	<div><input type="date" id="startInput"></div>
-	<div><input type="date" id="endInput"></div>
-	<div><input type="color" id="colorInput"></div>
+	<div>일정 제목 <input type="text" name="title" id="titleInput" ></div>
+	<div>일정 시작일 <input type="date" name="startDate" id="startInput"></div>
+	<div>일정 종료일 <input type="date" name="endDate" id="endInput"></div>
+	<div>색상 <input type="color" name="color" id="colorInput"></div>
+	
 </div>
-	<input type="submit" value="일정 수정" />
-	<input type="submit" value="일정 삭제" />
+<div class="wrap-button">
+	<input type="submit" value="일정 수정" formaction="/todo/modify" />
+	<input type="submit" value="일정 삭제" formaction="/todo/delete" />
+</div>
 </form>
-
+</body>
 
 <!-- 
 <div class="wrap-button">

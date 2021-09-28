@@ -11377,7 +11377,7 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
-	margin-top: 5%;
+	margin-top: 4%;
 	
 	
 }
@@ -11387,7 +11387,7 @@ html {
 	text-align: left;
 	width: 20%;
 	border-radius: 5px 5px 5px 5px;
-	padding: 10px 20px 0px 20px;
+	padding: 20px 20px 0px 20px;
 	border-style: solid;
     border-width: thin;
 	border-color: #343a40;
@@ -11447,6 +11447,18 @@ checkbox{
    width: 20%;
    height: 100%;
 }
+
+.save-but{
+   background-color: #343a40;
+   	color: white;
+   
+   height: 70%;
+   width: 25%;
+   border-radius: 5px 5px 5px 5px;
+   font-family: 'Pretendard-SemiBold';
+}
+
+
 
 .submit-but {
    background-color: #343a40;

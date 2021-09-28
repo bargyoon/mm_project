@@ -28,14 +28,15 @@
       <div class="todo-list-wrap">
       	<div class="todo-list">
       		<form action="/todo/todaySave" method="post" >
-      		<c:forEach var="todo" items="${todayList}" varStatus="status">
+      		<c:forEach var="todo" items="${todayList}" varStatus="s tatus">
 		         <p>
 		         	<input type="checkbox" id="${todo.todoIdx}" name="todoList" value="${todo.todoIdx}"> 
 		         	<label for="${todo.todoIdx}" class="check-label">${todo.title}</label>
 		         </p>
       		</c:forEach>
-      		
-      			<input type="submit" value="저장" />
+      		<div class="wrap-but">
+      			<input type="submit" value="저장" class="save-but" id="save">
+      		</div>
       		</form>
       	</div>
       </div>
@@ -59,5 +60,6 @@
 
 <%@ include file="/WEB-INF/views/include/footer.jsp" %>
 <%@ include file="/WEB-INF/views/include/jsFiles.jsp" %>
+<script src="/resources/js/todo/todo-main.js"></script>
 </body>
 </html>

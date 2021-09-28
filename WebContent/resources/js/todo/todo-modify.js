@@ -117,14 +117,8 @@ function load(){
 
 
 function deleteEntry(){
-	trElem.remove();	//row 삭제
+	alert('일정을 삭제할까요?');
 	
-	for(let i = 1; i < todoList.length; i++){
-		if(todoList[i].id == this.dataset.id){	//아이디가 delete id와같으면
-			todoList.splice(i,1);	//i번쨰 인덱스에 있는 1개 지움
-		}
-	}
-	save();	//sort한거 저장 
 	
 	opener.document.location.reload();
 }

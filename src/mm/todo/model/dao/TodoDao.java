@@ -16,6 +16,31 @@ public class TodoDao {
 
 	JDBCTemplate template = JDBCTemplate.getInstance();
 
+	//캘린더에 모든 요소 출력용
+	public List<Todo> calendarList(Connection conn){
+		
+		List<Todo> calendarList = new ArrayList<Todo>();	
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		
+		String query = "SELECT * FROM TODO";
+		
+		try {
+			pstm = conn.prepareStatement(query);
+			rset = pstm.executeQuery();
+		while(rset.next()) {
+				calendarList.add(convertRowToTodo(rset));
+			}
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		}finally {
+			template.close(rset, pstm);
+		}
+		
+		return calendarList;
+	}
+	
+	
 	
 	//일정 추가
 	public int insertTodo(Todo todo, Connection conn) {
@@ -81,40 +106,16 @@ public class TodoDao {
 		
 		return res;
 	}
-	
-	
-	//일정 체크, 미체크 
-	public boolean doneTodo(Todo todo, Connection conn) {		
-		boolean res = false;		
-		PreparedStatement pstm = null;
-		String query = "UPDATE TODO SET DONE = ? WHERE TODO_IDX = ?";
 		
-		try {
-			pstm = conn.prepareStatement(query);
-			pstm.setBoolean(1, todo.isDone());
-			pstm.setInt(2, todo.getTodoIdx());
-			res = pstm.execute();
-		} catch (SQLException e) {
-			throw new DataAccessException(e);
-		}finally {
-			template.close(pstm);
-		}
-		
-		return res;
-	}
-	
-	
-	
-	
 	//일정 삭제
-	public int deleteTodo(int todoIdx, Connection conn) {
+	public int deleteTodo(Todo todo, Connection conn) {
 		int res = 0;		
 		PreparedStatement pstm = null;
 		String query = "DELETE FROM TODO WHERE TODO_IDX = ?";
 		
 		try {
 			pstm = conn.prepareStatement(query);
-			pstm.setInt(1, todoIdx);
+			pstm.setInt(1, todo.getTodoIdx());
 			res = pstm.executeUpdate();
 		} catch (SQLException e) {
 			throw new DataAccessException(e);
@@ -155,6 +156,44 @@ public class TodoDao {
 	}
 	
 	
+	// 오늘의 일정
+	public void todaySave(ArrayList<Integer> todoIdxList) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+	//일정 체크
+	public boolean todaySave(Todo todo, Connection conn) {		
+		boolean res = false;		
+		PreparedStatement pstm = null;
+		String query = "UPDATE TODO SET DONE = ? WHERE TODO_IDX = ?";
+		
+		try {
+			pstm = conn.prepareStatement(query);
+			pstm.setBoolean(1, todo.isDone());
+			pstm.setInt(2, todo.getTodoIdx());
+			res = pstm.execute();
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		}finally {
+			template.close(pstm);
+		}
+		
+		return res;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	private Todo convertRowToTodo(ResultSet rset) throws SQLException {
 		Todo todo = new Todo();
 		todo.setTodoIdx(rset.getInt("todo_idx"));
@@ -168,5 +207,6 @@ public class TodoDao {
 		return todo;
 	}
 
-	
+
+		
 }
