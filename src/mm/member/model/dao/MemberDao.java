@@ -16,8 +16,7 @@ import mm.member.model.dto.Mentor;
 public class MemberDao {
 
 	JDBCTemplate template = JDBCTemplate.getInstance();
-	
-	
+
 	public Member memberAuthenticate(String userId, String password, Connection conn) {
 		Member member = null;
 		PreparedStatement pstm = null;
@@ -36,8 +35,8 @@ public class MemberDao {
 			}
 
 		} catch (SQLException e) {
-			
-			throw new DataAccessException(e);		
+
+			throw new DataAccessException(e);
 		} finally {
 			template.close(rset, pstm);
 
@@ -45,14 +44,14 @@ public class MemberDao {
 		return member;
 	}
 
-	public Member selectMemberById(String userId, Connection conn)  {
+	public Member selectMemberById(String userId, Connection conn) {
 		Member member = null;
-		
+
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
 
 		try {
-			
+
 			String query = "select * from member where user_id = ?";
 			pstm = conn.prepareStatement(query);
 			pstm.setString(1, userId);
@@ -63,7 +62,7 @@ public class MemberDao {
 				member = convertRowToMember(rset);
 			}
 		} catch (SQLException e) {
-			
+
 			throw new DataAccessException(e);
 		} finally {
 			template.close(rset, pstm);
@@ -72,13 +71,40 @@ public class MemberDao {
 		return member;
 	}
 
+	public Member selectMemberByIdx(int userIdx, Connection conn) {
+		Member member = null;
+
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+
+		try {
+
+			String query = "select * from member where user_idx = ?";
+			pstm = conn.prepareStatement(query);
+			pstm.setInt(1, userIdx);
+
+			rset = pstm.executeQuery();
+
+			if (rset.next()) {
+				member = convertRowToMember(rset);
+			}
+		} catch (SQLException e) {
+
+			throw new DataAccessException(e);
+		} finally {
+			template.close(rset, pstm);
+		}
+
+		return member;
+	}
+	
 	public List<Member> selectMemberList(Connection conn) {
 		List<Member> memberList = new ArrayList<>();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
 
 		try {
-		
+
 			String query = "select * from member";
 			pstm = conn.prepareStatement(query);
 
@@ -96,15 +122,14 @@ public class MemberDao {
 
 		return memberList;
 	}
-	
+
 	public int insertMember(Member member, Connection conn) {
 		int res = 0;
 		PreparedStatement pstm = null;
-		
 
 		try {
 			String query = "insert into member(user_idx,user_name,user_id,password,email,gender,address,phone,nickname,role) values(sc_user_idx.nextval,?,?,?,?,?,?,?,?,?)";
-			
+
 			pstm = conn.prepareStatement(query);
 			pstm.setString(1, member.getUserName());
 			pstm.setString(2, member.getUserId());
@@ -115,8 +140,6 @@ public class MemberDao {
 			pstm.setString(7, member.getPhone());
 			pstm.setString(8, member.getNickname());
 			pstm.setString(9, member.getRole());
-			
-		
 
 			res = pstm.executeUpdate();
 		} catch (SQLException e) {
@@ -126,24 +149,73 @@ public class MemberDao {
 		}
 
 		return res;
-		
+
+	}
+	
+	public int modifyMember(Member member, Connection conn) {
+		int res = 0;
+		PreparedStatement pstm = null;
+
+		try {
+			String query = "update member set user_name=?, email=?, address=?, phone=? where user_id = ?";
+
+			pstm = conn.prepareStatement(query);
+			pstm.setString(1, member.getUserName());
+			pstm.setString(2, member.getEmail());
+			pstm.setString(3, member.getAddress());
+			pstm.setString(4, member.getPhone());
+			pstm.setString(5, member.getUserId());
+
+			res = pstm.executeUpdate();
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(pstm);
+		}
+
+		return res;
+	}
+	
+	public int modifyMentor(Mentor mentor, int userIdx, Connection conn) {
+		int res = 0;
+		PreparedStatement pstm = null;
+
+		try {
+			String query = "update user_mentor set university_name = ?, grade = ?, major = ?, want_day = ?, want_time = ?, requirement = ?, history = ? where user_idx = ?";
+
+			pstm = conn.prepareStatement(query);
+			pstm.setString(1, mentor.getUniversityName());
+			pstm.setInt(2, mentor.getGrade());
+			pstm.setString(3, mentor.getMajor());
+			pstm.setString(4, mentor.getWantDay());
+			pstm.setString(5, mentor.getWantTime());
+			pstm.setString(6, mentor.getRequirement());
+			pstm.setString(7, mentor.getHistory());
+			pstm.setInt(8, userIdx);
+
+			res = pstm.executeUpdate();
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(pstm);
+		}
+
+		return res;
 	}
 
 	public int insertMentee(Mentee mentee, Connection conn) {
 		int res = 0;
 		PreparedStatement pstm = null;
-		
 
 		try {
 			String query = "insert into user_mentee(mentee_idx,user_idx,school_name,major,grade,hope_university,hope_major) values(sc_mentee_idx.nextval,sc_user_idx.currval,?,?,?,?,?)";
-			
+
 			pstm = conn.prepareStatement(query);
 			pstm.setString(1, mentee.getSchoolName());
 			pstm.setString(2, mentee.getMajor());
 			pstm.setInt(3, mentee.getGrade());
 			pstm.setString(4, mentee.getHopeUniversity());
 			pstm.setString(5, mentee.getHopeMajor());
-			
 
 			res = pstm.executeUpdate();
 		} catch (SQLException e) {
@@ -158,12 +230,10 @@ public class MemberDao {
 	public int insertMentor(Mentor mentor, Connection conn) {
 		int res = 0;
 		PreparedStatement pstm = null;
-		
 
 		try {
 			String query = "insert into user_mentor(mentor_idx,user_idx,university_name,university_type,grade,major,want_day,want_time,requirement,history) values(sc_mentor_idx.nextval,sc_user_idx.currval,?,?,?,?,?,?,?,?)";
-			
-			
+
 			pstm = conn.prepareStatement(query);
 			pstm.setString(1, mentor.getUniversityName());
 			pstm.setString(2, mentor.getUniversityType());
@@ -173,7 +243,6 @@ public class MemberDao {
 			pstm.setString(6, mentor.getWantTime());
 			pstm.setString(7, mentor.getRequirement());
 			pstm.setString(8, mentor.getHistory());
-			
 
 			res = pstm.executeUpdate();
 		} catch (SQLException e) {
@@ -184,7 +253,57 @@ public class MemberDao {
 
 		return res;
 	}
+
+	public Mentee selectMenteeByRole(int userIdx, Connection conn) {
+		Mentee mentee = null;
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+
+		try {
+
+			String query = "select * from user_mentee where user_idx = ?";
+			pstm = conn.prepareStatement(query);
+			pstm.setInt(1, userIdx);
+			rset = pstm.executeQuery();
+
+			if (rset.next()) {
+				mentee = convertRowToMentee(rset);
+			}
+		} catch (SQLException e) {
+
+			throw new DataAccessException(e);
+		} finally {
+			template.close(rset, pstm);
+		}
+
+		return mentee;
+	}
 	
+	public Mentor selectMentorByRole(int userIdx, Connection conn) {
+		Mentor mentor = null;
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+
+		try {
+
+			String query = "select * from user_mentor where user_idx = ?";
+			pstm = conn.prepareStatement(query);
+			pstm.setInt(1, userIdx);
+			rset = pstm.executeQuery();
+
+			if (rset.next()) {
+				mentor = convertRowToMentor(rset);
+			}
+		} catch (SQLException e) {
+
+			throw new DataAccessException(e);
+		} finally {
+			template.close(rset, pstm);
+		}
+
+		return mentor;
+	}
+
 	private Member convertRowToMember(ResultSet rset) throws SQLException {
 		Member member = new Member();
 		member.setUserIdx(rset.getInt("user_idx"));
@@ -201,5 +320,39 @@ public class MemberDao {
 		member.setIsLeave(rset.getInt("is_leave"));
 		return member;
 	}
+
+	private Mentor convertRowToMentor(ResultSet rset) throws SQLException {
+		Mentor mentor = new Mentor();
+		mentor.setMentorIdx(rset.getInt("mentor_idx"));
+		mentor.setUserIdx(rset.getInt("user_idx"));
+		mentor.setUniversityName(rset.getString("UNIVERSITY_NAME"));
+		mentor.setUniversityType(rset.getString("UNIVERSITY_TYPE"));
+		mentor.setGrade(rset.getInt("GRADE"));
+		mentor.setMajor(rset.getString("MAJOR"));
+		mentor.setWantDay(rset.getString("WANT_DAY"));
+		mentor.setWantTime(rset.getString("WANT_TIME"));
+		mentor.setRequirement(rset.getString("REQUIREMENT"));
+		mentor.setHistory(rset.getString("HISTORY"));
+		mentor.setMentoringCnt(rset.getInt("MENTORING_CNT"));
+		return mentor;
+	}
+
+	private Mentee convertRowToMentee(ResultSet rset) throws SQLException {
+		Mentee mentee = new Mentee();
+		mentee.setMenteeIdx(rset.getInt("MENTEE_IDX"));
+		mentee.setUserIdx(rset.getInt("user_idx"));
+		mentee.setSchoolName(rset.getString("SCHOOL_NAME"));
+		mentee.setMajor(rset.getString("MAJOR"));
+		mentee.setGrade(rset.getInt("GRADE"));
+		mentee.setHopeUniversity(rset.getString("HOPE_UNIVERSITY"));
+		mentee.setHopeMajor(rset.getString("HOPE_MAJOR"));
+		return mentee;
+	}
+
+	
+
+	
+
+	
 
 }

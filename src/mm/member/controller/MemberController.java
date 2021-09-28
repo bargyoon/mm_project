@@ -77,14 +77,17 @@ public class MemberController extends HttpServlet {
 		case "id-check":
 			checkID(request, response);
 			break;
+		case "modify-mentor":
+			modifyMentor(request, response);
+			break;
 		case "confirm-pw":
 			confirmPassword(request, response);
 			break;
 		case "mypage":
 			mypage(request, response);
 			break;
-		case "modify-info-form":
-			modifyInfoForm(request, response);
+		case "mentor-info":
+			mentorInfoForm(request, response);
 			break;
 
 		default:
@@ -93,15 +96,71 @@ public class MemberController extends HttpServlet {
 
 	}
 
+	private void modifyMentor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String userName = request.getParameter("userName");
+		String email = request.getParameter("email");
+		String phone = request.getParameter("phone");
+		String address = request.getParameter("address");
+		String universityName = request.getParameter("university");
+		String grade = request.getParameter("grade");
+		String major = request.getParameter("major");
+		String wantDay = request.getParameter("wantDay");
+		String wantTime = request.getParameter("wantTime");
+		String requirement = request.getParameter("requirement");
+		String[] historyArr = request.getParameterValues("history");
+		Member member = (Member) request.getSession().getAttribute("authentication");
+		Mentor mentor = (Mentor) request.getSession().getAttribute("authMentor");
+		String history = mentor.getHistory();
+
+		System.out.println(userName);
+		
+		member.setUserName(userName);
+		member.setEmail(email);
+		member.setAddress(address);
+		member.setPhone(phone);
+
+		mentor.setUniversityName(universityName);
+		mentor.setGrade(Integer.parseInt(grade));
+		mentor.setMajor(major);
+		mentor.setWantDay(wantDay);
+		mentor.setWantTime(wantTime);
+		mentor.setRequirement(requirement);
+		if (historyArr != null) {
+			
+		
+			for (int i = 0; i < historyArr.length; i++) {
+
+				history += ("," + historyArr[i]);
+
+			}
+			mentor.setHistory(history);
+		} 
+
+		if (memberService.modifyMentor(member, mentor) != 0) {
+			System.out.println("수정완료");
+		}
+		request.getRequestDispatcher("/member/mypage").forward(request, response);
+	}
+
 	private void joinRule(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.getRequestDispatcher("/member/join-rule").forward(request, response);
 
 	}
 
-	private void modifyInfoForm(HttpServletRequest request, HttpServletResponse response)
+	private void mentorInfoForm(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("/member/modify-info").forward(request, response);
+		int mentorIdx = Integer.parseInt(request.getParameter("user_idx"));
+		Member member = null;
+		Mentor mentor = null;
+		member = memberService.selectMemberByIdx(mentorIdx);
+
+		mentor = memberService.selectMentorByRole(member);
+		request.getSession().setAttribute("mentorInfo", mentor);
+
+		request.getSession().setAttribute("userInfo", member);
+
+		request.getRequestDispatcher("/member/mentor-info").forward(request, response);
 
 	}
 
@@ -225,7 +284,7 @@ public class MemberController extends HttpServlet {
 				if (i == 0) {
 					history = historyArr[i];
 				} else {
-					history += (","+historyArr[i]);
+					history += ("," + historyArr[i]);
 				}
 
 			}
@@ -291,16 +350,22 @@ public class MemberController extends HttpServlet {
 
 		String userId = request.getParameter("userId");
 		String password = request.getParameter("password");
-		System.out.println(userId);
 		Member member = null;
-
+		Mentor mentor = null;
+		Mentee mentee = null;
 		member = memberService.memberAuthenticate(userId, password);
 
 		if (member == null) {
 			response.sendRedirect("/member/login-form?err=1");
 			return;
 		}
-
+		if (member.getRole().startsWith("ME")) {
+			mentee = memberService.selectMenteeByRole(member);
+			request.getSession().setAttribute("authMentee", mentee);
+		} else {
+			mentor = memberService.selectMentorByRole(member);
+			request.getSession().setAttribute("authMentor", mentor);
+		}
 		request.getSession().setAttribute("authentication", member);
 
 		response.sendRedirect("/");

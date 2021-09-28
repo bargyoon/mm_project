@@ -34,6 +34,7 @@
                             value="${joinForm.userName}"
                                   </c:if>
                         required class="form-control bg-white border-left-0 border-md">
+                        
                   </div>
 
                   <!-- UserId -->

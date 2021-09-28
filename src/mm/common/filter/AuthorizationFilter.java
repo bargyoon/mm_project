@@ -106,8 +106,14 @@ public class AuthorizationFilter implements Filter {
 
 	private void memberAuthorize(HttpServletRequest httpRequest, HttpServletResponse httpResponse, String[] uriArr)
 			throws IOException, ServletException {
-	
+		HttpSession session = httpRequest.getSession();
 
+		switch(uriArr[2]) {
+		case "mypage": 
+			if(session.getAttribute("authentication") == null){
+				throw new HandlableException(ErrorCode.UNLOGINED_ERROR);
+			}
+		}
 
 	}
 

@@ -78,6 +78,7 @@ public class MemberService {
 
 	public Member memberAuthenticate(String userId, String password) {
 		Member member = null;
+		
 		Connection conn = template.getConnection();
 
 		try {
@@ -104,6 +105,80 @@ public class MemberService {
 		}
 
 		return member;
+	}
+	
+	public Member selectMemberByIdx(int userIdx) {
+		Connection conn = template.getConnection();
+		Member member = null;
+
+		try {
+
+			member = memberDao.selectMemberByIdx(userIdx, conn);
+
+		} finally {
+			template.close(conn);
+		}
+
+		return member;
+	}
+
+
+
+	public Mentee selectMenteeByRole(Member member) {
+		Connection conn = template.getConnection();
+		Mentee mentee = null;
+
+		try {
+
+			mentee = memberDao.selectMenteeByRole(member.getUserIdx(), conn);
+
+		} finally {
+			template.close(conn);
+		}
+
+		return mentee;
+	}
+	
+	public Mentor selectMentorByRole(Member member) {
+		Connection conn = template.getConnection();
+		Mentor mentor = null;
+
+		try {
+
+			mentor = memberDao.selectMentorByRole(member.getUserIdx(), conn);
+		} finally {
+			template.close(conn);
+		}
+
+		return mentor;
+	}
+
+
+	public int modifyMentor(Member member, Mentor mentor) {
+		Connection conn = template.getConnection();
+		int res = 0;
+		try {
+			
+			if(memberDao.modifyMember(member, conn) != 0) {
+				res = memberDao.modifyMentor(mentor, member.getUserIdx(), conn);
+			}
+			
+			
+			
+			//Member m = memberDao.selectMemberById(member.getUserId(), conn);
+			// 다오를 통해 사용자 정보를 받아서 해당 정보로 로그인 처리 진행
+			System.out.println(member.getUserId() + "의 회원수정 로직이 동작했습니다.");
+			template.commit(conn);
+		} catch (Exception e) {
+			template.rollback(conn);
+			// 예전처럼 예외처리
+			throw e;
+		} finally {
+			template.close(conn);
+		}
+		
+		
+		return res;	
 	}
 
 }
