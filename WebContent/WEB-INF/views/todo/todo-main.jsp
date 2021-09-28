@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,20 +21,23 @@
         <main class="flex-shrink-0">
             
       <div class="user-name">
-         <h2>${sessionScope.authentication} 님<h2>
+         <h2>${authentication.userName} 님<h2>
          <h3>오늘의 할 일입니다.</h3>
       </div>
       
       <div class="todo-list-wrap">
       	<div class="todo-list">
-	         <p><input type="checkbox" id="a"> <label for="a" class="check-label">오늘의일정</label></p>
-		     <p><input type="checkbox" id="b"> <label for="b" class="check-label">오늘의일정</label></p>
-	         <p><input type="checkbox" id="c"> <label for="c" class="check-label">오늘의일정</label></p>
-	         <p><input type="checkbox" id="d"> <label for="d" class="check-label">오늘의일정</label></p>
-	         <p><input type="checkbox" id="e"> <label for="e" class="check-label">오늘의일정</label></p>
-	         <p><input type="checkbox" id="f"> <label for="f" class="check-label">오늘의일정오늘의일정오늘의일정오늘의일정오늘의일정</label></p>
-
-		     
+      		<form action="/todo/todaySave" method="post" >
+      		<c:forEach var="todo" items="${todayList}" varStatus="s tatus">
+		         <p>
+		         	<input type="checkbox" id="${todo.todoIdx}" name="todoList" value="${todo.todoIdx}"> 
+		         	<label for="${todo.todoIdx}" class="check-label">${todo.title}</label>
+		         </p>
+      		</c:forEach>
+      		<div class="wrap-but">
+      			<input type="submit" value="저장" class="save-but" id="save">
+      		</div>
+      		</form>
       	</div>
       </div>
 	      
@@ -56,5 +60,6 @@
 
 <%@ include file="/WEB-INF/views/include/footer.jsp" %>
 <%@ include file="/WEB-INF/views/include/jsFiles.jsp" %>
+<script src="/resources/js/todo/todo-main.js"></script>
 </body>
 </html>

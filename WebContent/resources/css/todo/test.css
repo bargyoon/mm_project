@@ -11341,15 +11341,7 @@ html {
 .user-name {
    flex-flow: row;
    text-align: center;
-<<<<<<< HEAD
-<<<<<<< HEAD
-   margin-top: 7%;
-=======
    margin-top: 8.5%;
->>>>>>> refs/heads/dev
-=======
-   margin-top: 8.5%;
->>>>>>> refs/heads/dev
    font-family: 'Pretendard-Bold';
    
 }
@@ -11385,7 +11377,7 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
-	margin-top: 5%;
+	margin-top: 4%;
 	
 	
 }
@@ -11395,7 +11387,7 @@ html {
 	text-align: left;
 	width: 20%;
 	border-radius: 5px 5px 5px 5px;
-	padding: 10px 20px 0px 20px;
+	padding: 20px 20px 0px 20px;
 	border-style: solid;
     border-width: thin;
 	border-color: #343a40;
@@ -11428,16 +11420,9 @@ checkbox{
 }
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-.wrapp-but {
-  display: flex;
-  align-items: center;
-  justify-content: center;  
-  height: 50px;
-  margin-top: 5%;
-  margin-bottom: 5%; 
-=======
+
+
+
 .wrap-but{
 	flex-flow: row;
     justify-content: center;
@@ -11446,17 +11431,7 @@ checkbox{
 	margin-top: 5%;
 	margin-bottom: 3%;
 	
->>>>>>> refs/heads/dev
-=======
-.wrap-but{
-	flex-flow: row;
-    justify-content: center;
-    text-align: center;
-	height: 50px;
-	margin-top: 5%;
-	margin-bottom: 3%;
-	
->>>>>>> refs/heads/dev
+
 }
 
 .wrap-but>a{
@@ -11465,18 +11440,27 @@ checkbox{
     text-align: center;
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
+
 .wrap-but>a {
   
    width: 20%;
    height: 100%;
-=======
+}
+
+.save-but{
+   background-color: #343a40;
+   	color: white;
+   
+   height: 70%;
+   width: 25%;
+   border-radius: 5px 5px 5px 5px;
+   font-family: 'Pretendard-SemiBold';
+}
+
+
+
 .submit-but {
->>>>>>> refs/heads/dev
-=======
-.submit-but {
->>>>>>> refs/heads/dev
    background-color: #343a40;
    height: 100%;
    width: 25%;
@@ -11490,8 +11474,8 @@ checkbox{
 	
 }
 
-<<<<<<< HEAD
-=======
+
+
 .wrap-calendar{
   	margin-top: 10%;
   	margin-left: 9%;
@@ -11505,7 +11489,7 @@ checkbox{
 	
 }
 
->>>>>>> refs/heads/dev
+
 
 main{
 	position:relative;

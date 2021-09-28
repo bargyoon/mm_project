@@ -57,6 +57,7 @@ public class MemberController extends HttpServlet {
 
 		case "join-form-mentor":
 			joinFormMentor(request, response);
+
 			break;
 		case "join-form-mentee":
 			joinFormMentee(request, response);

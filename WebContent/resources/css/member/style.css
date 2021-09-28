@@ -258,6 +258,7 @@ h6 span{
   border: none;
   background-color: orange;
 
+
   color: #102770;
   box-shadow: 0 8px 24px 0 rgba(255,235,167,.2);
 }
@@ -274,8 +275,10 @@ h6 span{
 .btn:hover,
 .btn:focus{  
 
+
   box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
 }
+
 
 
 
