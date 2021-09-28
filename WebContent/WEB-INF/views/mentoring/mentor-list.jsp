@@ -50,13 +50,22 @@
 				                                    </div>
 				                                </div>
 				                            </div>
+<<<<<<< HEAD
 				                            <div class="text-decoration-none link-dark"><h6 class="card-title mb-3 mt-4">이력사항</h6></div>
+=======
+				                            <div class="text-decoration-none link-dark "><h6 class="card-title mb-3 mt-4">이력사항</h6></div>
+>>>>>>> refs/heads/dev
 				                            <p class="card-text mb-0 small">${Mentors[i].history}</p>
 				                        </div>
 				                        <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
 				                            <div class="d-flex align-items-center justify-content-between">
+<<<<<<< HEAD
 				                            	<button class="btn bg-primary btn-lg px-3 me-sm-3 fw-bolder" onclick="checkHistory(${Members[i].userIdx})" style="box-shadow: 4px 3px 3px black; color: white;">이력 자세히 보기</button>
 				                            	<button class="btn bg-primary btn-lg px-3 me-sm-3 fw-bolder" href="/mentoring/apply-complete" style="box-shadow: 4px 3px 3px black; color: white;">멘토링 신청하기</button>
+=======
+				                            		<button class="btn bg-primary btn-lg px-3 me-sm-3 fw-bolder" onclick="checkHistory(${Members[i].userIdx})" style="box-shadow: 4px 3px 3px black; color: white;">이력 자세히 보기</button>
+				                            		<button class="btn bg-primary btn-lg px-3 me-sm-3 fw-bolder" href="/mentoring/apply-complete" style="box-shadow: 4px 3px 3px black; color: white;">멘토링 신청하기</button>
+>>>>>>> refs/heads/dev
 				                            </div>
 				                        </div>
 				                    </div>
