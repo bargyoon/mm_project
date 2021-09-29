@@ -67,8 +67,8 @@
 				                        </div>
 				                        <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
 				                            <div class="d-flex align-items-center justify-content-between">
-				                            		<button class="btn bg-primary btn-lg px-3 me-sm-3 fw-bolder" onclick="checkHistory(${Members[i].userIdx})" style="box-shadow: 4px 3px 3px black; color: white;">이력 자세히 보기</button>
-				                            		<button class="btn bg-primary btn-lg px-3 me-sm-3 fw-bolder" onclick="" style="box-shadow: 4px 3px 3px black; color: white;">멘토링 신청하기</button>
+				                            	<button class="btn bg-primary btn-lg px-3 me-sm-3 fw-bolder" onclick="checkHistory(${Members[i].userIdx})" style="box-shadow: 4px 3px 3px black; color: white;">이력 자세히 보기</button>
+				                            	<button class="btn bg-primary btn-lg px-3 me-sm-3 fw-bolder" onclick="" style="box-shadow: 4px 3px 3px black; color: white;">멘토링 신청하기</button>
 				                            </div>
 				                        </div>
 				                    </div>
