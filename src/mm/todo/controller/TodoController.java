@@ -1,8 +1,11 @@
 package mm.todo.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,6 +14,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.reflect.TypeToken;
 
 import mm.member.model.dto.Member;
 import mm.todo.model.dto.Todo;
@@ -52,10 +60,12 @@ public class TodoController extends HttpServlet {
 		case "modify":
 			todoModify(request, response);
 			break;
+		case "eventList":
+			eventList(request, response);
+			break;
 		default:
 		}
 	}
-	
 	
 	private void todoMain(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -80,13 +90,18 @@ public class TodoController extends HttpServlet {
 	//캘린더에 일정 보여주기 
 	private void todoDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		HashMap result = new HashMap();
 		// 해당 아이디의 모든 일정 조회
 		HttpSession session = request.getSession();
 		Member member = (Member) session.getAttribute("authentication");
 		int userIdx = member.getUserIdx();
+		
+		try {
+			
+		} catch (Exception e) {
+			throw e;
+		}
 
-		
-		
 		// request 속성에 추가
 		
 		request.getRequestDispatcher("/todo/todo-detail").forward(request, response);
@@ -162,7 +177,7 @@ public class TodoController extends HttpServlet {
 		todo.setStartDate(Date.valueOf(startDate));
 		todo.setEndDate(Date.valueOf(endDate));
 		todo.setTitle(title);
-		todo.setDone(Boolean.parseBoolean(done));
+		todo.setDone(done);
 		todo.setColor(color);
 		
 		todoService.insertTodo(todo);
@@ -185,6 +200,7 @@ public class TodoController extends HttpServlet {
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
 		String title = request.getParameter("title");
+		String done = request.getParameter("done");
 		String color = request.getParameter("color");
 		
 		System.out.println("############# @TodoController - todoModify()");
@@ -199,6 +215,7 @@ public class TodoController extends HttpServlet {
 		todo.setStartDate(Date.valueOf(startDate));
 		todo.setEndDate(Date.valueOf(endDate));
 		todo.setTitle(title);
+		todo.setDone(done);
 		todo.setColor(color);
 		
 		todoService.modifyTodo(todo);		
@@ -234,17 +251,54 @@ public class TodoController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Member member = (Member) session.getAttribute("authentication");
 		
-		String[] todoList = request.getParameterValues("todoList");
+		int todoIdx = Integer.parseInt( request.getParameter("todoIdx") );
 		
-		ArrayList<Integer> todoIdxList = new ArrayList<Integer>();
+		boolean check = Boolean.parseBoolean( request.getParameter("done") );
+		char done = 0;
+		if( check ) done = 1;
 		
-		for (String todoIdx : todoList) {
-			System.out.println("완료 시킬 todoIdx : " + todoIdx);
-			todoIdxList.add( Integer.parseInt(todoIdx));
+//		String[] todoList = request.getParameterValues("todoList");
+//		
+//		ArrayList<Integer> todoIdxList = new ArrayList<Integer>();
+//		
+//		for (String todoIdx : todoList) {
+//			System.out.println("완료 시킬 todoIdx : " + todoIdx);
+//			todoIdxList.add( Integer.parseInt(todoIdx));
+//		}
+		
+		todoService.todaySave(todoIdx, done);
+		response.sendRedirect("/todo/main");
+		
+	}
+	
+	
+	// 일정 가져오기
+	private void eventList(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		// TODO Auto-generated method stub
+		System.out.println("ajax 로 요청");
+		
+		PrintWriter out = response.getWriter();
+		
+		// 일정 조회
+		HttpSession session = request.getSession();
+		Member member = (Member) session.getAttribute("authentication");
+		int userIdx = member.getUserIdx();
+		List<Todo> todoList = todoService.calendarList(userIdx);
+		
+		for (Todo todo : todoList) {
+			Date startDate = todo.getStartDate();
+			Date endDate = todo.getEndDate();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			
+			String start = sdf.format(startDate);
+			todo.setStart(start);
+			
+			String end = sdf.format(endDate);
+			todo.setEnd(end);
 		}
 		
-		todoService.todaySave(todoIdxList);
-		
+		Gson gson = new Gson();
+		out.print(gson.toJson(todoList));
 	}
 
 }

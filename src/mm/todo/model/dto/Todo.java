@@ -17,8 +17,10 @@ public class Todo {
 	private int userIdx;
 	private Date startDate;
 	private Date endDate;
+	private String start;
+	private String end;
 	private String title;
-	private boolean done;
+	private String done;
 	private String color;
 	
 	public Todo() {
@@ -65,11 +67,11 @@ public class Todo {
 		this.title = title;
 	}
 
-	public boolean isDone() {
+	public String getDone() {
 		return done;
 	}
 
-	public void setDone(boolean done) {
+	public void setDone(String done) {
 		this.done = done;
 	}
 
@@ -80,16 +82,31 @@ public class Todo {
 	public void setColor(String color) {
 		this.color = color;
 	}
+	
+	
+
+	public String getStart() {
+		return start;
+	}
+
+	public void setStart(String start) {
+		this.start = start;
+	}
+
+	public String getEnd() {
+		return end;
+	}
+
+	public void setEnd(String end) {
+		this.end = end;
+	}
 
 	@Override
 	public String toString() {
 		return "Todo [todoIdx=" + todoIdx + ", userIdx=" + userIdx + ", startDate=" + startDate + ", endDate=" + endDate
 				+ ", title=" + title + ", done=" + done + ", color=" + color + "]";
 	}
-	
-	
-	
+
 
 	
-	
-}
+}	

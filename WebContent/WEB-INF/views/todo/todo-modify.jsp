@@ -26,10 +26,11 @@
 	<div>일정 시작일 <input type="date" name="startDate" id="startInput" value="${todo.startDate}" /></div>
 	<div>일정 종료일 <input type="date" name="endDate" id="endInput" value="${todo.endDate}" /></div>
 	<div>색상 <input type="color" name="color" id="colorInput" value="${todo.color}" /></div>
+	<input type="hidden" id="done" name="done" value="0" />
 	
 </div>
 <div class="wrap-button">
-	<input type="submit" value="일정 수정" formaction="/todo/modify" id="modifyButton"/>
+	<input type="submit" value="일정 수정" formaction="/todo/modify" id="modifyButton" />
 	<input type="submit" value="일정 삭제" formaction="/todo/delete" id="deleteButton"/>
 </div>
 </form>

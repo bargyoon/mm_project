@@ -24,7 +24,7 @@
 	<div>일정 시작일 <input type="date" name="startDate" id="startInput"></div>
 	<div>일정 종료일 <input type="date" name="endDate" id="endInput"></div>
 	<div>색상 <input type="color" name="color" id="colorInput"></div>
-	
+	<input type="hidden" id="done" name="done" value="0" />
 </div>
 <div class="wrap-button">
 	<input type="submit" value="일정 추가" id="addButton"/>

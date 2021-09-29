@@ -30,13 +30,19 @@
       		<form action="/todo/todaySave" method="post" >
       		<c:forEach var="todo" items="${todayList}" varStatus="s tatus">
 		         <p>
-		         	<input type="checkbox" id="${todo.todoIdx}" name="todoList" value="${todo.todoIdx}"> 
+		         	<!-- 체크 여부 세팅 -->
+		         	<c:if test="${todo.done eq '1'}">
+			         	<input type="checkbox" id="${todo.todoIdx}" name="todoList" class="cb_todo" onclick="cb_click(this.id)" checked> 
+		         	</c:if>
+		         	<c:if test="${todo.done eq '0'}">
+			         	<input type="checkbox" id="${todo.todoIdx}" name="todoList" class="cb_todo" onclick="cb_click(this.id)"> 
+		         	</c:if>
 		         	<label for="${todo.todoIdx}" class="check-label">${todo.title}</label>
 		         </p>
       		</c:forEach>
-      		<div class="wrap-but">
-      			<input type="submit" value="저장" class="save-but" id="save">
-      		</div>
+<!--       		<div class="wrap-but"> -->
+<!--       			<input type="submit" value="저장" class="save-but" id="save"> -->
+<!--       		</div> -->
       		</form>
       	</div>
       </div>
@@ -48,7 +54,7 @@
 	</div>
 
       <div class="percent">
-         <h3>일정 00 % 완료!</h3>
+         <h3>일정 <b id="percent">0</b>% 완료!</h3>
       </div>
 	
 	<div class="wrap-but">

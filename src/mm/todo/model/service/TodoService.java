@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mm.common.db.JDBCTemplate;
+import mm.member.model.dto.Member;
 import mm.todo.model.dao.TodoDao;
 import mm.todo.model.dto.Todo;
 
@@ -14,8 +15,20 @@ public class TodoService {
 	private JDBCTemplate template = JDBCTemplate.getInstance();
 	
 	//모든 일정 조회
+	public List<Todo> calendarList(int userIdx){
+		Connection conn = template.getConnection();
+		List<Todo> calendarList = null;
+		try {
 	
+			calendarList = todoDao.calendarList(userIdx, conn);
 	
+		} finally {
+			template.close(conn);
+		}
+	
+		return calendarList;
+	}
+		
 	
 	//일정 등록	
 	public int insertTodo(Todo todo) {
@@ -96,16 +109,15 @@ public class TodoService {
 		return todayList;
 	}
 
-	//
-	public int todaySave(ArrayList<Integer> todoIdxList) {
+	
+	//체크박스 체크된 값 0,1로
+	public int todaySave(int todoIdx, char done) {
 		int res = 0;
 		Connection conn = template.getConnection();
-		
 		try {
-			while(res != 0){
-				res = todoDao.todoSave(todoIdxList, conn);
+			res = todoDao.todoSave(todoIdx, done, conn);
+			if( res != 0 )
 				template.commit(conn);
-			}
 		}catch (Exception e) {
 			template.rollback(conn);
 			e.printStackTrace();
