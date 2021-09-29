@@ -32,8 +32,20 @@
 	            <div class="row gx-5">
 	            	<c:choose>
 						<c:when test="${Mentors.size() == 0}">
-							당신의 선택과 일치하는 멘토가 존재하지 않습니다.
-							<a href="/memtoring/apply-page"><button>뒤로가기</button></a>
+							<div class="container px-5 my-5 py-5">
+								<div class="row gx-5 pt-5 justify-content-md-around" id="apply-page-1">
+									<div class="col-lg-10 mb-5 mb-lg-5">
+										<h2 class="fw-bolder mb-0 text-sm-center my-5">선택한 조건에 맞는 멘토가 없습니다.</h2>
+										<hr>
+										<div class="text-sm-center mt-3">
+											<span>다른 조건으로 멘토를 선택해주세요.</span>
+										</div>
+										<div class="text-sm-center">
+											<input class="btn btn-primary-dark btn-lg px-4 me-sm-3 mt-5 fw-bolder" type="button" value="뒤로가기" onclick="history.back()">
+										</div>
+									</div>
+								</div>
+							</div>
 						</c:when>
 						<c:otherwise>
 			            	<c:forEach var="i" begin="0" step="1" end="${Mentors.size()-1}">
@@ -50,13 +62,13 @@
 				                                    </div>
 				                                </div>
 				                            </div>
-				                            <div class="text-decoration-none link-dark"><h6 class="card-title mb-3 mt-4">이력사항</h6></div>
+				                            <div class="text-decoration-none link-dark "><h6 class="card-title mb-3 mt-4">이력사항</h6></div>
 				                            <p class="card-text mb-0 small">${Mentors[i].history}</p>
 				                        </div>
 				                        <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
 				                            <div class="d-flex align-items-center justify-content-between">
-				                            	<button class="btn bg-primary btn-lg px-3 me-sm-3 fw-bolder" onclick="checkHistory(${Members[i].userIdx})" style="box-shadow: 4px 3px 3px black; color: white;">이력 자세히 보기</button>
-				                            	<button class="btn bg-primary btn-lg px-3 me-sm-3 fw-bolder" href="/mentoring/apply-complete" style="box-shadow: 4px 3px 3px black; color: white;">멘토링 신청하기</button>
+				                            		<button class="btn bg-primary btn-lg px-3 me-sm-3 fw-bolder" onclick="checkHistory(${Members[i].userIdx})" style="box-shadow: 4px 3px 3px black; color: white;">이력 자세히 보기</button>
+				                            		<button class="btn bg-primary btn-lg px-3 me-sm-3 fw-bolder" onclick="" style="box-shadow: 4px 3px 3px black; color: white;">멘토링 신청하기</button>
 				                            </div>
 				                        </div>
 				                    </div>

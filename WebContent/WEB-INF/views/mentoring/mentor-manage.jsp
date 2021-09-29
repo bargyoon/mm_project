@@ -64,14 +64,7 @@
 	</div>
 	<section>
         <div class="container px-5">
-            <div class="row gx-5 justify-content-center">
-                <div class="col-lg-8 col-xl-3">
-                    <div class="text-center">
-                        <h2 class="fw-bolder pb-3" style="border-bottom: solid 2px gray">8월</h2> <!-- userId로 mentoring history에서 현재 진행 상황에 맞는 멘토리스트를 데려오고 월 별로 끊어서 출력(여기에는 년도와 월 출력) -->
-                    </div>
-                </div>
-            </div>
-            <div class="row gx-5 justify-content-center" id="apply-mentoring">
+            <div class="row gx-5 justify-content-center" id="apply-mentoring" style="display: none">
             	<c:forEach items="${ahlist}" var="ah" varStatus="status">
 	                <div class="col-lg-10 mb-4">
 						<div class="d-flex align-items-center justify-content-between">
@@ -92,7 +85,7 @@
 	                </div>
                 </c:forEach>
 			</div>
-			 <div class="row gx-5 justify-content-center" id="process-mentoring" style="display: none">
+			 <div class="row gx-5 justify-content-center" id="process-mentoring">
 				 <c:forEach items="${phlist}" var="ph" varStatus="status">
 	                <div class="col-lg-10 mb-4">
 						<div class="d-flex align-items-center justify-content-between">
@@ -121,7 +114,7 @@
 						    </div>
 							<div class="d-flex flex-column">
 							    <button class="btn btn-primary-dark my-1" style="font-size: 0.75rem" onclick="registApply(${authentication.userIdx},${fh.mentorIdx},'${fh.mentorName}')">재신청</button>
-							    <button class="btn btn-primary-dark my-1" style="font-size: 0.75rem">평가하기</button>
+							    <button class="btn btn-primary-dark my-1" style="font-size: 0.75rem" onclick="rating('${fh.mIdx}')">평가하기</button>
 							</div>
 						</div>
 	                	<hr>

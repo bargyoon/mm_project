@@ -11,6 +11,7 @@ import mm.mentoring.model.dao.MentoringDao;
 import mm.mentoring.model.dto.ApplyHistory;
 import mm.mentoring.model.dto.MentorCondition;
 import mm.mentoring.model.dto.MentoringHistory;
+import mm.mentoring.model.dto.Rating;
 
 public class MentoringService {
 	
@@ -113,6 +114,66 @@ public class MentoringService {
 		
 		
 		return res;
+	}
+
+	public boolean commentCheck(int userIdx, int mentorIdx) {
+		boolean isRegistered = false;
+		
+		Connection conn = template.getConnection();
+		
+		try {
+			isRegistered = mDao.commentCheck(userIdx, mentorIdx, conn);
+		} finally {
+			template.close(conn);
+		}
+		
+		return isRegistered;
+	}
+
+	public MentoringHistory getMhByMIdx(int mIdx) {
+		MentoringHistory mh = null;
+		
+		Connection conn = template.getConnection();
+		
+		try {
+			mh = mDao.getMhByMIdx(mIdx, conn);
+		} finally {
+			template.close(conn);
+		}
+		
+		return mh;
+	}
+
+	public int registRating(Rating rating) {
+		int res = 0;
+		
+		Connection conn = template.getConnection();
+		
+		try {
+			res = mDao.registRating(rating, conn);
+			template.commit(conn);
+		} catch (Exception e) {
+			template.rollback(conn);
+			e.printStackTrace();
+		} finally {
+			template.close(conn);
+		}
+		
+		return res;
+	}
+
+	public List<Mentor> isExistInApply(List<Mentor> mentorList, int userIdx) {
+		List<Mentor> nonExistMentor = new ArrayList<Mentor>();
+		
+		Connection conn = template.getConnection();
+		
+		try {
+			nonExistMentor = mDao.isExistInApply(mentorList, userIdx, conn);
+		} finally {
+			template.close(conn);
+		}
+		
+		return nonExistMentor;
 	}
 
 	
