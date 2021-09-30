@@ -188,7 +188,7 @@ for(i = 0; i < 3; i++){
 				})
 				
 				if(!flg){
-					alert('필수 동의항목에 체크 하셔야합니다.');
+					alert('모든 항목에 최소 1개이상 체크 해야합니다.');
 					return;
 				} else {
 					submitBtn();

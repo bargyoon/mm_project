@@ -20,8 +20,7 @@ let renderProceeding = () => {
 
 let renderCompleted = () => {
 	document.querySelector('#type_manage').innerHTML = "완료한 멘토링";
-	
-	document.querySelector('#expiration-date').innerHTML = ""
+	document.querySelector('#expiration-date').innerHTML = "* 최대 1년 내의 멘토링 기록만 보여집니다."
 	
 	document.getElementById("apply-mentoring").style.display = 'none';
 	document.getElementById("process-mentoring").style.display ="none";	
@@ -39,4 +38,23 @@ let reapply = (aIdx, reapplyCnt) => {
 
 let registApply = (userIdx, mentorIdx, mentorName) => {
 	location.href=`/mentoring/regist-apply?user_idx=${userIdx}&mentor_idx=${mentorIdx}&mentor_name=${mentorName}`;
+}
+
+let rating = (mIdx) => {
+	fetch(`/mentoring/comment-check?m_idx=${mIdx}`)
+	.then(response => {
+		if(response.ok){
+			return response.text();
+		} else {
+			throw new Error(response.status);
+		}
+	})
+	.then(text => {
+		if(text == 'not-registered'){
+			location.href = `/mentoring/rating-page?m_idx=${mIdx}`;
+		} else {
+			alert("이미 평가를 작성한 멘토입니다.");
+			return;
+		}
+	})
 }
