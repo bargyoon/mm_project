@@ -75,7 +75,6 @@ public class MemberDao {
 	public Member selectMemberByPassword(String password, Connection conn) {
 		Member member = null;
 
-
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
 
@@ -154,7 +153,6 @@ public class MemberDao {
 		return userIdx;
 	}
 
-
 	
 	public List<Member> selectMemberList(Connection conn) {
 		List<Member> memberList = new ArrayList<>();
@@ -186,9 +184,7 @@ public class MemberDao {
 		PreparedStatement pstm = null;
 
 		try {
-
 			String query = "insert into member(user_idx,user_name,user_id,password,email,gender,address,phone,nickname,role,kakao_join) values(sc_user_idx.nextval,?,?,?,?,?,?,?,?,?,?)";
-
 
 			pstm = conn.prepareStatement(query);
 			pstm.setString(1, member.getUserName());
@@ -202,7 +198,6 @@ public class MemberDao {
 			pstm.setString(9, member.getRole());
 			pstm.setString(10, member.getKakaoJoin());
 
-
 			res = pstm.executeUpdate();
 		} catch (SQLException e) {
 			throw new DataAccessException(e);
@@ -212,7 +207,6 @@ public class MemberDao {
 
 		return res;
 
-
 	}
 	
 	public int modifyMember(Member member, Connection conn) {
@@ -220,7 +214,6 @@ public class MemberDao {
 		PreparedStatement pstm = null;
 
 		try {
-
 			String query = "update member set user_name=?, password=?, email=?, address=?, phone=?, is_leave=?, kakao_join=? where user_id = ?";
 
 			pstm = conn.prepareStatement(query);
