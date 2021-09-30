@@ -67,15 +67,15 @@
 					                                    </div>
 					                                </div>
 					                            </div>
+					                            <c:if test="${normalMentors[i].history eq null}">
+					                            <div class="text-decoration-none link-dark "><h6 class="card-title mb-3 mt-4">이력사항</h6></div>
+					                            	<p class="card-text mb-0 small">이력사항이 없습니다.</p>
+					                            </c:if>
 					                             <c:if test="${normalMentors[i].history ne null}">
 					                            <div class="text-decoration-none link-dark "><h6 class="card-title mb-3 mt-4">이력사항</h6></div>
 					                            	<c:forEach var="j" begin="0" step="1" end="${excellentHistoryList[i].size()-1}">
 					                            		<p class="card-text mb-0 small">${excellentHistoryList[i][j]}</p>
 					                            	</c:forEach>
-					                            </c:if>
-					                            <c:if test="${normalMentors[i].history eq null}">
-					                            <div class="text-decoration-none link-dark "><h6 class="card-title mb-3 mt-4">이력사항</h6></div>
-					                            	<p class="card-text mb-0 small">이력사항이 없습니다.</p>
 					                            </c:if>
 					                        </div>
 					                        <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
@@ -104,15 +104,15 @@
 				                                    </div>
 				                                </div>
 				                            </div>
+				                            <c:if test="${normalMentors[i].history eq null}">
+				                            <div class="text-decoration-none link-dark "><h6 class="card-title mb-3 mt-4">이력사항</h6></div>
+				                            	<p class="card-text mb-0 small">이력사항이 없습니다.</p>
+				                            </c:if>
 				                            <c:if test="${normalMentors[i].history ne null}">
 				                            <div class="text-decoration-none link-dark "><h6 class="card-title mb-3 mt-4">이력사항</h6></div>
 				                            	<c:forEach var="j" begin="0" step="1" end="${normalHistoryList[i].size()-1}">
 				                            		<p class="card-text mb-0 small">${normalHistoryList[i][j]}</p>
 				                            	</c:forEach>
-				                            </c:if>
-				                            <c:if test="${normalMentors[i].history eq null}">
-				                            <div class="text-decoration-none link-dark "><h6 class="card-title mb-3 mt-4">이력사항</h6></div>
-				                            	<p class="card-text mb-0 small">이력사항이 없습니다.</p>
 				                            </c:if>
 				                        </div>
 				                        <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
