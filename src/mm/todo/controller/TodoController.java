@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,9 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.reflect.TypeToken;
+
 
 import mm.member.model.dto.Member;
 import mm.todo.model.dto.Todo;
@@ -45,6 +42,10 @@ public class TodoController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		
 		String[] uriArr = request.getRequestURI().split("/");
 
 		switch (uriArr[uriArr.length - 1]) {
@@ -90,28 +91,22 @@ public class TodoController extends HttpServlet {
 	//캘린더에 일정 보여주기 
 	private void todoDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		HashMap result = new HashMap();
-		// 해당 아이디의 모든 일정 조회
-		HttpSession session = request.getSession();
-		Member member = (Member) session.getAttribute("authentication");
-		int userIdx = member.getUserIdx();
-		
-		try {
-			
-		} catch (Exception e) {
-			throw e;
-		}
-
-		// request 속성에 추가
-		
+		/*
+		 * HashMap result = new HashMap(); // 해당 아이디의 모든 일정 조회 HttpSession session =
+		 * request.getSession(); Member member = (Member)
+		 * session.getAttribute("authentication"); int userIdx = member.getUserIdx();
+		 * 
+		 * try {
+		 * 
+		 * } catch (Exception e) { throw e; }
+		 * 
+		 * // request 속성에 추가
+		 */		
 		request.getRequestDispatcher("/todo/todo-detail").forward(request, response);
-		
-		
-		
+
 	}
 	
 	private void todoInsert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		request.getRequestDispatcher("/todo/todo-insert").forward(request, response);	
 	}
 
@@ -131,7 +126,8 @@ public class TodoController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		// doGet(request, response);
-		
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 		String[] uriArr = request.getRequestURI().split("/");
 
 		switch (uriArr[uriArr.length - 1]) {
@@ -152,10 +148,10 @@ public class TodoController extends HttpServlet {
 	}
 	
 
-
-
 	private void insert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
+
+
 		HttpSession session = request.getSession();
 		Member member = (Member) session.getAttribute("authentication");
 		
@@ -194,9 +190,9 @@ public class TodoController extends HttpServlet {
 		System.out.println("userIdx : " + member.getUserIdx());
 		
 		int userIdx = member.getUserIdx();
-		//todoIdx값을 받아올 수 없음
-		int todoIdx = todo.getTodoIdx();
-		
+		int todoIdx = Integer.parseInt(request.getParameter("todoIdx"));
+		System.out.println("todoIdx : " + todoIdx);
+
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
 		String title = request.getParameter("title");
@@ -267,7 +263,7 @@ public class TodoController extends HttpServlet {
 //		}
 		
 		todoService.todaySave(todoIdx, done);
-		response.sendRedirect("/todo/main");
+
 		
 	}
 	

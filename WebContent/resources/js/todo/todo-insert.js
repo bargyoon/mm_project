@@ -30,18 +30,18 @@ function todoInsert(){
 		addButton.addEventListener("click", addEntry);	//클릭시 일정등록
 	}
 	
-	
-		function addEntry(event){
+		function addEntry(){
 			
 			//let flag = true;
-			
+	
 			let titleValue = titleInput.value;
 			if(!titleValue){
 				alert('제목을 입력해주세요');
 				document.getElementById("titleInput").focus();
 				return;
+				
 			}
-			
+				
 			let startValue = startInput.value;
 			if(!startValue){
 				alert('날짜를 입력해주세요');
@@ -51,26 +51,26 @@ function todoInsert(){
 			if(!endValue){
 				alert('날짜를 입력해주세요');
 				return;
+
 			}			
 			
 			if( Number(startValue.replace(/-/gi,"")) > Number(endValue.replace(/-/gi,"")) ){
 			alert("시작일이 종료일보다 클 수 없습니다.");
-             	return;
+			return;
+
 			}
 			
 			let colorValue = colorInput.value;
 
-			
-			alert('일정이 등록되었습니다.');
-			
-			//일정등록시 인풋창 초기화
-			titleInput = "";
-			startValue = "";
-			endValue = "";
-			colorValue = "";
-
 			// 등록 끝
-			opener.document.location.reload();
-		}		
 
+			opener.document.location.reload();
+			alert('일정이 등록되었습니다.');
+			close();
+	}
+		
 }
+function close(){
+	self.close();
+}
+

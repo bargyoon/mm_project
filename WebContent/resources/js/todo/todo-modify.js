@@ -1,7 +1,6 @@
 /**
  * 
  */
-todoModify();
 
 function todoModify(){
 	let titleInput, 
@@ -11,8 +10,7 @@ function todoModify(){
 		modifyButton,
 		deleteButton;	
 	
-	getElements();
-	addListeners();
+		getElements();
 
 	
 		function getElements(){
@@ -22,28 +20,20 @@ function todoModify(){
 		colorInput = document.getElementById("colorInput");		
 		modifyButton = document.getElementById("modifyButton");
 		deleteButton = document.getElementById("deleteButton");
+		
 		}
-}
-	
-	
-function addListeners(){
-		modifyButton.addEventListener("click", modifyEntry);	//클릭시 일정수정
-		deleteButton.addEventListener("click", deleteEntry);	//클릭시 일정삭제
-}
-	
-function modifyEntry(event){
+		
 		let titleValue = titleInput.value;
-	
 		if(!titleValue){
 			alert('제목을 입력해주세요');
 			return;
 		}
 		
 		let startValue = startInput.value;
-		/*		
-		startValue = new Date().toISOString().substring(0, 10);
-		console.log(startValue);
-		*/
+				
+		//startValue = new Date().toISOString().substring(0, 10);
+		//console.log(startValue);
+		
 		if(!startValue){
 			alert('날짜를 입력해주세요');
 			return;
@@ -61,23 +51,42 @@ function modifyEntry(event){
 		}
 		
 		let colorValue = colorInput.value;
+		
+		opener.document.location.reload();
 
 		alert('일정이 수정되었습니다.');
-		
-		//일정등록시 인풋창 초기화
-		titleInput = "";
-		startValue = "";
-		endValue = "";
-		colorValue = "";
-
-		// 등록 끝
-		opener.document.location.reload();
+		close();
 }
 
-
+function close(){
+	self.close();
+}
 
 function deleteEntry(){
 	alert('일정을 삭제할까요?');
 	opener.document.location.reload();
+	close();
 }
+
+
+function setDate() {
+	
+	$.ajax({
+	    url		:	'/todo/modify', //request 보낼 서버의 경로
+	    type	:	'post', // 메소드(get, post, put 등)
+	    data:{	
+				
+		}, //보낼 데이터
+	    success: function(data) {
+=			
+	    },
+	    error: function(err) {
+	        //서버로부터 응답이 정상적으로 처리되지 못햇을 때 실행
+
+	    }
+	});
+
+}	
+
+
 

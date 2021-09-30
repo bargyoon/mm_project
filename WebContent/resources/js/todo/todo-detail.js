@@ -22,83 +22,41 @@ document.addEventListener('DOMContentLoaded', function() {
           navLinks: true, // can click day/week names to navigate views
           businessHours: true, // display business hours
           editable: true,
-          selectable: true,
 
 		//날짜 클릭하면 일정추가 팝업
 		dateClick: function(info) {
-	
+			//alert('Clicked on: ' + info.dateStr); 클릭한 날짜
+			
+			localStorage.setItem("dateStr", info.dateStr);	
 			window.name = "parentForm";
 			openAdd = window.open("${contextPath}/todo/insert","childForm","width=500, height=500, left=0, top=0");
 			//console.log(openAdd);
-	
+			window.close();
 			},
 			
 		//일정 클릭하면 일정수정/삭제 팝업	
-		eventClick:  function(info) {
-			
-			let title = info.event.title;
-			let start = new Date(info.event.start); 
-				start = start.toISOString().slice(0,10);
-			let time = info.event.time;
-			let modifySign = confirm("일정을 수정/삭제할까요 ?");
-			/*				 
-				document.getElementById("startValue").value = start;
-				document.getElementById("titleValue").value = title;
-				document.getElementById("timeValue").value = time; 
-			*/
-			let openModify;
-				if(modifySign){
-					openWin = open("${contextPath}/todo/modify","popup","width=500, height=500, left=0, top=0");
-				}else{return false;}
-			},
+		eventClick: function(info){
 
-/*
-		events: function(info, successCallback, failureCallback) {
-			
-			alert("aaa");
-			$.ajax({
-				url: '<c:url value="/test/selectEventList"/>',
-				type: 'GET',
-				dataType: 'json',
-				data: {
-					start : moment(info.startStr).format('YYYY-MM-DD'),
-					end : moment(info.endStr).format('YYYY-MM-DD')
-				},
-				success: function(data) {
-					alert("data : " + data);
-					
-					successCallback(data);
-				}
-			});
-		}
-*/
-	
-	
-			events: [{
-				title: 'Meeting1',
-				start: '2021-09-12',
-				end: '2021-09-15'
-				
-			},{
-				title: 'Meeting10',
-				start: '2021-09-12',
-				end: '2021-09-12'
+			localStorage.setItem("startStr", info.event.startStr);	//클릭한 일정 시작일 
+			localStorage.setItem("endStr", info.event.endStr);	
+			localStorage.setItem("title", info.event.title);	
+			window.name = "parentForm";
+			openModify = window.open("${contextPath}/todo/modify","popup","width=500, height=500, left=0, top=0");
 			}
-			
-			]
-			 	
-        });
 
+
+  /*  alert('Event: ' + info.event.title);
+    alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+    alert('View: ' + info.view.type);*/
+		 	
+        });
 
 	// 일정 가져오기
 	setDate();
-
 	calendar.render();
 	/*  캘린더   */
 	
 });
-
-
 
 
 /* 일정 가져오기 */
@@ -127,8 +85,6 @@ function setDate() {
 				
 				calendar.addEvent(list[i]);
 			}
-			
-			
 	    },
 	    error: function(err) {
 	        //서버로부터 응답이 정상적으로 처리되지 못햇을 때 실행
@@ -136,7 +92,5 @@ function setDate() {
 	    }
 	});
 
-
-	
 }	
 
