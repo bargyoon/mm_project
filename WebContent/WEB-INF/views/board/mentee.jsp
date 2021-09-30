@@ -56,14 +56,16 @@
 					</tr>
 				</thead>
 				<tbody class="board_tbody">
+					<c:forEach items="${boardMenteeList}" var="list" varStatus="status">
 					<tr class="board_tr">
-						<td class="board_td"><a></a></td>
-						<td class="board_td"><a></a></td>
-						<td class="board_td"><a></a></td>
-						<td class="board_td"><a></a></td>
-						<td class="board_td"><a></a></td>
-						<td class="board_td"><a></a></td>
+						<td class="board_td">${list.bdIdx}</td>
+						<td class="board_td"><a href="mentee/mentee-board-detail?bdIdx=${list.bdIdx}"><c:out value="${list.bdTitle}"/></a></td>
+						<td class="board_td"><c:out value="${list.userId}"/></td>
+						<td class="board_td"><c:out value="${list.regDate}"/></td>
+						<td class="board_td"><c:out value="${list.viewCount}"/></td>
+						<td class="board_td"><c:out value="${list.recCount}"/></td>
 					</tr>
+					</c:forEach>
 					<tr class="board_tr">
 						<td class="board_td"><a></a></td>
 						<td class="board_td"><a></a></td>
@@ -200,7 +202,7 @@
 				</div>
 			</div>
 			<div id="writerButton">
-				<button>글작성</button>
+				<button type="button" onclick="location.href='mentee/mentee-board-create-form'" >글작성</button>
 			</div>
 		</div>
 	</div>

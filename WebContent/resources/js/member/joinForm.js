@@ -1,6 +1,7 @@
+
  (() => {
       let confirmId = '';
-      document.querySelector('.checkIdBtn').addEventListener('click',function(){
+		document.querySelector('.checkIdBtn').addEventListener('click',function(){
          
          let userId = document.querySelector('#userId').value;
          
@@ -30,8 +31,11 @@
 			 document.querySelector('#idCheck').innerHTML = '응답에 실패했습니다. 상태코드 ' + error;
 		})
       });
+	
+	
 
-      document.querySelector('#frm_join').addEventListener('submit', function(e){
+
+		/*document.querySelector('#frm_join').addEventListener('submit', function(e){
 		 let userId = document.querySelector('#userId').value;
          let password = document.querySelector('#password').value;
 		 let rePassword = document.querySelector('#passwordConfirmation').value;
@@ -53,7 +57,7 @@
 			
 		}
          
-         /*if(!pwReg.test(password)){
+        if(!pwReg.test(password)){
             document.querySelector('#pwCheck').innerHTML = '비밀번호는 숫자, 영문자, 특수문자 조합의 8글자 이상인 문자열 입니다.';
             e.preventDefault();
          }
@@ -61,6 +65,30 @@
          if(!tellReg.test(tell)){
             document.querySelector('#tellCheck').innerHTML = '전화번호는 9~11자리의 숫자입니다.';
             e.preventDefault();
-         }*/
-      })
+         }
+      })*/
+		
  })();
+
+	let cnt = 1;
+		document.querySelector('#addHistoryBtn').addEventListener('click', (e) =>{
+			let input = document.createElement('input');
+		
+			
+				
+				input.className = "form-control bg-white border-md";
+				input.id = "history"+cnt;
+				input.name = "history";
+				input.placeholder="이력사항을 적어주세요";
+				document.querySelector('#historyArea').append(document.createElement('br'))
+				document.querySelector('#historyArea').append(input)
+					
+				
+				cnt++;
+				
+		
+			
+		
+			
+			
+		})

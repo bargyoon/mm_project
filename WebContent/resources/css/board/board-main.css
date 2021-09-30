@@ -101,12 +101,16 @@
 	border-left: none;
 	border-right: none;
 }
+.board_td{
+	color: #343a40 !important;
+}
 
 .board_td:nth-child(1){
 	width: 10%;
 }
 .board_td:nth-child(2){
 	width: 50%;
+	height: 29px !important;
 }
 .board_td:nth-child(3){
 	width: 10%;

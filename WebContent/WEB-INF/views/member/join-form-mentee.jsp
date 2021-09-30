@@ -34,6 +34,7 @@
                             value="${joinForm.userName}"
                                   </c:if>
                         required class="form-control bg-white border-left-0 border-md">
+                        
                   </div>
 
                   <!-- UserId -->
@@ -51,7 +52,7 @@
                         <c:if test="${not empty param.err and empty joinValid.userId}">
                             value="${joinForm.userId}"
                                   </c:if>>
-                     <button class="checkIdBtn">중복검사</button>
+                     <button class="btn btn-outline-secondary checkIdBtn" style="font-weight: bold;">중복검사</button>
                   </div>
                   <span class="valid-msg" id="idCheck"> </span>
 
@@ -123,12 +124,12 @@
                         style="display: flex; justify-content: space-around; align-content: center; flex-wrap: wrap;"
                         class="form-control bg-white border-left-0 border-md h-70 font-weight-bold">
                         <div>
-                           <input type="radio" id="gender-radio" name="gender-radio"
+                           <input type="radio" id="gender-m" name="gender-radio"
                               value="male" class="form-check-input" checked> <label
                               class="form-check-label" for="male">남 </label>
                         </div>
                         <div>
-                           <input id="gender-radio" name="gender-radio" type="radio"
+                           <input id="gender-f" name="gender-radio" type="radio"
                               value="female" class="form-check-input"> <label
                               class="form-check-label" for="female">여</label>
                         </div>
@@ -288,7 +289,7 @@
 
                   <!-- Submit Button -->
                   <div class="form-group col-lg-12 mx-auto mb-0">
-                     <input type="submit" id="#frm_join"
+                     <input type="submit" id="frm_join"
                         class="btn btn-primary btn-block py-2"> <span
                         class="font-weight-bold" value="계정 생성"></span>
 

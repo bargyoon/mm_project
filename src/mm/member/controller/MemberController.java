@@ -22,7 +22,7 @@ import mm.member.model.service.MemberService;
 public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	 private MemberService memberService = new MemberService(); 
+	private MemberService memberService = new MemberService();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -77,14 +77,17 @@ public class MemberController extends HttpServlet {
 		case "id-check":
 			checkID(request, response);
 			break;
+		case "modify-mentor":
+			modifyMentor(request, response);
+			break;
 		case "confirm-pw":
 			confirmPassword(request, response);
 			break;
 		case "mypage":
 			mypage(request, response);
 			break;
-		case "modify-info-form":
-			modifyInfoForm(request, response);
+		case "mentor-info":
+			mentorInfoForm(request, response);
 			break;
 
 		default:
@@ -93,29 +96,87 @@ public class MemberController extends HttpServlet {
 
 	}
 
-	
+	private void modifyMentor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String userName = request.getParameter("userName");
+		String email = request.getParameter("email");
+		String phone = request.getParameter("phone");
+		String address = request.getParameter("address");
+		String universityName = request.getParameter("university");
+		String grade = request.getParameter("grade");
+		String major = request.getParameter("major");
+		String wantDay = request.getParameter("wantDay");
+		String wantTime = request.getParameter("wantTime");
+		String requirement = request.getParameter("requirement");
+		String[] historyArr = request.getParameterValues("history");
+		Member member = (Member) request.getSession().getAttribute("authentication");
+		Mentor mentor = (Mentor) request.getSession().getAttribute("authMentor");
+		String history = mentor.getHistory();
 
-	private void joinRule(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		System.out.println(userName);
+		
+		member.setUserName(userName);
+		member.setEmail(email);
+		member.setAddress(address);
+		member.setPhone(phone);
+
+		mentor.setUniversityName(universityName);
+		mentor.setGrade(Integer.parseInt(grade));
+		mentor.setMajor(major);
+		mentor.setWantDay(wantDay);
+		mentor.setWantTime(wantTime);
+		mentor.setRequirement(requirement);
+		if (historyArr != null) {
+			
+		
+			for (int i = 0; i < historyArr.length; i++) {
+
+				history += ("," + historyArr[i]);
+
+			}
+			mentor.setHistory(history);
+		} 
+
+		if (memberService.modifyMentor(member, mentor) != 0) {
+			System.out.println("수정완료");
+		}
+		request.getRequestDispatcher("/member/mypage").forward(request, response);
+	}
+
+	private void joinRule(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.getRequestDispatcher("/member/join-rule").forward(request, response);
-		
+
 	}
 
-	private void modifyInfoForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		request.getRequestDispatcher("/member/modify-info").forward(request, response);	
-		
+	private void mentorInfoForm(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		int mentorIdx = Integer.parseInt(request.getParameter("user_idx"));
+		Member member = null;
+		Mentor mentor = null;
+		member = memberService.selectMemberByIdx(mentorIdx);
+
+		mentor = memberService.selectMentorByRole(member);
+		request.getSession().setAttribute("mentorInfo", mentor);
+
+		request.getSession().setAttribute("userInfo", member);
+
+		request.getRequestDispatcher("/member/mentor-info").forward(request, response);
+
 	}
 
-	private void forgetPassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		request.getRequestDispatcher("/member/forget-password").forward(request, response);		
+	private void forgetPassword(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.getRequestDispatcher("/member/forget-password").forward(request, response);
 	}
 
-	private void confirmPassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void confirmPassword(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.getRequestDispatcher("/member/confirm-pw").forward(request, response);
-		
+
 	}
 
 	private void mypage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		request.getRequestDispatcher("/member/mypage").forward(request, response);
 
 	}
@@ -124,7 +185,7 @@ public class MemberController extends HttpServlet {
 		request.getSession().removeAttribute("authentication");
 		response.sendRedirect("/index");
 	}
-	
+
 	private void checkID(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String userId = request.getParameter("userId");
@@ -139,7 +200,8 @@ public class MemberController extends HttpServlet {
 
 	}
 
-	private void joinMentee(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void joinMentee(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		/*
 		 * String userId = request.getParameter("userId"); String password =
@@ -165,52 +227,48 @@ public class MemberController extends HttpServlet {
 		 * "<h1>어서오세요! 환영합니다!</h1>");
 		 * 
 		 */
-		
+
 		String schoolName = request.getParameter("schoolName");
 		String major = request.getParameter("major");
 		String grade = request.getParameter("grade");
 		String hopeUniversity = request.getParameter("hopeUniversity");
 		String hopeMajor = request.getParameter("hopeMajor");
-		
-		
-		
-		
+
 		Member member = new Member();
 		Mentee mentee = new Mentee();
 
 		member = commonMember(request, response, member);
-		
+
 		member.setRole("ME00");
 		mentee.setSchoolName(schoolName);
 		mentee.setMajor(major);
 		mentee.setGrade(Integer.parseInt(grade));
 		mentee.setHopeUniversity(hopeUniversity);
 		mentee.setHopeMajor(hopeMajor);
-		
-		if(memberService.insertMentee(member,mentee) != 0) {
+
+		if (memberService.insertMentee(member, mentee) != 0) {
 			System.out.println("로그인 완료");
 		}
-		
-		
-		 
+
 	}
-	
-	private void joinMentor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
+	private void joinMentor(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		String universityName = request.getParameter("universityName");
 		String universityType = request.getParameter("universityType");
 		String grade = request.getParameter("grade");
-		String major = request.getParameter("major");		
+		String major = request.getParameter("major");
 		String wantDay = request.getParameter("wantDay");
 		String wantTime = request.getParameter("wantTime");
 		String requirement = request.getParameter("requirement");
-		String history = request.getParameter("history");
-		
+		String[] historyArr = request.getParameterValues("history");
+
 		Member member = new Member();
 		Mentor mentor = new Mentor();
-		
+
 		member = commonMember(request, response, member);
-		
+
 		member.setRole("MO00");
 		mentor.setUniversityName(universityName);
 		mentor.setUniversityType(universityType);
@@ -219,12 +277,24 @@ public class MemberController extends HttpServlet {
 		mentor.setWantDay(wantDay);
 		mentor.setWantTime(wantTime);
 		mentor.setRequirement(requirement);
-		mentor.setHistory(history);
-		
-		if(memberService.insertMentor(member,mentor) != 0) {
+		if (historyArr.length != 0) {
+			String history = "";
+
+			for (int i = 0; i < historyArr.length; i++) {
+				if (i == 0) {
+					history = historyArr[i];
+				} else {
+					history += ("," + historyArr[i]);
+				}
+
+			}
+			mentor.setHistory(history);
+		}
+
+		if (memberService.insertMentor(member, mentor) != 0) {
 			System.out.println("로그인 완료");
 		}
-		
+
 	}
 
 	private void joinImpl(HttpServletRequest request, HttpServletResponse response)
@@ -248,6 +318,7 @@ public class MemberController extends HttpServlet {
 			throws ServletException, IOException {
 		request.getRequestDispatcher("/member/join-form-mentor").forward(request, response);
 	}
+
 	private void joinFormMentee(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.getRequestDispatcher("/member/join-form-mentee").forward(request, response);
@@ -275,28 +346,29 @@ public class MemberController extends HttpServlet {
 		 * 
 		 * if (member == null) { response.sendRedirect("/member/login-form?err=1");
 		 * return; }
-		 */ 
-		
+		 */
+
 		String userId = request.getParameter("userId");
 		String password = request.getParameter("password");
-		System.out.println(userId);
 		Member member = null;
-		
+		Mentor mentor = null;
+		Mentee mentee = null;
 		member = memberService.memberAuthenticate(userId, password);
-		
-		
-		
+
 		if (member == null) {
 			response.sendRedirect("/member/login-form?err=1");
 			return;
 		}
+		if (member.getRole().startsWith("ME")) {
+			mentee = memberService.selectMenteeByRole(member);
+			request.getSession().setAttribute("authMentee", mentee);
+		} else {
+			mentor = memberService.selectMentorByRole(member);
+			request.getSession().setAttribute("authMentor", mentor);
+		}
+		request.getSession().setAttribute("authentication", member);
 
-		
-		 request.getSession().setAttribute("authentication",member);
-		
-		 response.sendRedirect("/");
-		 
-
+		response.sendRedirect("/");
 
 	}
 
@@ -313,26 +385,25 @@ public class MemberController extends HttpServlet {
 		String email = request.getParameter("email");
 		String gender = request.getParameter("gender-radio");
 		String address = request.getParameter("address");
-		String phone = request.getParameter("countryCode")+request.getParameter("phone");
+		String phone = request.getParameter("countryCode") + request.getParameter("phone");
 		String nickname = request.getParameter("nickname");
-		
+
 		member.setUserName(userName);
 		member.setUserId(userId);
 		member.setPassword(password);
 		member.setEmail(email);
-		if(gender.equals("male")) {
+		if (gender.equals("male")) {
 			member.setGender("m");
-		}else {
+		} else {
 			member.setGender("f");
 		}
 		member.setAddress(address);
 		member.setPhone(phone);
 		member.setNickname(nickname);
-		
-		
+
 		return member;
 	}
-	
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
