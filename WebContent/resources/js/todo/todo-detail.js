@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
           navLinks: true, // can click day/week names to navigate views
           businessHours: true, // display business hours
           editable: true,
+		  displayEventTime: false,
 
 		//날짜 클릭하면 일정추가 팝업
 		dateClick: function(info) {
@@ -37,12 +38,23 @@ document.addEventListener('DOMContentLoaded', function() {
 		//일정 클릭하면 일정수정/삭제 팝업	
 		eventClick: function(info){
 
-			localStorage.setItem("startStr", info.event.startStr);	//클릭한 일정 시작일 
-			localStorage.setItem("endStr", info.event.endStr);	
-			localStorage.setItem("title", info.event.title);	
+//			localStorage.setItem("startStr", info.event.startStr);	//클릭한 일정 시작일 
+//			localStorage.setItem("endStr", info.event.endStr);	
+//			localStorage.setItem("title", info.event.title);	
+			var start = info.event.startStr;
+			var end = info.event.endStr;
+			var title = info.event.title;
+			var todoIdx = info.event.id;
+			
+			document.getElementById("todo_start").value = start;
+			document.getElementById("todo_end").value = end;
+			document.getElementById("todo_title").value = title;
+			document.getElementById("todo_idx").value = todoIdx;
+			
 			window.name = "parentForm";
 			openModify = window.open("${contextPath}/todo/modify","popup","width=500, height=500, left=0, top=0");
-			}
+			
+		}
 
 
   /*  alert('Event: ' + info.event.title);
@@ -82,6 +94,18 @@ function setDate() {
 				console.log("start : " + list[i].start);
 				console.log("end : " + list[i].end);
 				console.log("title : " + list[i].title);
+				console.log("todoIdx : " + list[i].todoIdx);
+				
+				var event = {
+								start : list[i].start,
+								end : list[i].end,
+								title : list[i].title,
+							};
+				
+				list[i].id = list[i].todoIdx;
+				list[i].start = list[i].start + "T00:00:00.000Z";
+				list[i].end = list[i].end + "T23:00:00.000Z";
+				list[i].allDay = true;
 				
 				calendar.addEvent(list[i]);
 			}

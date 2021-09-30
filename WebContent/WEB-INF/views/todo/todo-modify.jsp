@@ -16,11 +16,15 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css"> 
 <script src='https://cdn.jsdelivr.net/combine/npm/fullcalendar@5.9.0/main.min.js,
 											npm/fullcalendar@5.9.0/locales-all.min.js'></script>
-
+<script
+  src="https://code.jquery.com/jquery-3.6.0.js"
+  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+  crossorigin="anonymous"></script>
+  
 </head> 
 <body>
-<form method="post">
 <div class="wrap-input">
+	<input type="hidden" name="todoIdx" id="todoIdx" />
 	<div>일정 제목 <input type="text" name="title" id="titleInput" /></div>
 	<div>일정 시작일 <input type="date" name="startDate" id="startInput" /></div>
 	<div>일정 종료일 <input type="date" name="endDate" id="endInput" /></div>
@@ -30,10 +34,10 @@
 	
 </div>
 <div class="wrap-button">
-	<input type="submit" value="일정 수정" formaction="/todo/modify" id="modifyButton" onclick="todoModify()"/>
+<!-- 	<input type="submit" value="일정 수정" formaction="/todo/modify" id="modifyButton" onclick="todoModify()"/> -->
+	<button type="button" id="modifyButton" onclick="todoModify()">일정 수정</button>
 	<input type="submit" value="일정 삭제" formaction="/todo/delete" id="deleteButton" onclick="deleteEntry()"/>
 </div>
-</form>
 </body>
 
 <!-- 

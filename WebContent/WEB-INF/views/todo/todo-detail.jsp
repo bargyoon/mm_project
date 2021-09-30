@@ -33,7 +33,10 @@
             
 <script src="/resources/js/todo/todo-detail.js"></script>
 
-
+<input type="hidden" name="start" id="todo_start" />
+<input type="hidden" name="end" id="todo_end" />
+<input type="hidden" name="title" id="todo_title" />
+<input type="hidden" name="todoIdx" id="todo_idx" />
 
 <div class="wrap-calendar"><div id='calendar' class="calendar"></div></div>
 

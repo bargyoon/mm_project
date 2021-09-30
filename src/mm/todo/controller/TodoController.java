@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -284,13 +285,22 @@ public class TodoController extends HttpServlet {
 		for (Todo todo : todoList) {
 			Date startDate = todo.getStartDate();
 			Date endDate = todo.getEndDate();
+			
+//			java.util.Date end = new Date(endDate.getTime());
+//			Calendar cal = Calendar.getInstance();
+//			cal.setTime(end);
+//			cal.add(Calendar.DATE, 1);		// 종료일자 +1 보정
+//			
+//			end = cal.getTime();
+//			endDate = new Date(end.getTime());
+			
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			
 			String start = sdf.format(startDate);
 			todo.setStart(start);
 			
-			String end = sdf.format(endDate);
-			todo.setEnd(end);
+			String endStr = sdf.format(endDate);
+			todo.setEnd(endStr);
 		}
 		
 		Gson gson = new Gson();

@@ -15,10 +15,14 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css">
  <script src='https://cdn.jsdelivr.net/combine/npm/fullcalendar@5.9.0/main.min.js,
 											npm/fullcalendar@5.9.0/locales-all.min.js'></script>
-
+<script
+  src="https://code.jquery.com/jquery-3.6.0.js"
+  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+  crossorigin="anonymous"></script>
+  
 </head> 
 <body>
-<form action="/todo/insert" method="post">
+<!-- <form action="/todo/insert" method="post"> -->
 <div class="wrap-input">
 	<div>일정 제목 <input type="text" name="title" placeholder="일정을 입력하세요" id="titleInput" /></div>
 	<div>일정 시작일 <input type="date" name="startDate" id="startInput" /></div>
@@ -27,9 +31,10 @@
 	<input type="hidden" id="done" name="done" value="0" />
 </div>
 <div class="wrap-button">
-	<input type="submit" value="일정 추가" id="addButton"/>
+<!-- 	<input type="submit" value="일정 추가" id="addButton"/> -->
+	<button type="button" id="modifyButton" onclick="todoInsert()">일정 추가</button>
 </div>
-</form>
+<!-- </form> -->
 
 
 <script src="/resources/js/todo/todo-insert.js"></script>

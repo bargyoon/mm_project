@@ -88,7 +88,7 @@ public class TodoDao {
 	public int updateTodo(Todo todo, Connection conn) {		
 		int res = 0;		
 		PreparedStatement pstm = null;
-		String query = "UPDATE TODO SET TITLE=?, START_DATE=?, END_DATE=?, DONE=?, COLOR=? WHERE TODO_IDX=?";
+		String query = "UPDATE TODO SET TITLE=?, START_DATE=?, END_DATE=?, COLOR=? WHERE TODO_IDX=?";
 		
 		try {
 			pstm = conn.prepareStatement(query);
@@ -96,7 +96,7 @@ public class TodoDao {
 			pstm.setString(index++, todo.getTitle());
 			pstm.setDate(index++, todo.getStartDate());
 			pstm.setDate(index++, todo.getEndDate());
-			pstm.setString(index++, todo.getDone());
+//			pstm.setString(index++, todo.getDone());
 			pstm.setString(index++, todo.getColor());	
 			pstm.setInt(index++, todo.getTodoIdx());
 			res = pstm.executeUpdate();

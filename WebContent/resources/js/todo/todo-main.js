@@ -1,7 +1,6 @@
 /**
  * 
  */
-
 document.addEventListener('DOMContentLoaded', function() {
 	var todo_length = $(".cb_todo").length;
 	var todo_length = $(".cb_todo").length;
