@@ -47,14 +47,14 @@ public class MentoringService {
 		return memberList;
 	}
 
-	public List<MentoringHistory> getMtHistoryByUserIdx(int userIdx) {
+	public List<MentoringHistory> getMtHistoryByUserIdx(int userIdx, String role) {
 		List<MentoringHistory> mhList = new ArrayList<MentoringHistory>();
 		
 		Connection conn = template.getConnection();
 		
 		try {
 			
-			mhList = mDao.getMtHistoryByUserIdx(userIdx, conn);
+			mhList = mDao.getMtHistoryByUserIdx(userIdx, role, conn);
 			
 		} finally {
 			template.close(conn);
@@ -63,14 +63,14 @@ public class MentoringService {
 		return mhList;
 	}
 
-	public List<ApplyHistory> getApHistoryByUserIdx(int userIdx) {
+	public List<ApplyHistory> getApHistoryByUserIdx(int userIdx, String role) {
 		List<ApplyHistory> ahList = new ArrayList<ApplyHistory>();
 		
 		Connection conn = template.getConnection();
 		
 		try {
 			
-			ahList = mDao.getApHistoryByUserIdx(userIdx, conn);
+			ahList = mDao.getApHistoryByUserIdx(userIdx, role, conn);
 			
 		} finally {
 			template.close(conn);
@@ -97,13 +97,13 @@ public class MentoringService {
 		return res;
 	}
 
-	public int registApply(MentoringHistory mh) {
+	public int registApply(ApplyHistory ah) {
 		int res = 0;
 		
 		Connection conn = template.getConnection();
 		
 		try {
-			res = mDao.registApply(mh, conn);
+			res = mDao.registApply(ah, conn);
 			template.commit(conn);
 		} catch (Exception e) {
 			template.rollback(conn);
@@ -174,6 +174,96 @@ public class MentoringService {
 		}
 		
 		return nonExistMentor;
+	}
+
+	public boolean isExistInApply(int mentorIdx, int userIdx) {
+		boolean isExist = false;
+		Connection conn = template.getConnection();
+		
+		try {
+			isExist = mDao.isExistInApply(mentorIdx, userIdx, conn);
+		} finally {
+			template.close(conn);
+		}
+		return isExist;
+	}
+
+	public Mentor getMentorByUserIdx(int mentorUserIdx) {
+		Mentor mentor = null;
+		
+		Connection conn = template.getConnection();
+		
+		try {
+			mentor = mDao.getMentorByUserIdx(mentorUserIdx,conn);
+		} finally {
+			template.close(conn);
+		}
+		
+		return mentor;
+	}
+
+	public int insertMH(MentoringHistory mh) {
+		int res = 0;
+		
+		Connection conn = template.getConnection();
+		
+		try {
+			res = mDao.insertMH(mh, conn);
+			template.commit(conn);
+		} catch(Exception e) {
+			template.rollback(conn);
+			throw e;
+		} finally {
+			template.close(conn);
+		}
+		return res;
+	}
+
+	public int deleteAH(int menteeIdx, int mentorIdx) {
+		int res = 0;
+		Connection conn = template.getConnection();
+		
+		try {
+			res = mDao.deleteAH(menteeIdx, mentorIdx, conn);
+			template.commit(conn);
+		} catch (Exception e) {
+			template.rollback(conn);
+			throw e;
+		} finally {
+			template.close(conn);
+		}
+		
+		return res;
+	}
+
+	public int increaseMentoringCnt(int mentorIdx) {
+		int res = 0;
+		Connection conn = template.getConnection();
+		
+		try {
+			res = mDao.increaseMentoringCnt(mentorIdx, conn);
+			template.commit(conn);
+		} catch (Exception e) {
+			template.rollback(conn);
+			throw e;
+		} finally {
+			template.close(conn);
+		}
+		
+		return res;
+	}
+
+	public List<Rating> getRatingByMentorIdx(int mentorIdx) {
+		List<Rating> mentorRating = new ArrayList<Rating>();
+		Connection conn = template.getConnection();
+		
+		try {
+			mentorRating = mDao.getRatingByMentorIdx(mentorIdx, conn);
+		} finally {
+			template.close(conn);
+		}
+		
+		return mentorRating;
 	}
 
 	

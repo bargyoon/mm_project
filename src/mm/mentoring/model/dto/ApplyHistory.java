@@ -11,6 +11,7 @@ public class ApplyHistory {
 	private Date applyDate;
 	private Date epDate;
 	private int reapplyCnt;
+	private String menteeName;
 	
 	public ApplyHistory() {
 		// TODO Auto-generated constructor stub
@@ -71,10 +72,21 @@ public class ApplyHistory {
 	public void setReapplyCnt(int reapplyCnt) {
 		this.reapplyCnt = reapplyCnt;
 	}
+	
+	public String getMenteeName() {
+		return menteeName;
+	}
+
+	public void setMenteeName(String menteeName) {
+		this.menteeName = menteeName;
+	}
 
 	@Override
 	public String toString() {
 		return "ApplyHistory [aIdx=" + aIdx + ", userIdx=" + userIdx + ", mentorIdx=" + mentorIdx + ", mentorName="
-				+ mentorName + ", applyDate=" + applyDate + ", epDate=" + epDate + ", reapplyCnt=" + reapplyCnt + "]";
+				+ mentorName + ", applyDate=" + applyDate + ", epDate=" + epDate + ", reapplyCnt=" + reapplyCnt
+				+ ", menteeName=" + menteeName + "]";
 	}
+
+
 }

@@ -29,7 +29,12 @@
 		        </div>
 		        <div class="d-flex flex-column align-items-center">
 		            <div class="input-group mb-2">
-		                <div class="fs-5 fw-bold text-white">신청 중인 멘토링</div>
+		            	<c:if test="${authentication.role eq 'ME00'}">
+		                	<div class="fs-5 fw-bold text-white">신청 중인 멘토링</div>
+		                </c:if>
+		                <c:if test="${authentication.role eq 'MO00'}">
+		                	<div class="fs-5 fw-bold text-white">신청 받은 멘토링</div>
+		                </c:if>
 		            </div>
 		            <div class="small text-white-50">
 		                <button class="btn btn-outline-light" onclick="renderApplying()">${ahlist.size()}건</button>
@@ -68,18 +73,32 @@
             	<c:forEach items="${ahlist}" var="ah" varStatus="status">
 	                <div class="col-lg-10 mb-4">
 						<div class="d-flex align-items-center justify-content-between">
-						    <div class="d-flex align-items-center">
-						    	<img class="rounded-circle me-3" src="https://dummyimage.com/60x60/ced4da/6c757d" alt="..." />
-						    	<div class="small">
-							        <div class="fw-bold"><c:out value="${ah.mentorName}"/></div>
-							        <div class="text-muted">멘토 신청 날짜 : <c:out value="${ah.applyDate}"/></div>
-							        <div class="text-muted">재신청 횟수 : <c:out value="${ah.reapplyCnt}"/>/2</div>
-						        </div>
-						    </div>
-							<div class="d-flex flex-column">
-							    <button class="btn btn-primary-dark my-1" style="font-size: 0.75rem" onclick='reapply(${ah.aIdx},${ah.reapplyCnt})'>재신청</button>
-							    <button class="btn btn-primary-dark my-1" style="font-size: 0.75rem">결제하기</button>
-							</div>
+						    <c:if test="${authentication.role eq 'ME00'}">
+							    <div class="d-flex align-items-center">
+							    	<img class="rounded-circle me-3" src="https://dummyimage.com/60x60/ced4da/6c757d" alt="..." />
+							    	<div class="small">
+								        <div class="fw-bold"><c:out value="${ah.mentorName}"/></div>
+								        <div class="text-muted">멘토 신청 날짜 : <c:out value="${ah.applyDate}"/></div>
+								        <div class="text-muted">재신청 횟수 : <c:out value="${ah.reapplyCnt}"/>/2</div>
+							        </div>
+							    </div>
+								<div class="d-flex flex-column">
+								    <button class="btn btn-primary-dark my-1" style="font-size: 0.75rem" onclick='reapply(${ah.aIdx},${ah.reapplyCnt})'>재신청</button>
+								    <button class="btn btn-primary-dark my-1" style="font-size: 0.75rem">결제하기</button>
+								</div>
+							</c:if>
+							<c:if test="${authentication.role eq 'MO00'}">
+								<div class="d-flex align-items-center">
+							    	<div class="small">
+								        <div class="fw-bold"><c:out value="${ah.menteeName}"/></div>
+								        <div class="text-muted">멘토링 신청 날짜 : <c:out value="${ah.applyDate}"/></div>
+								        <div class="text-muted">재신청 횟수 : <c:out value="${ah.reapplyCnt}"/>/2</div>
+							        </div>
+							    </div>
+								<div class="d-flex flex-column">
+								    <button class="btn btn-primary-dark my-1" style="font-size: 0.75rem" onclick='acceptBtn(${ah.userIdx})'>멘토 수락</button>
+								</div>
+							</c:if>
 						</div>
 	                	<hr>
 	                </div>
@@ -92,7 +111,12 @@
 						    <div class="d-flex align-items-center">
 						    	<img class="rounded-circle me-3" src="https://dummyimage.com/60x60/ced4da/6c757d" alt="..." />
 						    	<div class="small">
-							        <div class="fw-bold"><c:out value="${ph.mentorName}"/></div>
+						    		<c:if test="${authentication.role eq 'ME00'}">
+							        	<div class="fw-bold"><c:out value="${ph.mentorName}"/></div>
+							        </c:if>
+							        <c:if test="${authentication.role eq 'MO00'}">
+							        	<div class="fw-bold"><c:out value="${ph.menteeName}"/></div>
+							        </c:if>
 							        <div class="text-muted">멘토 진행 기간 : <c:out value="${ph.startDate}"/> ~ <c:out value="${ph.endDate}"/></div>
 						        </div>
 						    </div>
@@ -105,17 +129,27 @@
 	            <c:forEach items="${fhlist}" var="fh" varStatus="status">
 	                <div class="col-lg-10 mb-4">
 						<div class="d-flex align-items-center justify-content-between">
-						    <div class="d-flex align-items-center">
-						    	<img class="rounded-circle me-3" src="https://dummyimage.com/60x60/ced4da/6c757d" alt="..." />
-						    	<div class="small">
-							        <div class="fw-bold"><c:out value="${fh.mentorName}"/></div>
-							        <div class="text-muted">멘토 진행 기간 : <c:out value="${fh.startDate}"/> ~ <c:out value="${fh.endDate}"/></div>
-						        </div>
-						    </div>
-							<div class="d-flex flex-column">
-							    <button class="btn btn-primary-dark my-1" style="font-size: 0.75rem" onclick="registApply(${authentication.userIdx},${fh.mentorIdx},'${fh.mentorName}')">재신청</button>
-							    <button class="btn btn-primary-dark my-1" style="font-size: 0.75rem" onclick="rating('${fh.mIdx}')">평가하기</button>
-							</div>
+							<c:if test="${authentication.role eq 'ME00'}">
+							    <div class="d-flex align-items-center">
+							    	<img class="rounded-circle me-3" src="https://dummyimage.com/60x60/ced4da/6c757d" alt="..." />
+							    	<div class="small">
+								        <div class="fw-bold"><c:out value="${fh.mentorName}"/></div>
+								        <div class="text-muted">멘토 진행 기간 : <c:out value="${fh.startDate}"/> ~ <c:out value="${fh.endDate}"/></div>
+							        </div>
+							    </div>
+								<div class="d-flex flex-column">
+								    <button class="btn btn-primary-dark my-1" style="font-size: 0.75rem" onclick="registApply(${fh.mentorIdx},'${fh.mentorName}')">재신청</button>
+								    <button class="btn btn-primary-dark my-1" style="font-size: 0.75rem" onclick="rating('${fh.mIdx}')">평가하기</button>
+								</div>
+							</c:if>
+							<c:if test="${authentication.role eq 'MO00'}">
+								<div class="d-flex align-items-center">
+							    	<div class="small">
+								        <div class="fw-bold"><c:out value="${fh.menteeName}"/></div>
+								        <div class="text-muted">멘토 진행 기간 : <c:out value="${fh.startDate}"/> ~ <c:out value="${fh.endDate}"/></div>
+							        </div>
+							    </div>
+							</c:if>
 						</div>
 	                	<hr>
 	                </div>

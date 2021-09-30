@@ -1,7 +1,12 @@
 package mm.mentoring.controller;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -61,16 +66,102 @@ public class MentoringController extends HttpServlet {
 		case "comment-check":
 			commentCheck(request, response);
 			break;
+		case "mentoring-accept":
+			mentoringAccept(request, response);
+			break;
+		case "regist-mentoring":
+			registMentoring(request, response);
+			break;
 		default:
 			break;
 		}
 
 	}
 
+	//mentoringHistory에 멘토링 새로 등록
+	private void registMentoring(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int res = 0;
+		Member mentorInfo = (Member) request.getSession().getAttribute("authentication");
+		Mentor mentor = mService.getMentorByUserIdx(mentorInfo.getUserIdx()); //멘토의 useridx로 Mentor 테이블 정보 가져옴
+		
+		int menteeIdx = Integer.parseInt(request.getParameter("mentee_idx"));
+		Member menteeInfo = mService.getMemberByIdx(menteeIdx); //멘티의 userIdx로 member정보 가져옴
+		
+		String startDate = request.getParameter("start_date");
+		String endDate = request.getParameter("end_date");
+		
+		//format할 패턴지정
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date parsedStartDate = null;
+		Date parsedEndDate = null;
+		Date epDate = new Date();
+		
+		//String 매개변수 Date 타입으로 변경
+		try {
+			parsedStartDate = dateFormat.parse(startDate);
+			parsedEndDate = dateFormat.parse(endDate);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		//startDate 1년뒤로 epDate 지정
+		epDate.setDate(parsedStartDate.getDate()+365);
+		
+		//price는 입력했을 때만 바꿔줌
+		int price = 0;
+		if(!request.getParameter("price").equals("")) {
+			price = Integer.parseInt(request.getParameter("price"));
+		}
+		
+		//mh 객체 생성및 set해주기
+		MentoringHistory mh = new MentoringHistory();
+		mh.setUserIdx(menteeIdx);
+		mh.setStartDate(parsedStartDate);
+		mh.setEndDate(parsedEndDate);
+		mh.setPrice(price);
+		mh.setState("P");
+		mh.setMentorIdx(mentor.getMentorIdx());
+		mh.setMenteeName(menteeInfo.getUserName());
+		mh.setMentorName(mentorInfo.getUserName());
+		mh.setEpDate(epDate);
+		
+		for (int i = 0; i < 3; i++) {
+			if(i==0) {
+				//멘토링 히스토리에 등록
+				res = mService.insertMH(mh);
+			} else if(i==1) {
+				//멘토의 멘토링 횟수 1회 증가
+				res = mService.increaseMentoringCnt(mentor.getMentorIdx());
+			} else {
+				//어플라이 히스토리에서 삭제
+				res = mService.deleteAH(menteeIdx, mentor.getMentorIdx());
+			}
+			if(res == 0) {
+				request.setAttribute("msg", "멘토링 수락에 실패하였습니다.");
+				request.setAttribute("url", "/mentoring/manage-page");
+				request.getRequestDispatcher("common/result").forward(request, response);
+			}
+		}
+		
+		request.setAttribute("msg", "멘토링 시작되었습니다 !");
+		request.setAttribute("url", "/mentoring/manage-page");
+		request.getRequestDispatcher("common/result").forward(request, response);
+
+	}
+
+	//멘토가 멘토 수락 버튼 누를시 이동하는 페이지
+	private void mentoringAccept(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int menteeIdx = Integer.parseInt(request.getParameter("mentee_user_idx"));
+		
+		request.setAttribute("menteeIdx", menteeIdx);
+		
+		request.getRequestDispatcher("mentoring/accept-page").forward(request, response);
+	}
+
 	private void commentCheck(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Member member = (Member) request.getSession().getAttribute("authentication");
 		int userIdx = member.getUserIdx();
 		int mIdx = Integer.parseInt(request.getParameter("m_idx"));
+		
 		MentoringHistory mh = mService.getMhByMIdx(mIdx);
 		int mentorIdx = mh.getMentorIdx();
 		
@@ -84,33 +175,70 @@ public class MentoringController extends HttpServlet {
 		
 	}
 
+	//출력된 멘토 리스트에서 신청했을 때
 	private void applyComplete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	//DB apply_history 테이블에 등록
-	private void registApply(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int userIdx = Integer.parseInt(request.getParameter("user_idx"));
+		Member member = (Member) request.getSession().getAttribute("authentication");
+		int userIdx = member.getUserIdx();
 		int mentorIdx = Integer.parseInt(request.getParameter("mentor_idx"));
-		String mentorName = request.getParameter("mentor_name");
-		MentoringHistory mh = new MentoringHistory();
+		int mentorMemberIdx = Integer.parseInt(request.getParameter("mentor_user_idx"));
+		ApplyHistory ah = new ApplyHistory();
 		
-		mh.setUserIdx(userIdx);
-		mh.setMentorIdx(mentorIdx);
-		mh.setMentorName(mentorName);
-		
-		int res = mService.registApply(mh);
-		
-		if(res == 0) { 
-			request.setAttribute("msg", "멘토링 재신청에 실패하였습니다.");
+		//이미 applyhistory에 있는지 다시 확인(예외처리)
+		boolean isExist = mService.isExistInApply(mentorIdx, userIdx);
+		if(isExist) {
+			request.setAttribute("msg", "이미 신청한 멘토입니다.");
 			request.setAttribute("back", "back");
-			request.getRequestDispatcher("common/result").forward(request, response); }
-		else {
+			request.getRequestDispatcher("common/result").forward(request, response);
+		}
+		
+		//멘토의 userIdx로 멘토 정보를 가져옴
+		Member mentorInfo = mService.getMemberByIdx(mentorMemberIdx);
+		ah.setUserIdx(userIdx);
+		ah.setMentorIdx(mentorIdx);
+		ah.setMentorName(mentorInfo.getUserName());
+		ah.setMenteeName(member.getUserName());
+		int res = mService.registApply(ah);
+		
+		if(res == 0) {
+			request.setAttribute("msg", "멘토링 신청에 실패하였습니다.");
+			request.setAttribute("back", "back");
+			request.getRequestDispatcher("common/result").forward(request, response);
+		} else {
 			request.getRequestDispatcher("/mentoring/apply-complete").forward(request,response); 
 		}
 	}
 
+	//완료된 멘토링에서 재신청 했을 때
+	private void registApply(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Member member = (Member) request.getSession().getAttribute("authentication");
+		int mentorIdx = Integer.parseInt(request.getParameter("mentor_idx"));
+		String mentorName = request.getParameter("mentor_name");
+		ApplyHistory ah = new ApplyHistory();
+		
+		boolean isExist = mService.isExistInApply(mentorIdx, member.getUserIdx());
+		if(isExist) {
+			request.setAttribute("msg", "이미 신청한 멘토입니다.");
+			request.setAttribute("back", "back");
+			request.getRequestDispatcher("common/result").forward(request, response);
+		}
+		
+		ah.setUserIdx(member.getUserIdx());
+		ah.setMentorIdx(mentorIdx);
+		ah.setMentorName(mentorName);
+		ah.setMenteeName(member.getUserName());
+		
+		int res = mService.registApply(ah);
+		
+		if(res == 0) { 
+			request.setAttribute("msg", "멘토링 재신청에 실패하였습니다.");
+			request.setAttribute("back", "back");
+			request.getRequestDispatcher("common/result").forward(request, response); 
+		} else {
+			request.getRequestDispatcher("/mentoring/apply-complete").forward(request,response); 
+		}
+	}
+
+	//신청한 멘토링에서 멘토링 재신청 했으 때
 	private void reapplyComplete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		int ahIdx = Integer.parseInt(request.getParameter("a_idx"));
@@ -154,7 +282,7 @@ public class MentoringController extends HttpServlet {
 			request.getRequestDispatcher("common/result").forward(request, response);
 		} else {
 			request.setAttribute("msg", "평가를 등록하였습니다.");
-			request.setAttribute("url", "/mentoring/manage-pag");
+			request.setAttribute("url", "/mentoring/manage-page");
 			request.getRequestDispatcher("common/result").forward(request, response);
 		}
 		
@@ -205,11 +333,22 @@ public class MentoringController extends HttpServlet {
 	private void managePage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 세션에서 멤버정보 가져옴
 		Member member = (Member) request.getSession().getAttribute("authentication");
-		// 멤버 idx로 MentoringHistory, ApplyHistory DTO 생성
-		System.out.println(member.toString());
-
-		List<MentoringHistory> mhList = mService.getMtHistoryByUserIdx(member.getUserIdx());
-		List<ApplyHistory> ahList = mService.getApHistoryByUserIdx(member.getUserIdx());
+		int mentorUserIdx = member.getUserIdx();
+		Mentor mentor = mService.getMentorByUserIdx(mentorUserIdx);
+		String role = member.getRole();
+		
+		List<MentoringHistory> mhList = new ArrayList<MentoringHistory>();
+		List<ApplyHistory> ahList = new ArrayList<ApplyHistory>();
+		
+		// role에 따른 idx로 MentoringHistory, ApplyHistory DTO 생성
+		if(role.equals("ME00")) {
+			mhList = mService.getMtHistoryByUserIdx(member.getUserIdx(), role);
+			ahList = mService.getApHistoryByUserIdx(member.getUserIdx(), role);
+		} else if(role.equals("MO00")) {
+			mhList = mService.getMtHistoryByUserIdx(mentor.getMentorIdx(), role);
+			ahList = mService.getApHistoryByUserIdx(mentor.getMentorIdx(), role);
+		}
+		
 		List<MentoringHistory> finishMhList = new ArrayList<MentoringHistory>();
 		List<MentoringHistory> processMhList = new ArrayList<MentoringHistory>();
 
@@ -241,7 +380,6 @@ public class MentoringController extends HttpServlet {
 
 	private void mentorList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		MentorCondition mentorCondition = new MentorCondition();
-		List<Member> memberList = new ArrayList<Member>();
 		Member member = (Member) request.getSession().getAttribute("authentication");
 		mentorCondition.setUniversityType(request.getParameter("school_type").split(","));
 		mentorCondition.setWantTime(request.getParameter("want_time").split(","));
@@ -252,30 +390,96 @@ public class MentoringController extends HttpServlet {
 
 		// mentorCondition에 맞는 멘토리스트 가져옴
 		List<Mentor> mentorList = mService.getMentorByCondition(mentorCondition);
-		
-		//applyhistory에 있는 멘토들을 제거해 리스트에 저장
+		// 가져온 멘토 리스트를 applyhistory 테이블에 있는 멘토들과 비교해 중복제거 후 리스트에 저장
 		List<Mentor> nonExistMentorList = mService.isExistInApply(mentorList, userIdx);
 		
-		// 제거한 멘토목록의 idx로 멘토의 멤버정보 가져옴
+		
+		//멘토의 평점을 가져와 우수멘토와 일반멘토 구분
+		List<Mentor> excellentMentorList = new ArrayList<Mentor>();
+		List<Member> excellentMentorInfo = new ArrayList<Member>();
+		List<Mentor> normalMentorList = new ArrayList<Mentor>();
+		List<Member> normalMentorInfo = new ArrayList<Member>();
+		
 		for (int i = 0; i < nonExistMentorList.size(); i++) {
-			memberList.add(mService.getMemberByIdx(nonExistMentorList.get(i).getUserIdx()));
+			int mentoringCnt = nonExistMentorList.get(i).getMentoringCnt();
+			int gradeCnt = 0;
+			int gradePoint = 0;
+			//멘토 idx로 평가에 따라 gradeCnt++ 하기
+			if(mentoringCnt != 0) {
+				gradeCnt = increaseGradeCnt(nonExistMentorList.get(i));
+			}
+			
+			if(gradeCnt != 0) {
+				gradePoint = gradeCnt/mentoringCnt;
+			}
+			
+			// 멘토평점/멘토횟수를 통해 우수멘토와 일반멘토로 구분후 List에 담아주기
+			if(gradePoint >= 3) {
+				//멘토의 idx로 멘토의 멤버정보 가져옴
+				excellentMentorList.add(nonExistMentorList.get(i));
+				excellentMentorInfo.add(mService.getMemberByIdx(nonExistMentorList.get(i).getUserIdx()));
+			} else {
+				normalMentorList.add(nonExistMentorList.get(i));
+				normalMentorInfo.add(mService.getMemberByIdx(nonExistMentorList.get(i).getUserIdx()));
+			}
 		}
-
-		// 가져온 멘토 및 정보 확인용 syso
-		for (int i = 0; i < memberList.size(); i++) {
-			System.out.println("memberlist : " + memberList.get(i).toString());
-		}
-		for (int i = 0; i < mentorList.size(); i++) {
-			System.out.println("mentorlist : " + mentorList.get(i).toString());
-		}
-		for (int i = 0; i < nonExistMentorList.size(); i++) {
-			System.out.println("nonExistMentorList : " + nonExistMentorList.get(i).toString());
-		}
-
-		request.setAttribute("selectedMentors", nonExistMentorList);
-		request.setAttribute("selectedMembers", memberList);
+		
+		// 멘토 리스트에서 history를 꺼내 리스트에 담음
+		List<List<String>> excellentHistoryList = getHistoryList(excellentMentorList);
+		List<List<String>> normalHistoryList = getHistoryList(normalMentorList);
+		
+		request.setAttribute("excellentMentors", excellentMentorList);
+		request.setAttribute("excellentMentorsInfo", excellentMentorInfo);
+		request.setAttribute("excellentHistoryList", excellentHistoryList);
+		request.setAttribute("normalMentors", normalMentorList);
+		request.setAttribute("normalMentorsInfo", normalMentorInfo);
+		request.setAttribute("normalHistoryList", normalHistoryList);
 
 		request.getRequestDispatcher("/mentoring/mentor-list").forward(request, response);
+	}
+
+	
+	private List<List<String>> getHistoryList(List<Mentor> normalMentorList) {
+		List<List<String>> historyList = new ArrayList<List<String>>();
+		for (Mentor mentor : normalMentorList) {
+			List<String> revisedList = new ArrayList<String>();
+			if(mentor.getHistory() != null) {
+				String[] historyArr = mentor.getHistory().split(",");
+				if(historyArr.length >= 2) {
+					for (int i = 0; i < 2; i++) {
+						revisedList.add(historyArr[i]);
+					}
+				} else {
+					revisedList.add(historyArr[0]);
+				}
+				historyList.add(revisedList);
+			} else {
+				historyList.add(null);
+			}
+		}
+		return historyList;
+	}
+
+	private int increaseGradeCnt(Mentor mentor) {
+		int gradeCnt = 0;
+		List<Rating> mentorRating = mService.getRatingByMentorIdx(mentor.getMentorIdx());
+		for (Rating rating : mentorRating) {
+			if(rating.getKindness().equals("Y")) {
+				gradeCnt++;
+			} else if(rating.getCommunication().equals("Y")) {
+				gradeCnt++;
+			} else if(rating.getProfessional().equals("Y")) {
+				gradeCnt++;
+			} else if(rating.getProcess().equals("Y")) {
+				gradeCnt++;
+			} else if(rating.getAppointment().equals("Y")) {
+				gradeCnt++;
+			} else if(rating.getExplain().equals("Y")) {
+				gradeCnt++;
+			}
+		}
+		
+		return gradeCnt;
 	}
 
 	private void applyPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
