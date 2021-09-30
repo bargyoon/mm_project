@@ -338,31 +338,6 @@ public class MemberDao {
 
 		return res;
 	}
-
-	public Mentee selectMenteeByRole(int userIdx, Connection conn) {
-		Mentee mentee = null;
-		PreparedStatement pstm = null;
-		ResultSet rset = null;
-
-		try {
-
-			String query = "select * from user_mentee where user_idx = ?";
-			pstm = conn.prepareStatement(query);
-			pstm.setInt(1, userIdx);
-			rset = pstm.executeQuery();
-
-			if (rset.next()) {
-				mentee = convertRowToMentee(rset);
-			}
-		} catch (SQLException e) {
-
-			throw new DataAccessException(e);
-		} finally {
-			template.close(rset, pstm);
-		}
-
-		return mentee;
-	}
 	
 	public int insertKakaoId(String kakaoId, Connection conn) {
 		int res = 0;
