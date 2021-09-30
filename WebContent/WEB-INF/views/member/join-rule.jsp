@@ -21,9 +21,10 @@
 			<!-- For Demo Purpose -->
 
 
-			
-			<div  style="display:flex; justify-content:center;">
-				<form action="/member/join-mentee" method="post" style="max-width: 600px;">
+
+			<div style="display: flex; justify-content: center;">
+				<form action="/member/join-mentee" method="post"
+					style="max-width: 600px;">
 					<div style="padding: 22px;">
 
 						<div>

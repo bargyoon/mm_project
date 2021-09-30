@@ -32,6 +32,9 @@
 							<c:if test="${not empty param.err and empty joinValid.userName}">
                             value="${joinForm.userName}"
                                   </c:if>
+							<c:if test="${not empty kakao.userName}">
+                            value="${kakao.userName}"
+                                  </c:if>
 							required class="form-control bg-white border-left-0 border-md">
 					</div>
 
@@ -107,6 +110,9 @@
 						<input id="email" type="email" name="email" placeholder="이메일"
 							<c:if test="${not empty param.err and empty joinValid.email}">
                             value="${joinForm.email}"
+                                  </c:if>
+                                  <c:if test="${not empty kakao.email}">
+                            value="${kakao.email}"
                                   </c:if>
 							required class="form-control bg-white border-left-0 border-md">
 					</div>

@@ -9,6 +9,7 @@ import java.util.List;
 
 import mm.common.db.JDBCTemplate;
 import mm.common.exception.DataAccessException;
+import mm.common.file.FileDTO;
 import mm.member.model.dto.Member;
 import mm.member.model.dto.Mentee;
 import mm.member.model.dto.Mentor;
@@ -22,7 +23,7 @@ public class MemberDao {
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
 		try {
-			String query = "select * from member where user_id = ? and password = ? ";
+			String query = "select * from member where user_id = ? and password = ? and is_leave = 0 ";
 			pstm = conn.prepareStatement(query);
 
 			pstm.setString(1, userId);
@@ -70,6 +71,35 @@ public class MemberDao {
 
 		return member;
 	}
+	
+	public Member selectMemberByPassword(String password, Connection conn) {
+		Member member = null;
+
+
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+
+		try {
+
+			String query = "select * from member where password = ?";
+			pstm = conn.prepareStatement(query);
+			pstm.setString(1, password);
+
+			rset = pstm.executeQuery();
+
+			if (rset.next()) {
+				member = convertRowToMember(rset);
+			}
+		} catch (SQLException e) {
+
+			throw new DataAccessException(e);
+		} finally {
+			template.close(rset, pstm);
+		}
+
+		return member;
+	}
+	
 
 	public Member selectMemberByIdx(int userIdx, Connection conn) {
 		Member member = null;
@@ -97,6 +127,34 @@ public class MemberDao {
 
 		return member;
 	}
+	
+	public int selectMemberByKakaoId(String kakaoId, Connection conn) {
+		int userIdx = 0;
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+
+		try {
+			
+			String query = "select * from kakao_login where kakao_id = ?";
+			pstm = conn.prepareStatement(query);
+			pstm.setString(1, kakaoId);
+
+			rset = pstm.executeQuery();
+
+			if (rset.next()) {
+				userIdx = rset.getInt("user_idx");
+			}
+		} catch (SQLException e) {
+
+			throw new DataAccessException(e);
+		} finally {
+			template.close(rset, pstm);
+		}
+		
+		return userIdx;
+	}
+
+
 	
 	public List<Member> selectMemberList(Connection conn) {
 		List<Member> memberList = new ArrayList<>();
@@ -128,7 +186,9 @@ public class MemberDao {
 		PreparedStatement pstm = null;
 
 		try {
-			String query = "insert into member(user_idx,user_name,user_id,password,email,gender,address,phone,nickname,role) values(sc_user_idx.nextval,?,?,?,?,?,?,?,?,?)";
+
+			String query = "insert into member(user_idx,user_name,user_id,password,email,gender,address,phone,nickname,role,kakao_join) values(sc_user_idx.nextval,?,?,?,?,?,?,?,?,?,?)";
+
 
 			pstm = conn.prepareStatement(query);
 			pstm.setString(1, member.getUserName());
@@ -140,6 +200,8 @@ public class MemberDao {
 			pstm.setString(7, member.getPhone());
 			pstm.setString(8, member.getNickname());
 			pstm.setString(9, member.getRole());
+			pstm.setString(10, member.getKakaoJoin());
+
 
 			res = pstm.executeUpdate();
 		} catch (SQLException e) {
@@ -150,6 +212,7 @@ public class MemberDao {
 
 		return res;
 
+
 	}
 	
 	public int modifyMember(Member member, Connection conn) {
@@ -157,14 +220,18 @@ public class MemberDao {
 		PreparedStatement pstm = null;
 
 		try {
-			String query = "update member set user_name=?, email=?, address=?, phone=? where user_id = ?";
+
+			String query = "update member set user_name=?, password=?, email=?, address=?, phone=?, is_leave=?, kakao_join=? where user_id = ?";
 
 			pstm = conn.prepareStatement(query);
 			pstm.setString(1, member.getUserName());
-			pstm.setString(2, member.getEmail());
-			pstm.setString(3, member.getAddress());
-			pstm.setString(4, member.getPhone());
-			pstm.setString(5, member.getUserId());
+			pstm.setString(2, member.getPassword());
+			pstm.setString(3, member.getEmail());
+			pstm.setString(4, member.getAddress());
+			pstm.setString(5, member.getPhone());
+			pstm.setInt(6, member.getIsLeave());
+			pstm.setString(7, member.getKakaoJoin());
+			pstm.setString(8, member.getUserId());
 
 			res = pstm.executeUpdate();
 		} catch (SQLException e) {
@@ -203,6 +270,31 @@ public class MemberDao {
 		return res;
 	}
 
+	public int modifyMentee(Mentee mentee, int userIdx, Connection conn) {
+		int res = 0;
+		PreparedStatement pstm = null;
+
+		try {
+			String query = "update user_mentee set school_name = ?, major = ?, grade = ?, hope_university = ?, hope_major = ? where user_idx = ?";
+
+			pstm = conn.prepareStatement(query);
+			pstm.setString(1, mentee.getSchoolName());
+			pstm.setString(2, mentee.getMajor());
+			pstm.setInt(3, mentee.getGrade());
+			pstm.setString(4, mentee.getHopeUniversity());
+			pstm.setString(5, mentee.getHopeMajor());
+			pstm.setInt(6, userIdx);
+
+			res = pstm.executeUpdate();
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(pstm);
+		}
+
+		return res;
+	}
+	
 	public int insertMentee(Mentee mentee, Connection conn) {
 		int res = 0;
 		PreparedStatement pstm = null;
@@ -279,6 +371,73 @@ public class MemberDao {
 		return mentee;
 	}
 	
+	public int insertKakaoId(String kakaoId, Connection conn) {
+		int res = 0;
+		PreparedStatement pstm = null;
+
+		try {
+			String query = "insert into kakao_login(user_idx,kakao_id) values(sc_user_idx.currval,?)";
+
+			pstm = conn.prepareStatement(query);
+			pstm.setString(1, kakaoId);
+
+			res = pstm.executeUpdate();
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(pstm);
+		}
+
+		return res;
+	}
+	
+	public int insertKakaoId(int userIdx, String kakaoId, Connection conn) {
+		int res = 0;
+		PreparedStatement pstm = null;
+
+		try {
+			String query = "insert into kakao_login(user_idx,kakao_id) values(?,?)";
+
+			pstm = conn.prepareStatement(query);
+			pstm.setInt(1, userIdx);
+			pstm.setString(2, kakaoId);
+
+			res = pstm.executeUpdate();
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(pstm);
+		}
+
+		return res;
+		
+	}
+
+	public Mentee selectMenteeByRole(int userIdx, Connection conn) {
+		Mentee mentee = null;
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+
+		try {
+
+			String query = "select * from user_mentee where user_idx = ?";
+			pstm = conn.prepareStatement(query);
+			pstm.setInt(1, userIdx);
+			rset = pstm.executeQuery();
+
+			if (rset.next()) {
+				mentee = convertRowToMentee(rset);
+			}
+		} catch (SQLException e) {
+
+			throw new DataAccessException(e);
+		} finally {
+			template.close(rset, pstm);
+		}
+
+		return mentee;
+	}
+	
 	public Mentor selectMentorByRole(int userIdx, Connection conn) {
 		Mentor mentor = null;
 		PreparedStatement pstm = null;
@@ -304,6 +463,114 @@ public class MemberDao {
 		return mentor;
 	}
 
+	public int insertFile(FileDTO fileDTO, int idx, Connection conn) {
+		int res = 0;
+		String sql = "insert into file_info"
+				+ "(fl_idx,type_idx,origin_file_name,rename_file_name,save_path) "
+				+ "values(sc_file_idx.nextval,?,?,?,?)";
+		
+		PreparedStatement pstm = null;
+		
+		try {
+			
+			pstm = conn.prepareStatement(sql);
+			pstm.setInt(1, idx);
+			pstm.setString(2, fileDTO.getOriginFileName());
+			pstm.setString(3, fileDTO.getRenameFileName());
+			pstm.setString(4, fileDTO.getSavePath());
+			res = pstm.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		}finally {
+			template.close(pstm);
+		}
+		System.out.println(res);
+		return res;
+		
+	}
+	
+	public int deleteImg(int userIdx, Connection conn) {
+		int res = 0;
+		int i = 1;
+		PreparedStatement pstm = null;
+
+		try {
+			String query = "update file_info set is_del = ? where type_idx =  ?";
+
+			pstm = conn.prepareStatement(query);
+			pstm.setInt(1, i);
+			pstm.setInt(2, userIdx);
+
+			res = pstm.executeUpdate();
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(pstm);
+		}
+		
+		return res;
+		
+	}
+	
+	
+	public int modifyImg(int i, int mentorIdx, Connection conn) {
+		int res = 0;
+		PreparedStatement pstm = null;
+
+		try {
+			String query = "update user_mentor set profile_img = ? where mentor_idx = ?";
+
+			pstm = conn.prepareStatement(query);
+			pstm.setInt(1, i);
+			pstm.setInt(2, mentorIdx);
+
+			res = pstm.executeUpdate();
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(pstm);
+		}
+		System.out.println("modifyImg");
+		return res;
+		
+	}
+	
+public FileDTO selectFileDTO(int bdIdx, Connection conn) {
+		
+		String sql = "select fl_idx, type_idx, origin_file_name, "
+				+ " rename_file_name, save_path"
+				+ " from file_info where type_idx = ? and is_del = 0";
+		
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		FileDTO file = new FileDTO();
+		
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setInt(1, bdIdx);
+			
+			rset = pstm.executeQuery();
+
+			while(rset.next()) {
+				
+				file.setFlIdx(rset.getInt("fl_idx"));
+				file.setTypeIdx(rset.getInt("type_idx"));
+				file.setSavePath(rset.getString("save_path"));
+				file.setOriginFileName(rset.getString("origin_file_name"));
+				file.setRenameFileName(rset.getString("rename_file_name"));
+				
+				
+			}
+			
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		}finally {
+			template.close(rset, pstm);
+		}
+		return file;
+	}
+	
 	private Member convertRowToMember(ResultSet rset) throws SQLException {
 		Member member = new Member();
 		member.setUserIdx(rset.getInt("user_idx"));
@@ -318,6 +585,7 @@ public class MemberDao {
 		member.setRole(rset.getString("role"));
 		member.setJoinDate(rset.getDate("join_date"));
 		member.setIsLeave(rset.getInt("is_leave"));
+		member.setKakaoJoin(rset.getString("kakao_join"));
 		return member;
 	}
 
@@ -334,6 +602,7 @@ public class MemberDao {
 		mentor.setRequirement(rset.getString("REQUIREMENT"));
 		mentor.setHistory(rset.getString("HISTORY"));
 		mentor.setMentoringCnt(rset.getInt("MENTORING_CNT"));
+		mentor.setProfileImg(rset.getInt("PROFILE_IMG"));
 		return mentor;
 	}
 
@@ -348,6 +617,23 @@ public class MemberDao {
 		mentee.setHopeMajor(rset.getString("HOPE_MAJOR"));
 		return mentee;
 	}
+
+	
+
+	
+
+	
+	
+
+	
+
+	
+
+	
+
+	
+
+	
 
 	
 

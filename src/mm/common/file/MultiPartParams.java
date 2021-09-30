@@ -15,17 +15,17 @@ public class MultiPartParams {
 	}
 	
 	public String getParameter(String name) {
-		if(name.equals("com.kh.toy.files")) {
+		if(name.equals("mm.files")) {
 			throw new RuntimeException("com.kh.toy.files는 사용할 수 없는 파라미터 명입니다. ");
 		}
 		
-		System.out.println(">>>" + params);
+		
 		return (String) params.get(name).get(0);
 	}
 	
 	public String[] getParameterValues(String name) {
 		
-		if(name.equals("com.kh.toy.files")) {
+		if(name.equals("mm.files")) {
 			throw new RuntimeException("com.kh.toy.files는 사용할 수 없는 파라미터 명입니다. ");
 		}
 		List<String> res = params.get(name);
@@ -33,7 +33,7 @@ public class MultiPartParams {
 	}
 	
 	public List<FileDTO> getFilesInfo(){
-		return params.get("com.kh.toy.files");
+		return params.get("mm.files");
 	}
 	
 	

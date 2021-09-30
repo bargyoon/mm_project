@@ -4,23 +4,23 @@ import java.sql.Date;
 
 public class FileDTO {
 
-	private String flIdx;
-	private String typeIdx;
+	private int flIdx;
+	private int typeIdx;
 	private String originFileName;
 	private String renameFileName;
 	private String savePath;
 	private Date regDate;
 	private int isDel;
-	public String getFlIdx() {
+	public int getFlIdx() {
 		return flIdx;
 	}
-	public void setFlIdx(String flIdx) {
+	public void setFlIdx(int flIdx) {
 		this.flIdx = flIdx;
 	}
-	public String getTypeIdx() {
+	public int getTypeIdx() {
 		return typeIdx;
 	}
-	public void setTypeIdx(String typeIdx) {
+	public void setTypeIdx(int typeIdx) {
 		this.typeIdx = typeIdx;
 	}
 	public String getOriginFileName() {

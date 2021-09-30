@@ -58,7 +58,7 @@
 
 			<div class="ms-5">
 				<img src="/resources/img/main2.jpg" class="img-fluid img-main">
-				
+
 
 
 			</div>
@@ -119,12 +119,10 @@
 			</div>
 		</div>
 	</section>
-	
+
 	<!-- Footer-->
 
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 	<%@ include file="/WEB-INF/views/include/jsFiles.jsp"%>
-
-
 </body>
 </html>

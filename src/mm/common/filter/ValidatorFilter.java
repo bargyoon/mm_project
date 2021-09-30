@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import mm.member.validator.JoinForm;
+import mm.member.validator.ModifyPassword;
 
 /**
  * Servlet Filter implementation class ValidatorFilter
@@ -70,6 +71,7 @@ public class ValidatorFilter implements Filter {
 
 		String redirectURI = null;
 		JoinForm joinForm = null;
+		ModifyPassword modifyPw = null;
 		switch (uriArr[2]) {
 		case "join-mentee":
 			joinForm = new JoinForm(httpRequest);
@@ -81,6 +83,12 @@ public class ValidatorFilter implements Filter {
 			joinForm = new JoinForm(httpRequest);
 			if (!joinForm.test()) {
 				redirectURI = "/member/join-form-mentor?err=1";
+			}
+			break;
+		case "modify-password":
+			modifyPw = new ModifyPassword(httpRequest);
+			if (!modifyPw.test()) {
+				redirectURI = "/member/mypage?err=1";
 			}
 			break;
 		case "join-impl":

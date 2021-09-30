@@ -18,6 +18,8 @@ import com.oreilly.servlet.multipart.ParamPart;
 import com.oreilly.servlet.multipart.Part;
 
 import mm.common.code.Config;
+import mm.common.code.ErrorCode;
+import mm.common.exception.HandlableException;
 
 public class FileUtil {
 
@@ -45,10 +47,10 @@ public class FileUtil {
 				}
 			}
 			
-			res.put("com.kh.toy.files",fileDTOs);
+			res.put("mm.files",fileDTOs);
 			
 		} catch (IOException e) {
-			//에러 추가하기
+			throw new HandlableException(ErrorCode.FAILED_FILE_UPLOAD_ERROR,e);
 		}
 		
 		return new MultiPartParams(res);

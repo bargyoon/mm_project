@@ -112,6 +112,31 @@
 	font-family: 'Pretendard-Light';
 }
 
+.card-profile-stats {
+  padding: 1rem 0;
+}
+
+.card-profile-stats>div {
+  margin-right: 1rem;
+  text-align: center;
+}
+
+.card-profile-stats>div:last-child {
+  margin-right: 0;
+}
+
+.card-profile-stats>div .heading {
+  font-size: 1.1rem;
+  font-weight: bold;
+  display: block;
+  color: white;
+}
+
+.card-profile-stats>div .description {
+  font-size: .875rem;
+  color: white;
+}
+
 .myHistory {
 	border: 1px solid #ced4da;
 	border-radius: 0.25rem;
