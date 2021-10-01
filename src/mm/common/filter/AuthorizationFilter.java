@@ -122,12 +122,30 @@ public class AuthorizationFilter implements Filter {
 	private void memberAuthorize(HttpServletRequest httpRequest, HttpServletResponse httpResponse, String[] uriArr)
 			throws IOException, ServletException {
 		HttpSession session = httpRequest.getSession();
-
+		String serverToken = null;
+		String clientToken = null;
 		switch(uriArr[2]) {
 		case "mypage": 
 			if(session.getAttribute("authentication") == null){
 				throw new HandlableException(ErrorCode.UNLOGINED_ERROR);
 			}
+			break;
+		case "join-impl":
+			serverToken = (String) httpRequest.getSession().getAttribute("persist-token");
+			clientToken = httpRequest.getParameter("persist-token");
+
+			if (serverToken == null || !serverToken.contentEquals(clientToken)) {
+				throw new HandlableException(ErrorCode.AUTHENTICATION_FAILED_ERROR);
+			}
+			break;
+		case "password-impl":
+			serverToken = (String) httpRequest.getSession().getAttribute("persist-token");
+			clientToken = httpRequest.getParameter("persist-token");
+
+			if (serverToken == null || !serverToken.contentEquals(clientToken)) {
+				throw new HandlableException(ErrorCode.AUTHENTICATION_FAILED_ERROR);
+			}
+			break;
 		}
 
 	}

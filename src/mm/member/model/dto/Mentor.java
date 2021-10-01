@@ -14,6 +14,8 @@ public class Mentor {
 	private String history;
 	private int mentoringCnt;
 	private int profileImg;
+	private String accountNum;
+	private String bank;
 	
 	public Mentor() {
 		// TODO Auto-generated constructor stub
@@ -115,13 +117,31 @@ public class Mentor {
 		this.profileImg = profileImg;
 	}
 
+	public String getAccountNum() {
+		return accountNum;
+	}
+
+	public void setAccountNum(String accountNum) {
+		this.accountNum = accountNum;
+	}
+
+	public String getBank() {
+		return bank;
+	}
+
+	public void setBank(String bank) {
+		this.bank = bank;
+	}
+
 	@Override
 	public String toString() {
 		return "Mentor [mentorIdx=" + mentorIdx + ", userIdx=" + userIdx + ", universityName=" + universityName
 				+ ", universityType=" + universityType + ", grade=" + grade + ", major=" + major + ", wantDay="
 				+ wantDay + ", wantTime=" + wantTime + ", requirement=" + requirement + ", history=" + history
-				+ ", mentoringCnt=" + mentoringCnt + ", profileImg=" + profileImg + "]";
+				+ ", mentoringCnt=" + mentoringCnt + ", profileImg=" + profileImg + ", accountNum=" + accountNum
+				+ ", bank=" + bank + "]";
 	}
+
 
 	
 

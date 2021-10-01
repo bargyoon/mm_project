@@ -8,9 +8,11 @@ public enum ErrorCode {
 	HTTP_CONNECT_ERROR("HTTP통신 중 에러가 발생하였습니다."),
 	FAILED_FILE_UPLOAD_ERROR("파일업로드에 실패했습니다."),
 	ACCESS_ONLY_MENTOR("멘토만 접근할 수 있습니다.","/index"),
-	ACCESS_ONLY_MENTEE("멘티만 접근할 수 있습니다.","/index");
-	
+	ACCESS_ONLY_MENTEE("멘티만 접근할 수 있습니다.","/index"),
+	MAIL_SENDING_FAIL_ERROR("이메일 발송중 에러가 발생하였습니다."),
+	AUTHENTICATION_FAILED_ERROR("유효하지 않은 인증입니다.");
 
+	
 	public final String MESSAGE;
 	public final String URL;
 	

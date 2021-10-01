@@ -1,14 +1,14 @@
 package mm.member.model.service;
 
 import java.sql.Connection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 
 import mm.common.db.JDBCTemplate;
 import mm.common.exception.DataAccessException;
 import mm.common.file.FileDTO;
+import mm.common.http.HttpConnector;
+import mm.common.http.RequestParams;
+import mm.common.mail.MailSender;
 import mm.member.model.dao.MemberDao;
 import mm.member.model.dto.Member;
 import mm.member.model.dto.Mentee;
@@ -188,6 +188,21 @@ public class MemberService {
 		try {
 			
 			member = memberDao.selectMemberByPassword(password, conn);
+			
+		} finally {
+			template.close(conn);
+		}
+		
+		return member;
+	}
+	
+	public Member selectMemberByEmail(String email) {
+		Connection conn = template.getConnection();
+		Member member = null;
+		
+		try {
+			
+			member = memberDao.selectMemberByEmail(email, conn);
 			
 		} finally {
 			template.close(conn);
@@ -403,7 +418,49 @@ public class MemberService {
 		
 	}
 
+	public void authenticateEmail(Member member, String persistToken) {
+
+		HttpConnector conn = new HttpConnector();
+		
+		String queryString = conn.urlEncodedForm(RequestParams.builder() 
+				.params("mail-template", "join-auth-mail")
+				.params("persistToken", persistToken)
+				.params("userName", member.getUserName())
+				.build());
+		
+		
+		
+		
+		String mailTemplate = conn.get("http://localhost:7070/mail?" + queryString);
+
+		MailSender sender = new MailSender();
+
+		sender.sendEmail(member.getEmail(), "환영합니다.", mailTemplate);
+
+	}
+
+	public void resetEmail(Member member, String persistToken) {
+		HttpConnector conn = new HttpConnector();
+		
+		String queryString = conn.urlEncodedForm(RequestParams.builder() 
+				.params("mail-template", "reset-password")
+				.params("persistToken", persistToken)
+				.params("email", member.getEmail())
+				.build());
+		
+		
+		
+		
+		String mailTemplate = conn.get("http://localhost:7070/mail?" + queryString);
+
+		MailSender sender = new MailSender();
+
+		sender.sendEmail(member.getEmail(), "비밀번호 변경 링크입니다.", mailTemplate);
+		
+	}
+
 	
+
 
 	
 

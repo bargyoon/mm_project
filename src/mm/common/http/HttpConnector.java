@@ -5,8 +5,10 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Map;
 
 import com.google.gson.Gson;
@@ -98,27 +100,27 @@ public class HttpConnector {
 		return responseBody;
 
 	}
-	
+
 	public JsonElement postAsJson(String url, Map<String, String> headers, String body) {
-		
+
 		String responseBody = "";
 		JsonElement datas = null;
-		
+
 		try {
 			HttpURLConnection conn = getConnection(url, "POST");
 			setHeaders(headers, conn);
 			setBody(body, conn);
 			responseBody = getResponseBody(conn);
 			datas = gson.fromJson(responseBody, JsonElement.class);
-			
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new HandlableException(ErrorCode.HTTP_CONNECT_ERROR, e);
 		}
-		
+
 		return datas;
-		
+
 	}
 
 	private HttpURLConnection getConnection(String url, String method) throws IOException {
@@ -171,19 +173,23 @@ public class HttpConnector {
 
 	}
 
-	/*
-	 * public String urlEncodedForm(RequestParams requestParams) { String res = "";
-	 * Map<String,String> params = requestParams.getParams(); try { for (String key
-	 * : params.keySet()) { res += "&" + URLEncoder.encode(key, "UTF-8") + "=" +
-	 * URLEncoder.encode(params.get(key), "UTF-8");
-	 * 
-	 * }
-	 * 
-	 * if (res.length() > 0) { res = res.substring(1); } } catch
-	 * (UnsupportedEncodingException e) { // TODO Auto-generated catch block
-	 * e.printStackTrace(); }
-	 * 
-	 * return res; }
-	 */
+	public String urlEncodedForm(RequestParams requestParams) {
+		String res = "";
+		Map<String, String> params = requestParams.getParams();
+		try {
+			for (String key : params.keySet()) {
+				res += "&" + URLEncoder.encode(key, "UTF-8") + "=" + URLEncoder.encode(params.get(key), "UTF-8");
+
+			}
+
+			if (res.length() > 0) {
+				res = res.substring(1);
+			}
+		} catch (UnsupportedEncodingException e) { // TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return res;
+	}
 
 }

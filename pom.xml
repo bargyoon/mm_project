@@ -61,6 +61,13 @@
 			<version>19.8.0.0</version>
 		</dependency>
 		
+		<!-- 메일링 -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.5.0-b01</version>
+		</dependency>
+		
 		<!-- JSON 파싱 -->
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
