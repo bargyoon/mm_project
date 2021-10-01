@@ -55,8 +55,8 @@ public class BoardDao {
 
 			while (rset.next()) {
 				FileDTO fileDTO = new FileDTO();
-				fileDTO.setFlIdx(rset.getString("fl_idx"));
-				fileDTO.setTypeIdx(rset.getString("type_idx"));
+				fileDTO.setFlIdx(rset.getInt("fl_idx"));
+				fileDTO.setTypeIdx(rset.getInt("type_idx"));
 				fileDTO.setSavePath(rset.getString("save_path"));
 				fileDTO.setOriginFileName(rset.getString("origin_file_name"));
 				fileDTO.setRenameFileName(rset.getString("rename_file_name"));
