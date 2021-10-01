@@ -18,15 +18,16 @@
 			</div>
 		</div>
 		<hr>
-		<form action="/board/mentee/mentee-upload" encType = "multipart/form-data" method="post">
+		<form action="/board/mentee/mentee-board-update" encType = "multipart/form-data" method="post">
 		<div id="createBody">
+			<input type="hidden" name="bdIdx" value="${datas.boardMentee.bdIdx}"/>
 			<div>
-			제목 : <input type="text" name="bdTitle"/>
+			제목 : <input type="text" name="bdTitle" value="${datas.boardMentee.bdTitle}"/>
 			파일 : <input type="file" name="fileName" multiple/>
 			</div>
 			<hr>
 			<div id="createBox">
-				<textarea id="createBox" name="bdContent" required="required" maxlength="1000"></textarea>
+				<textarea id="createBox" name="bdContent" required="required" maxlength="1000"><c:out value="${datas.boardMentee.bdContent}"/></textarea>
 			</div>
 			<hr>
 		</div>
@@ -34,7 +35,7 @@
 		<div class="create_footer">
 			<button id="returnButton" type="button" onclick="location.href='mentee'">목록</button>
 			<div id="wrapButton">
-				<button type="submit">등록</button>
+				<button type="submit">수정</button>
 			</div>
 		</div>
 		</form>
