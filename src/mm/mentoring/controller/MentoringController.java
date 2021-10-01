@@ -1,20 +1,35 @@
 package mm.mentoring.controller;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.Response;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageConfig;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+
+import javax.ws.rs.core.MediaType;
+
+import mm.common.code.Config;
 import mm.common.code.ErrorCode;
 import mm.common.exception.HandlableException;
 import mm.member.model.dto.Member;
@@ -72,11 +87,73 @@ public class MentoringController extends HttpServlet {
 		case "regist-mentoring":
 			registMentoring(request, response);
 			break;
+		case "payment":
+			payment(request, response);
+			break;
 		default:
 			break;
 		}
 
 	}
+
+	private void payment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int mentorIdx = Integer.parseInt(request.getParameter("mentor_idx"));
+		//
+		Client client = ClientBuilder.newClient();
+		Entity payload = Entity.json("{  \"apiKey\": \"dcf102a946024eafb1c3d61cbdba3c47\",  \"bankName\": \"카카오뱅크\",  \"bankAccountNo\": \"21604828802016\",  \"amount\": 15000,  \"message\": \"토스입금버튼\"}");
+		Response paymentResponse = client.target("https://toss.im/transfer-web/linkgen-api/link")
+		  .request(MediaType.APPLICATION_JSON_TYPE)
+		  .post(payload);
+
+		
+		String[] bodyValues = paymentResponse.readEntity(String.class).split(",");
+		int firstIdx = bodyValues[2].indexOf('h');
+		int lastIdx = bodyValues[2].lastIndexOf('"');
+		String link = bodyValues[2].substring(firstIdx, lastIdx);
+		
+		createQRImage(mentorIdx, link, parseRGBStringToInt("#343a40"), 0xFFFFFFFF);
+		
+		request.setAttribute("mentorIdx", mentorIdx);
+		
+		request.getRequestDispatcher("/mentoring/payment-page").forward(request, response);;
+	}
+
+	private void createQRImage(int mentorIdx, String link, int qrColor, int qrBgColor) {
+		QRCodeWriter qrCodeWriter = new QRCodeWriter();
+		try {
+			//qr 생성
+			BitMatrix bitMatrix = qrCodeWriter.encode(link, BarcodeFormat.QR_CODE, 300, 300); 
+			MatrixToImageConfig config = new MatrixToImageConfig(qrColor, qrBgColor); //qr코드 색지정
+			
+	        BufferedImage qrimage = MatrixToImageWriter.toBufferedImage(bitMatrix, config);
+	        
+	        File file = new File(getSavePath() + mentorIdx + ".png");
+	        
+	        //경로에 이미지 생성
+			ImageIO.write(qrimage, "png", file);
+		} catch (WriterException | IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private String getSavePath() {
+
+		String savePath = Config.UPLOAD_PATH.DESC +"qr_img\\";
+
+		File dir = new File(savePath);
+		if (!dir.exists()) {
+			dir.mkdirs();
+		}
+
+		return savePath;
+	}
+	
+	 private int parseRGBStringToInt(String color) {
+	      color = color.substring(1);
+	      color = "ff" + color;
+	      long l = Long.parseLong(color, 16);   
+	      return (int)l;
+	 }
 
 	//mentoringHistory에 멘토링 새로 등록
 	private void registMentoring(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -139,6 +216,7 @@ public class MentoringController extends HttpServlet {
 				request.setAttribute("msg", "멘토링 수락에 실패하였습니다.");
 				request.setAttribute("url", "/mentoring/manage-page");
 				request.getRequestDispatcher("common/result").forward(request, response);
+				return;
 			}
 		}
 		
@@ -189,6 +267,7 @@ public class MentoringController extends HttpServlet {
 			request.setAttribute("msg", "이미 신청한 멘토입니다.");
 			request.setAttribute("back", "back");
 			request.getRequestDispatcher("common/result").forward(request, response);
+			return;
 		}
 		
 		//멘토의 userIdx로 멘토 정보를 가져옴
@@ -220,6 +299,7 @@ public class MentoringController extends HttpServlet {
 			request.setAttribute("msg", "이미 신청한 멘토입니다.");
 			request.setAttribute("back", "back");
 			request.getRequestDispatcher("common/result").forward(request, response);
+			return;
 		}
 		
 		ah.setUserIdx(member.getUserIdx());

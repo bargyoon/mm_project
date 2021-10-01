@@ -63,7 +63,9 @@ let acceptBtn = (userIdx) => {
 	location.href = `/mentoring/mentoring-accept?mentee_user_idx=${userIdx}`;
 }
 
-
+let payment = (mentorIdx) => {
+	location.href = `/mentoring/payment?mentor_idx=${mentorIdx}`;
+}
 
 
 
