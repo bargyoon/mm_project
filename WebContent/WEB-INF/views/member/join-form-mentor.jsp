@@ -385,7 +385,7 @@
 							</span>
 						</div>
 						<input id="accountNum" type="text" name="accountNum"
-							required placeholder="재학중인 대학명"
+							required placeholder="계좌번호 (- 빼고 입력하세요)"
 							class="form-control bg-white border-left-0 border-md">
 					</div>
 					<!-- 은행명 -->
@@ -397,7 +397,7 @@
 							</span>
 						</div>
 						<input id="bankName" type="text" name="bankName"
-							required placeholder="재학중인 대학명"
+							required placeholder="은행명"
 							class="form-control bg-white border-left-0 border-md">
 					</div>
 

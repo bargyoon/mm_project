@@ -45,26 +45,26 @@
 
 											<div class="form-group">
 												<input type="password" name="resetNewPw" class="form-style"
-													placeholder="비밀번호" id="newPw" autocomplete="off">
+													placeholder="비밀번호" id="resetNewPw" autocomplete="off">
 												<i class="input-icon uil uil-lock-alt"></i>
 											</div>
 											<div class="form-group mt-2">
 												<input type="password" name="resetConfirmNewPw" class="form-style"
-													placeholder="비밀번호 확인" id="confirmNewPw" autocomplete="off">
+													placeholder="비밀번호 확인" id="resetConfirmNewPw" autocomplete="off">
 												<i class="input-icon uil uil-lock-alt"></i>
 											</div>
-											<p class='text-muted small' id="infoPw">
+											<span style="color: moccasin">
 												<c:choose>
 													<c:when
-														test="${not empty param.err and not empty modifyValid.resetNewPassword}">
+														test="${not empty param.err and not empty modifyValid.newPassword}">
                          영어,숫자,특수문자 조합의 8글자 이상입니다.
                       </c:when>
 													<c:when
-														test="${not empty param.err and not empty modifyValid.resetConfirmPassword}">
+														test="${not empty param.err and not empty modifyValid.confirmPassword}">
                          비밀번호가 일치하지 않습니다.
                       </c:when>
 												</c:choose>
-											</p>
+											</span>
 
 											<button class="btn mt-4" type="submit" style="width: 100%">submit</button>
 

@@ -51,15 +51,13 @@
 								<nav class="nav d-md-block d-none">
 									<a data-toggle="tab" class="nav-link active"
 										aria-current="page" href="#profile"> <i
-										class="fas fa-user mr-1"></i>Profile
+										class="fas fa-user mr-1"></i>프로필
 									</a> <a data-toggle="tab" class="nav-link" href="#account"> <i
-										class="fas fa-user-cog mr-1"></i>Account Settings
+										class="fas fa-user-cog mr-1"></i>계정 정보
 									</a> <a data-toggle="tab" class="nav-link" href="#security"> <i
 										class="fas fa-user-shield mr-1"></i>Security
-									</a> <a data-toggle="tab" class="nav-link" href="#notification">
-										<i class="fas fa-bell mr-1"></i>Notification
 									</a> <a data-toggle="tab" class="nav-link" href="#billing"> <i
-										class="fas fa-money-check-alt mr-1"></i>Billings
+										class="fas fa-money-check-alt mr-1"></i>계좌 정보
 									</a>
 								</nav>
 							</div>
@@ -79,8 +77,6 @@
 									<li class="nav-item"><a data-toggle="tab" class="nav-link"
 										href="#security"><i class="fas fa-user-shield mr-1"></i></a></li>
 									<li class="nav-item"><a data-toggle="tab" class="nav-link"
-										href="#notification"><i class="fas fa-bell mr-1"></i></a></li>
-									<li class="nav-item"><a data-toggle="tab" class="nav-link"
 										href="#billing"><i class="fas fa-money-check-alt mr-1"></i></a></li>
 
 								</ul>
@@ -90,7 +86,7 @@
 							<div class="card-body tab-content border-0">
 								<!-- profile data -->
 								<div class="tab-pane active" id="profile">
-									<h6>Your Profile Information</</h6>
+									<h6>프로필 정보</</h6>
 									<hr>
 									<c:choose>
 										<c:when test="${not empty sessionScope.authMentor }">
@@ -274,7 +270,7 @@
 
 								<!-- account data -->
 								<div class="tab-pane " id="account">
-									<h6>Account Setting</h6>
+									<h6>계정 설정</h6>
 									<hr>
 
 									<c:if test="${not empty sessionScope.authMentor }">
@@ -361,23 +357,23 @@
 										</div>
 									</form>
 								</div>
-								<div class="tab-pane " id="notification">
-									<h6>Your Profile Information</</h6>
+								<div class="tab-pane " id="billing">
+									<h6>계좌정보</h6>
 									<hr>
-									<form>
+									<form action="/member/modify-account" method="post">
 										<div class="mb-3">
-											<label for="exampleFormControlInput" class="form-label">이름</label>
-
-											<input type="text" class="form-control"
-												id="exampleFormControlInput" placeholder="Thapa Technical">
-											<small class="form-text text-muted">Please Enter your
-												fullname</small>
+											<label for="accountNum" class="form-label">계좌번호</label> <input type="text" class="form-control" id="accountNum"
+												value="${authMentor.accountNum}" name="accountNum" placeholder="계좌번호">
+											<p class='text-muted small' id="infoCurrPw">
+												- 빼고 입력하세요
+											</p>
+											<label for="bankName" class="form-label">은행명</label> <input type="text" class="form-control mb-2"
+												id="bankName" name="bankName" value="${authMentor.bank}" placeholder="은행명"> 
+											<button class="btn btn-outline-info" 
+												type="submit">계좌번호 변경</button>
 
 										</div>
 									</form>
-								</div>
-								<div class="tab-pane " id="billing">
-									<h1>this is the billing tab</h1>
 								</div>
 							</div>
 						</div>
