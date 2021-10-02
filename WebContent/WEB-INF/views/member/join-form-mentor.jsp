@@ -32,6 +32,9 @@
 							<c:if test="${not empty param.err and empty joinValid.userName}">
                             value="${joinForm.userName}"
                                   </c:if>
+							<c:if test="${not empty kakao.userName}">
+                            value="${kakao.userName}"
+                                  </c:if>
 							required class="form-control bg-white border-left-0 border-md">
 					</div>
 
@@ -107,6 +110,9 @@
 						<input id="email" type="email" name="email" placeholder="이메일"
 							<c:if test="${not empty param.err and empty joinValid.email}">
                             value="${joinForm.email}"
+                                  </c:if>
+                                  <c:if test="${not empty kakao.email}">
+                            value="${kakao.email}"
                                   </c:if>
 							required class="form-control bg-white border-left-0 border-md">
 					</div>
@@ -203,7 +209,7 @@
 						class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">
 						<div class="border-bottom " style="width: 40%;"></div>
 						<span class="px-2 small text-muted font-weight-bold text-muted"
-							style="width: 20%;">대학교 정보</span>
+							style="width: 20%; text-align:center">대학교 정보</span>
 						<div class="border-bottom " style="width: 40%;"></div>
 					</div>
 
@@ -282,7 +288,7 @@
 						class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">
 						<div class="border-bottom " style="width: 35%;"></div>
 						<span class="px-2 small text-muted font-weight-bold text-muted"
-							style="width: 30%;">멘토링 요청사항</span>
+							style="width: 30%; text-align:center">멘토링 요청사항</span>
 						<div class="border-bottom " style="width: 35%;"></div>
 					</div>
 
@@ -360,6 +366,39 @@
 								placeholder="이력사항을 적어주세요"
 								class="form-control bg-white border-md">
 						</div>
+					</div>
+					
+					<!-- Divide Line -->
+					<div
+						class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">
+						<div class="border-bottom " style="width: 40%;"></div>
+						<span class="px-2 small text-muted font-weight-bold text-muted"
+							style="width: 20%; text-align:center">계좌 정보</span>
+						<div class="border-bottom " style="width: 40%;"></div>
+					</div>
+					<!-- 계좌번호 -->
+					<div class="input-group col-lg-6 mb-4">
+						<div class="input-group-prepend">
+							<span
+								class="input-group-text bg-white px-4 border-md border-right-0">
+								<i class="fas fa-money-check text-muted"></i>
+							</span>
+						</div>
+						<input id="accountNum" type="text" name="accountNum"
+							required placeholder="재학중인 대학명"
+							class="form-control bg-white border-left-0 border-md">
+					</div>
+					<!-- 은행명 -->
+					<div class="input-group col-lg-6 mb-4">
+						<div class="input-group-prepend">
+							<span
+								class="input-group-text bg-white px-4 border-md border-right-0">
+								<i class="fas fa-piggy-bank text-muted"></i>
+							</span>
+						</div>
+						<input id="bankName" type="text" name="bankName"
+							required placeholder="재학중인 대학명"
+							class="form-control bg-white border-left-0 border-md">
 					</div>
 
 

@@ -11420,9 +11420,6 @@ checkbox{
 }
 
 
-
-
-
 .wrap-but{
 	flex-flow: row;
     justify-content: center;
@@ -11431,7 +11428,6 @@ checkbox{
 	margin-top: 5%;
 	margin-bottom: 3%;
 	
-
 }
 
 .wrap-but>a{
@@ -11439,26 +11435,6 @@ checkbox{
     justify-content: center;
     text-align: center;
 }
-
-
-
-.wrap-but>a {
-  
-   width: 20%;
-   height: 100%;
-}
-
-.save-but{
-   background-color: #343a40;
-   	color: white;
-   
-   height: 70%;
-   width: 25%;
-   border-radius: 5px 5px 5px 5px;
-   font-family: 'Pretendard-SemiBold';
-}
-
-
 
 .submit-but {
    background-color: #343a40;
@@ -11474,6 +11450,10 @@ checkbox{
 	
 }
 
+.wrap-calendar{
+  	margin-top: 10%;
+  	margin-left: 9%;
+  	margin-right: 9%;
 
 
 .wrap-calendar{
@@ -11487,7 +11467,6 @@ checkbox{
     font-family: 'Pretendard-SemiBold';	
 	
 }
-
 
 
 main{

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,7 +38,8 @@
 													placeholder="비밀번호" id="password" autocomplete="off">
 												<i class="input-icon uil uil-lock-alt"></i>
 											</div>
-											<span style="color:moccasin"><c:if test="${not empty param.err}">
+											<span style="color: moccasin"><c:if
+													test="${not empty param.err}">
                 			아이디 또는 비밀번호가 틀렸습니다.
                 		</c:if></span>
 											<p class="mb-0 mt-4 text-center">
@@ -48,8 +49,9 @@
 											<input type="submit" class="btn original mt-2 mb-2"
 												value="로그인">
 											<div class="border-bottom "></div>
-											<a href="/member/login" class="btn kakao mt-2">카카오로 로그인</a> <a
-												href="/member/login" class="btn naver mt-2">네이버로 로그인</a>
+											<a href="javascript:loginFormWithKakao()"
+												class="btn kakao mt-2">카카오로 로그인</a> <a href="/member/login"
+												class="btn naver mt-2">네이버로 로그인</a>
 
 											<div class="col-md-12">
 
@@ -73,6 +75,9 @@
 
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 	<%@ include file="/WEB-INF/views/include/jsFiles.jsp"%>
-	<script src="/resources/js/member/script.js"></script>
+	
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+	<script src="/resources/js/member/login.js"></script>
+	
 </body>
 </html>

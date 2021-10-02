@@ -11,7 +11,9 @@ public class MentoringHistory {
 	private String state;
 	private Date startDate;
 	private Date endDate;
+	private Date epDate;
 	private int price;
+	private String menteeName;
 	
 	public MentoringHistory() {
 		// TODO Auto-generated constructor stub
@@ -73,6 +75,14 @@ public class MentoringHistory {
 		this.endDate = endDate;
 	}
 
+	public Date getEpDate() {
+		return epDate;
+	}
+
+	public void setEpDate(Date epDate) {
+		this.epDate = epDate;
+	}
+
 	public int getPrice() {
 		return price;
 	}
@@ -81,12 +91,19 @@ public class MentoringHistory {
 		this.price = price;
 	}
 
+	public String getMenteeName() {
+		return menteeName;
+	}
+
+	public void setMenteeName(String menteeName) {
+		this.menteeName = menteeName;
+	}
+
 	@Override
 	public String toString() {
 		return "MentoringHistory [mIdx=" + mIdx + ", userIdx=" + userIdx + ", mentorIdx=" + mentorIdx + ", mentorName="
-				+ mentorName + ", state=" + state + ", startDate=" + startDate + ", endDate=" + endDate + ", price="
-				+ price + "]";
+				+ mentorName + ", state=" + state + ", startDate=" + startDate + ", endDate=" + endDate + ", epDate="
+				+ epDate + ", price=" + price + ", menteeName=" + menteeName + "]";
 	}
-	
 	
 }

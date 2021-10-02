@@ -1,6 +1,7 @@
 package mm.mentoring.model.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -71,11 +72,14 @@ public class MentoringDao {
 		return member;
 	}
 	
-	public List<MentoringHistory> getMtHistoryByUserIdx(int userIdx, Connection conn) {
+	public List<MentoringHistory> getMtHistoryByUserIdx(int userIdx, String role, Connection conn) {
 		List<MentoringHistory> mhList = new ArrayList<MentoringHistory>();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
 		String query = "select * from mentoring_history where user_idx = ? order by start_date desc";
+		if(role.equals("MO00")) {
+			query = "select * from mentoring_history where mentor_idx = ? order by start_date desc";
+		}
 		
 		try {
 			
@@ -84,7 +88,7 @@ public class MentoringDao {
 			rset = pstm.executeQuery();
 			
 			while(rset.next()) {
-				MentoringHistory mh = convertToManageDTO(rset);
+				MentoringHistory mh = convertToMhDTO(rset);
 				mhList.add(mh);
 			}
 			
@@ -98,11 +102,14 @@ public class MentoringDao {
 		return mhList;
 	}
 	
-	public List<ApplyHistory> getApHistoryByUserIdx(int userIdx, Connection conn) {
+	public List<ApplyHistory> getApHistoryByUserIdx(int userIdx, String role, Connection conn) {
 		List<ApplyHistory> ahList = new ArrayList<ApplyHistory>();
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
 		String query = "select * from apply_history where user_idx = ? order by apply_date desc";
+		if(role.equals("MO00")) {
+			query = "select * from apply_history where mentor_idx = ? order by apply_date desc";
+		}
 		
 		try {
 			
@@ -127,7 +134,7 @@ public class MentoringDao {
 	public int increaseReapplyCnt(int ahIdx, Connection conn) {
 		int res = 0;
 		PreparedStatement pstm = null;
-		String query = "update apply_history set reapply_cnt = reapply_cnt + 1, apply_date = SYSDATE, ep_date = SYSDATE+3 where a_idx = ?";
+		String query = "update apply_history set reapply_cnt = reapply_cnt + 1, apply_date = SYSDATE, ep_date = SYSDATE+3 where a_idx = ? and reapply_cnt < 2";
 	
 		try {
 			pstm = conn.prepareStatement(query);
@@ -142,16 +149,17 @@ public class MentoringDao {
 		return res;
 	}
 	
-	public int registApply(MentoringHistory mh, Connection conn) {
+	public int registApply(ApplyHistory ah, Connection conn) {
 		int res = 0;
 		PreparedStatement pstm = null;
-		String query = "insert into apply_history (a_idx, user_idx, mentor_name, mentor_idx) VALUES (SC_A_IDX.nextval, ?, ?, ?)";
+		String query = "insert into apply_history (a_idx, user_idx, mentor_name, mentor_idx, mentee_name) VALUES (SC_A_IDX.nextval, ?, ?, ?, ?)";
 		
 		try {
 			pstm = conn.prepareStatement(query);
-			pstm.setInt(1, mh.getUserIdx());
-			pstm.setString(2, mh.getMentorName());
-			pstm.setInt(3, mh.getMentorIdx());
+			pstm.setInt(1, ah.getUserIdx());
+			pstm.setString(2, ah.getMentorName());
+			pstm.setInt(3, ah.getMentorIdx());
+			pstm.setString(4, ah.getMenteeName());
 			res = pstm.executeUpdate();
 		} catch (SQLException e) {
 			new DataAccessException(e);
@@ -199,7 +207,7 @@ public class MentoringDao {
 			rset = pstm.executeQuery();
 			
 			if(rset.next()) {
-				mh = convertToManageDTO(rset);
+				mh = convertToMhDTO(rset);
 			}
 			
 		} catch (SQLException e) {
@@ -240,6 +248,219 @@ public class MentoringDao {
 		return res;
 	}
 	
+	public List<Mentor> isExistInApply(List<Mentor> mentorList, int userIdx, Connection conn) {
+		List<Mentor> nonExistMentor = new ArrayList<Mentor>();
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		String query = "select * from user_mentor where mentor_idx not in (select mentor_idx from apply_history where user_idx = ?) and mentor_idx in (";
+		for (int i = 0; i < mentorList.size(); i++) {
+			if(i == mentorList.size()-1) {
+				query += mentorList.get(i).getMentorIdx() + ")";
+			} else {
+				query += mentorList.get(i).getMentorIdx() + ",";
+			}
+		}
+		
+		try {
+			pstm = conn.prepareStatement(query);
+			pstm.setInt(1, userIdx);
+			rset = pstm.executeQuery();
+			
+			while(rset.next()) {
+				nonExistMentor.add(convertToMentor(rset));
+			}
+			
+		} catch(SQLException e) {
+			new DataAccessException(e);
+		} finally {
+			template.close(rset, pstm);
+		}
+		
+		return nonExistMentor;
+	}
+	
+	public boolean isExistInApply(int mentorIdx, int userIdx, Connection conn) {
+		boolean isExist = false;
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		String query = "select * from apply_history where mentor_idx = ? and user_idx = ?";
+		
+		try {
+			pstm = conn.prepareStatement(query);
+			pstm.setInt(1, mentorIdx);
+			pstm.setInt(2, userIdx);
+			rset = pstm.executeQuery();
+			
+			if(rset.next()) {
+				isExist = true;
+			}
+			
+		} catch (SQLException e) {
+			new DataAccessException(e);
+		} finally {
+			template.close(pstm, conn);
+		}
+		
+		return isExist;
+	}
+	
+	public int insertMH(MentoringHistory mh, Connection conn) {
+		int res = 0;
+		PreparedStatement pstm = null;
+		String query = "insert into MENTORING_HISTORY (m_idx, mentor_idx, mentor_name, start_date, end_date, price, user_idx, mentee_name, state, ep_date)"
+				+ " VALUES (SC_M_IDX.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		
+		//util.Date -> sql.Date로 casting
+		Date startDate = new Date(mh.getStartDate().getTime());
+		Date endDate = new Date(mh.getEndDate().getTime());
+		Date epDate = new Date(mh.getEpDate().getTime());
+		
+		try {
+			pstm = conn.prepareStatement(query);
+			pstm.setInt(1, mh.getMentorIdx());
+			pstm.setString(2, mh.getMentorName());
+			pstm.setDate(3, startDate);
+			pstm.setDate(4, endDate);
+			pstm.setInt(5, mh.getPrice());
+			pstm.setInt(6, mh.getUserIdx());
+			pstm.setString(7, mh.getMenteeName());
+			pstm.setString(8, mh.getState());
+			pstm.setDate(9, epDate);
+			
+			res = pstm.executeUpdate();
+			
+		} catch (SQLException e) {
+			new DataAccessException(e);
+		} finally {
+			template.close(pstm);
+		}
+		
+		return res;
+	}
+
+	public Mentor getMentorByUserIdx(int mentorUserIdx, Connection conn) {
+		Mentor mentor = null;
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		String query = "select * from user_mentor where user_idx = ?";
+		
+		try {
+			pstm = conn.prepareStatement(query);
+			pstm.setInt(1, mentorUserIdx);
+			rset = pstm.executeQuery();
+			
+			if(rset.next()) {
+				mentor = convertToMentor(rset);
+			}
+			
+		} catch (SQLException e) {
+			new DataAccessException(e);
+		} finally {
+			template.close(pstm, conn);
+		}
+		
+		return mentor;
+	}
+
+	public int deleteAH(int menteeIdx, int mentorIdx, Connection conn) {
+		int res = 0;
+		PreparedStatement pstm = null;
+		String query = "delete from apply_history where user_idx = ? and mentor_idx = ?";
+		
+		try {
+			pstm = conn.prepareStatement(query);
+			pstm.setInt(1, menteeIdx);
+			pstm.setInt(2, mentorIdx);
+			res = pstm.executeUpdate();
+			
+		} catch (SQLException e) {
+			new DataAccessException(e);
+		} finally {
+			template.close(pstm);
+		}
+		
+		return res;
+	}
+
+	public int increaseMentoringCnt(int mentorIdx, Connection conn) {
+		int res = 0;
+		PreparedStatement pstm = null;
+		String query = "update user_mentor set mentoring_cnt = mentoring_cnt + 1 where mentor_idx = ?";
+		
+		try {
+			pstm = conn.prepareStatement(query);
+			pstm.setInt(1, mentorIdx);
+			res = pstm.executeUpdate();
+			
+		} catch (SQLException e) {
+			new DataAccessException(e);
+		} finally {
+			template.close(pstm);
+		}
+		
+		return res;
+	}
+
+	public List<Rating> getRatingByMentorIdx(int mentorIdx, Connection conn) {
+		List<Rating> mentorRating = new ArrayList<Rating>();
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		String query = "select * from RATING where MENTOR_IDX = ?";
+		
+		try {
+			pstm = conn.prepareStatement(query);
+			pstm.setInt(1, mentorIdx);
+			rset = pstm.executeQuery();
+			
+			while(rset.next()) {
+				mentorRating.add(convertToRating(rset));
+			}
+			
+		} catch (SQLException e) {
+			new DataAccessException(e);
+		} finally {
+			template.close(pstm);
+		}
+		
+		return mentorRating;
+	}
+	
+	public void deleteAh() {
+		Connection conn = template.getConnection();
+		
+		PreparedStatement pstm = null;
+		String query = "delete from apply_history where sysdate > ep_date";
+		
+		try {
+			pstm = conn.prepareStatement(query);
+			pstm.executeUpdate();
+			template.commit(conn);
+		} catch (SQLException e) {
+			template.rollback(conn);
+			new DataAccessException(e);
+		} finally {
+			template.close(pstm, conn);
+		}
+	}
+
+	public void deleteMh() {
+		Connection conn = template.getConnection();
+		
+		PreparedStatement pstm = null;
+		String query = "delete from mentoring_history where sysdate > ep_date";
+		
+		try {
+			pstm = conn.prepareStatement(query);
+			pstm.executeUpdate();
+			template.commit(conn);
+		} catch (SQLException e) {
+			template.rollback(conn);
+			new DataAccessException(e);
+		} finally {
+			template.close(pstm, conn);
+		}
+	}
+	
 	private String createQueryPart (String[] types) {
 		String type = "";
 		
@@ -271,6 +492,23 @@ public class MentoringDao {
 		return query+universityType+" and"+wantTime+" and"+wantPlace+" and"+major+" and"+date;
 	}
 	
+	private Rating convertToRating(ResultSet rset) throws SQLException {
+		Rating rating = new Rating();
+		rating.setRatingIdx(rset.getInt("rating_idx"));
+		rating.setMentorIdx(rset.getInt("mentor_idx"));
+		rating.setKindness(rset.getString("kindness"));
+		rating.setCommunication(rset.getString("COMMUNICATION"));
+		rating.setProfessional(rset.getString("PROFESSIONALISM"));
+		rating.setProcess(rset.getString("PROCESS"));
+		rating.setAppointment(rset.getString("TIME_APPOINTMENT"));
+		rating.setExplain(rset.getString("EXPLAIN"));
+		rating.setComment(rset.getString("USER_COMMENT"));
+		rating.setIsDel(rset.getInt("is_del"));
+		rating.setUserIdx(rset.getInt("user_idx"));
+		
+		return rating;
+	}
+	
 	private ApplyHistory convertToApplyDTO(ResultSet rset) throws SQLException {
 		ApplyHistory ah = new ApplyHistory();
 		ah.setaIdx(rset.getInt("a_idx"));
@@ -280,11 +518,12 @@ public class MentoringDao {
 		ah.setApplyDate(rset.getDate("apply_date"));
 		ah.setEpDate(rset.getDate("ep_date"));
 		ah.setReapplyCnt(rset.getInt("reapply_cnt"));
+		ah.setMenteeName(rset.getString("mentee_name"));
 		
 		return ah;
 	}
 	
-	private MentoringHistory convertToManageDTO(ResultSet rset) throws SQLException {
+	private MentoringHistory convertToMhDTO(ResultSet rset) throws SQLException {
 		MentoringHistory mh = new MentoringHistory();
 		mh.setmIdx(rset.getInt("m_idx"));
 		mh.setUserIdx(rset.getInt("user_idx"));
@@ -294,6 +533,7 @@ public class MentoringDao {
 		mh.setEndDate(rset.getDate("end_date"));
 		mh.setPrice(rset.getInt("price"));
 		mh.setState(rset.getString("state"));
+		mh.setMenteeName(rset.getString("mentee_name"));
 
 		return mh;
 	}
@@ -302,20 +542,24 @@ public class MentoringDao {
 		Mentor mentor = new Mentor();
 		mentor.setMentorIdx(rset.getInt("mentor_idx"));
 		mentor.setUserIdx(rset.getInt("user_idx"));
-		mentor.setUniversityName(rset.getString("university_name"));
-		mentor.setUniversityType(rset.getString("university_type"));
-		mentor.setGrade(rset.getInt("grade"));
-		mentor.setMajor(rset.getString("major"));
-		mentor.setWantDay(rset.getString("want_day"));
-		mentor.setRequirement(rset.getString("requirement"));
-		mentor.setHistory(rset.getString("history"));
-		mentor.setMentoringCnt(rset.getInt("mentoring_cnt"));
-
+		mentor.setUniversityName(rset.getString("UNIVERSITY_NAME"));
+		mentor.setUniversityType(rset.getString("UNIVERSITY_TYPE"));
+		mentor.setGrade(rset.getInt("GRADE"));
+		mentor.setMajor(rset.getString("MAJOR"));
+		mentor.setWantDay(rset.getString("WANT_DAY"));
+		mentor.setWantTime(rset.getString("WANT_TIME"));
+		mentor.setRequirement(rset.getString("REQUIREMENT"));
+		mentor.setHistory(rset.getString("HISTORY"));
+		mentor.setMentoringCnt(rset.getInt("MENTORING_CNT"));
+		mentor.setProfileImg(rset.getInt("PROFILE_IMG"));
+		mentor.setAccountNum(rset.getString("account_num"));
+		mentor.setBank(rset.getString("bank"));
 		return mentor;
+	      
 	}
 	
 	private Member convertToMember(ResultSet rset) throws SQLException {
-		Member member = new Member();
+		Member member = new Member();	
 		member.setUserIdx(rset.getInt("user_idx"));
 		member.setUserName(rset.getString("user_name"));
 		member.setUserId(rset.getString("user_id"));
@@ -328,40 +572,9 @@ public class MentoringDao {
 		member.setRole(rset.getString("role"));
 		member.setJoinDate(rset.getDate("join_date"));
 		member.setIsLeave(rset.getInt("is_leave"));
-
+		member.setKakaoJoin(rset.getString("kakao_join"));
 		return member;
+
 	}
 
-	public List<Mentor> isExistInApply(List<Mentor> mentorList, int userIdx, Connection conn) {
-		List<Mentor> nonExistMentor = new ArrayList<Mentor>();
-		PreparedStatement pstm = null;
-		ResultSet rset = null;
-		String query = "select * from user_mentor where mentor_idx not in (select mentor_idx from apply_history where user_idx = ?) and mentor_idx in (";
-		for (int i = 0; i < mentorList.size(); i++) {
-			if(i == mentorList.size()-1) {
-				query += mentorList.get(i).getMentorIdx() + ")";
-			} else {
-				query += mentorList.get(i).getMentorIdx() + ",";
-			}
-		}
-		
-		System.out.println(query);
-		
-		try {
-			pstm = conn.prepareStatement(query);
-			pstm.setInt(1, userIdx);
-			rset = pstm.executeQuery();
-			
-			while(rset.next()) {
-				nonExistMentor.add(convertToMentor(rset));
-			}
-			
-		} catch(SQLException e) {
-			new DataAccessException(e);
-		} finally {
-			template.close(rset, pstm);
-		}
-		
-		return nonExistMentor;
-	}
 }

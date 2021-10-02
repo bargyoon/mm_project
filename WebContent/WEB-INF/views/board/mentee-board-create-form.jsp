@@ -18,14 +18,15 @@
 			</div>
 		</div>
 		<hr>
-		<form action="/board/mentee/mentee-upload" method="post" enctype="multipart/form-data">
+		<form action="/board/mentee/mentee-upload" encType = "multipart/form-data" method="post">
 		<div id="createBody">
 			<div>
-			제목 : <input type="text" name="title">
+			제목 : <input type="text" name="bdTitle"/>
+			파일 : <input type="file" name="fileName" multiple/>
 			</div>
 			<hr>
 			<div id="createBox">
-				<textarea id="createBox" name="content" required="required" maxlength="1000"></textarea>
+				<textarea id="createBox" name="bdContent" required="required" maxlength="1000"></textarea>
 			</div>
 			<hr>
 		</div>

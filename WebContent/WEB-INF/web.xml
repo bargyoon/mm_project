@@ -36,6 +36,14 @@
   	<filter-name>validatorFilter</filter-name>
   	<url-pattern>/*</url-pattern>
   </filter-mapping>
+  <filter>
+  	<filter-name>fileFilter</filter-name>
+  	<filter-class>mm.common.filter.FileFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>fileFilter</filter-name>
+  	<url-pattern>/file/*</url-pattern>
+  </filter-mapping>
   
    <error-page>
   	<error-code>404</error-code>

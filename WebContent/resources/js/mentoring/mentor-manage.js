@@ -28,7 +28,7 @@ let renderCompleted = () => {
 }
 
 let reapply = (aIdx, reapplyCnt) => {
-	if(reapplyCnt == 2){
+	if(reapplyCnt > 1){
 		alert("재신청은 최대 2회까지 가능합니다.");
 		return;
 	} else {
@@ -36,8 +36,8 @@ let reapply = (aIdx, reapplyCnt) => {
 	}
 }
 
-let registApply = (userIdx, mentorIdx, mentorName) => {
-	location.href=`/mentoring/regist-apply?user_idx=${userIdx}&mentor_idx=${mentorIdx}&mentor_name=${mentorName}`;
+let registApply = (mentorIdx, mentorName) => {
+	location.href=`/mentoring/regist-apply?mentor_idx=${mentorIdx}&mentor_name=${mentorName}`;
 }
 
 let rating = (mIdx) => {
@@ -58,3 +58,16 @@ let rating = (mIdx) => {
 		}
 	})
 }
+
+let acceptBtn = (userIdx) => {
+	location.href = `/mentoring/mentoring-accept?mentee_user_idx=${userIdx}`;
+}
+
+let payment = (mentorIdx) => {
+	location.href = `/mentoring/payment?mentor_idx=${mentorIdx}`;
+}
+
+
+
+
+

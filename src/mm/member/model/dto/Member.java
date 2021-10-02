@@ -16,6 +16,7 @@ public class Member {
 	private String role;
 	private Date joinDate;
 	private int isLeave;
+	private String kakaoJoin;
 	
 	public Member() {
 		// TODO Auto-generated constructor stub
@@ -117,12 +118,22 @@ public class Member {
 		this.isLeave = isLeave;
 	}
 
+	public String getKakaoJoin() {
+		return kakaoJoin;
+	}
+
+	public void setKakaoJoin(String kakaoJoin) {
+		this.kakaoJoin = kakaoJoin;
+	}
+
 	@Override
 	public String toString() {
 		return "Member [userIdx=" + userIdx + ", userName=" + userName + ", userId=" + userId + ", password=" + password
 				+ ", email=" + email + ", gender=" + gender + ", address=" + address + ", phone=" + phone
-				+ ", nickname=" + nickname + ", role=" + role + ", joinDate=" + joinDate + ", isLeave=" + isLeave + "]";
+				+ ", nickname=" + nickname + ", role=" + role + ", joinDate=" + joinDate + ", isLeave=" + isLeave
+				+ ", kakaoJoin=" + kakaoJoin + "]";
 	}
+
 	
 	
 	

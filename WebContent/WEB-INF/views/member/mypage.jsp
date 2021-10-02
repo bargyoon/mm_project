@@ -27,12 +27,30 @@
 					<div class="col-lg-3 col-md-4 d-md-block">
 						<div class="card bg-common card-left bg-commom">
 							<div class="profile">
-								<img
-									src="https://footballk.net/w/images/thumb/3/39/%ED%99%8D%EA%B8%B8%EB%8F%99.jpg/300px-%ED%99%8D%EA%B8%B8%EB%8F%99.jpg"
-									class="card-img-top img-fluid rounded-circle" alt
-									style="margin: 15px auto; width: 120px; display: block">
-								<h1 class="text-light">${authentication.userName}</h1>
+								<c:if test="${not empty sessionScope.files}">
+									<img src="${files.downloadURL}"
+										class="card-img-top img-fluid rounded-circle" alt
+										style="margin: 15px auto; width: 120px; height: 120px; display: block">
+								</c:if>
+
+								<h1 class="text-light" style="margin-top: 40px">${authentication.userName}</h1>
+								<div class="row">
+									<div class="col">
+										<div class="card-profile-stats d-flex justify-content-center">
+											<div>
+												<span class="heading">22</span> <span class="description">Friends</span>
+											</div>
+											<div>
+												<span class="heading">10</span> <span class="description">Photos</span>
+											</div>
+											<div>
+												<span class="heading">89</span> <span class="description">Comments</span>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
+
 							<div class="card-body">
 								<nav class="nav d-md-block d-none">
 									<a data-toggle="tab" class="nav-link active"
@@ -78,128 +96,183 @@
 								<div class="tab-pane active" id="profile">
 									<h6>Your Profile Information</</h6>
 									<hr>
-									<form action="/member/modify-mentor">
-										<div class="mb-3">
-											<label for="userName" class="form-label">이름</label>
+									<c:choose>
+										<c:when test="${not empty sessionScope.authMentor }">
+											<form action="/member/modify-mentor">
+										</c:when>
+										<c:otherwise>
+											<form action="/member/modify-mentee">
+										</c:otherwise>
+									</c:choose>
+									<div class="mb-3">
+										<label for="userName" class="form-label">이름</label> <input
+											type="text" class="form-control" id="userName"
+											name="userName" required value="${authentication.userName}">
+										<small class="form-text text-muted">Please Enter your
+											fullname</small>
 
-											<input type="text" class="form-control"
-												id="userName" name="userName"
-												value="${authentication.userName}"> <small
-												class="form-text text-muted">Please Enter your
-												fullname</small>
+									</div>
+									<div class="mb-3">
+										<label for="email" class="form-label">email</label> <input
+											type="text" class="form-control" id="email" name="email"
+											required value="${authentication.email}">
 
-										</div>
-										<div class="mb-3">
-											<label for="email" class="form-label">email</label>
+									</div>
+									<div class="mb-3">
+										<label for="phone" class="form-label">핸드폰</label> <input
+											type="text" class="form-control" id="phone" name="phone"
+											required value="${authentication.phone}">
 
-											<input type="text" class="form-control"
-												id="email"  name="email"
-												value="${authentication.email}">
+									</div>
+									<div class="mb-3">
+										<label for="address" class="form-label">주소</label> <input
+											type="text" class="form-control" id="address" name="address"
+											required value="${authentication.address}">
 
-										</div>
-										<div class="mb-3">
-											<label for="phone" class="form-label">핸드폰</label>
+									</div>
+									<c:choose>
+										<c:when test="${not empty sessionScope.authMentor }">
+											<div class="mb-3">
+												<label for="university" class="form-label">학교</label> <input
+													type="text" class="form-control" id="university"
+													name="university" required
+													value="${authMentor.universityName}">
 
-											<input type="text" class="form-control"
-												id="phone"  name="phone"
-												value="${authentication.phone}">
-
-										</div>
-										<div class="mb-3">
-											<label for="address" class="form-label">주소</label>
-
-											<input type="text" class="form-control"
-												id="address"  name="address"
-												value="${authentication.address}">
-
-										</div>
-										<div class="mb-3">
-											<label for="university" class="form-label">학교</label>
-
-											<input type="text" class="form-control"
-												id="university"  name="university"
-												value="${authMentor.universityName}">
-
-										</div>
-										<div class="mb-3">
-											<label for="grade" class="form-label">학년</label> <select data-sel="grade"
-												class="form-control" id="grade" name="grade">
-												<option disabled>현재 학년</option>
-												<option value="1">1학년</option>
-												<option value="2">2학년</option>
-												<option value="3">3학년</option>
-												<option value="4">4학년</option>
-											</select>
-										</div>
-										<div class="mb-3">
-											<label for="major" class="form-label">전공계열</label> <select data-sel="major"
-												class="form-control" id="major" name="major">
-												<option disabled>전공 계열</option>
-												<option value="humanities">인문계열</option>
-												<option value="education">교육계열</option>
-												<option value="engineering">공학계열</option>
-												<option value="society">사회계열</option>
-												<option value="nature">자연계열</option>
-												<option value="anp">예체능계열</option>
-												<option value="medicine">의약계열</option>
-											</select>
-										</div>
-										<div class="mb-3">
-											<label for="wantDay" class="form-label">원하는 요일</label> <select data-sel="wantDay"
-												class="form-control" id="wantDay" name="wantDay">
-												<option disabled>희망 요일</option>
-												<option value="mon">월요일</option>
-												<option value="tue">화요일</option>
-												<option value="wed">수요일</option>
-												<option value="thu">목요일</option>
-												<option value="fri">금요일</option>
-												<option value="sat">토요일</option>
-												<option value="sun">일요일</option>
-												<option value="all">무관</option>
-											</select>
-										</div>
-										<div class="mb-3">
-											<label for="wantTime" class="form-label">원하는 시간</label> <select data-sel="wantTime"
-												class="form-control" id="wantTime" name="wantTime">
-												<option disabled>희망 시간</option>
-												<option value="am">오전(09:00 ~ 12:00)</option>
-												<option value="pm">오후(12:00 ~ 17:00)</option>
-												<option value="evening">저녁(17:00 ~ 21:00)</option>
-												<option value="all">무관</option>
-											</select>
-										</div>
-										<div class="mb-3"> 
-											<label for="requirement" class="form-label">요구사항</label> <select data-sel="requirement"
-												class="form-control" id="requirement" name="requirement">
-												<option disabled>원하는 진행방식</option>
-												<option value="videoChat">비대면(화상채팅)</option>
-												<option value="myTown">멘토의 동네에서 대면 수업</option>
-												<option value="yourTown">멘티의 동네에서 대면 수업</option>
-												<option value="rentalSpace">카페나 스터디룸 대여희망</option>
-											</select>
-										</div>
-
-										<div class="mb-3">
-											<label for="exampleFormControlTextarea1" class="form-label">이력사항</label>
-											<div class='myHistory' id="exampleFormControlTextarea1">
-												<c:forTokens items="${authMentor.history}" delims=","
-													var="hist">
-													<div>-${hist}</div>
-												</c:forTokens>
 											</div>
-										</div>
-
-										<div class="form-group " id="histories">
-											<div class="form-text text-muted small">
-												이력사항을 추가하시려면 오른쪽 +버튼을 눌러 추가하시면 됩니다.<a
-													class="btn btn-outline-warning btn-sm ml-2" id="btnHistory">+</a>
+											<div class="mb-3">
+												<label for="grade" class="form-label">학년</label> <select
+													data-sel="grade" class="form-control" id="grade"
+													name="grade">
+													<option disabled>현재 학년</option>
+													<option value="1">1학년</option>
+													<option value="2">2학년</option>
+													<option value="3">3학년</option>
+													<option value="4">4학년</option>
+												</select>
 											</div>
-										</div>
-										<br>
-										<button class="btn btn-outline-info" type="submit">Update
-											Profile</button>
-										<button class="btn btn-outline-info" type="reset"
-											id="resetBtn">Reset Changes</button>
+											<div class="mb-3">
+												<label for="major" class="form-label">전공계열</label> <select
+													data-sel="major" class="form-control" id="major"
+													name="major">
+													<option disabled>전공 계열</option>
+													<option value="humanities">인문계열</option>
+													<option value="education">교육계열</option>
+													<option value="engineering">공학계열</option>
+													<option value="society">사회계열</option>
+													<option value="nature">자연계열</option>
+													<option value="anp">예체능계열</option>
+													<option value="medicine">의약계열</option>
+												</select>
+											</div>
+											<div class="mb-3">
+												<label for="wantDay" class="form-label">원하는 요일</label> <select
+													data-sel="wantDay" class="form-control" id="wantDay"
+													name="wantDay">
+													<option disabled>희망 요일</option>
+													<option value="mon">월요일</option>
+													<option value="tue">화요일</option>
+													<option value="wed">수요일</option>
+													<option value="thu">목요일</option>
+													<option value="fri">금요일</option>
+													<option value="sat">토요일</option>
+													<option value="sun">일요일</option>
+													<option value="all">무관</option>
+												</select>
+											</div>
+											<div class="mb-3">
+												<label for="wantTime" class="form-label">원하는 시간</label> <select
+													data-sel="wantTime" class="form-control" id="wantTime"
+													name="wantTime">
+													<option disabled>희망 시간</option>
+													<option value="am">오전(09:00 ~ 12:00)</option>
+													<option value="pm">오후(12:00 ~ 17:00)</option>
+													<option value="evening">저녁(17:00 ~ 21:00)</option>
+													<option value="all">무관</option>
+												</select>
+											</div>
+											<div class="mb-3">
+												<label for="requirement" class="form-label">요구사항</label> <select
+													data-sel="requirement" class="form-control"
+													id="requirement" name="requirement">
+													<option disabled>원하는 진행방식</option>
+													<option value="videoChat">비대면(화상채팅)</option>
+													<option value="myTown">멘토의 동네에서 대면 수업</option>
+													<option value="yourTown">멘티의 동네에서 대면 수업</option>
+													<option value="rentalSpace">카페나 스터디룸 대여희망</option>
+												</select>
+											</div>
+
+											<div class="mb-3">
+												<label for="originHistory" class="form-label">이력사항</label>
+												<div class='myHistory' id="originHistory"
+													name="originHistory">
+													<c:forTokens items="${authMentor.history}" delims=","
+														var="hist">
+														<div>-${hist}</div>
+													</c:forTokens>
+												</div>
+											</div>
+
+											<div class="form-group " id="histories">
+												<div class="form-text text-muted small">
+													이력사항을 추가하시려면 오른쪽 +버튼을 눌러 추가하시면 됩니다.<a
+														class="btn btn-outline-warning btn-sm ml-2"
+														id="btnHistory" onclick="addHist();">+</a>
+												</div>
+											</div>
+										</c:when>
+										<c:otherwise>
+											<div class="mb-3">
+												<label for="schoolName" class="form-label">학교</label> <input
+													type="text" class="form-control" id="schoolName"
+													name="schoolName" required value="${authMentee.schoolName}">
+
+											</div>
+											<div class="mb-3">
+												<label for="major" class="form-label">현재 계열</label> <select
+													data-sel="major" class="form-control" id="major"
+													name="major">
+													<option disabled>현재 계열</option>
+													<option value="문과">문과</option>
+													<option value="이과">이과</option>
+													<option value="예체능">예체능</option>
+													<option value="미정">미정</option>
+												</select>
+											</div>
+											<div class="mb-3">
+												<label for="grade" class="form-label">학년</label> <select
+													data-sel="grade" class="form-control" id="grade"
+													name="grade">
+													<option disabled>현재 학년</option>
+													<option value="1">1학년</option>
+													<option value="2">2학년</option>
+													<option value="3">3학년</option>
+													<option value="4">4학년</option>
+												</select>
+											</div>
+
+											<div class="mb-3">
+												<label for="hopeUniversity" class="form-label">희망 대학</label>
+												<input type="text" class="form-control" id="hopeUniversity"
+													name="hopeUniversity" value="${authMentee.hopeUniversity}">
+
+											</div>
+
+											<div class="mb-3">
+												<label for="hopeMajor" class="form-label">희망 학과</label> <input
+													type="text" class="form-control" id="hopeMajor"
+													name="hopeMajor" value="${authMentee.hopeMajor}">
+
+											</div>
+										</c:otherwise>
+									</c:choose>
+
+
+									<br>
+									<button class="btn btn-outline-info" type="submit">Update
+										Profile</button>
+									<button class="btn btn-outline-info" type="reset" id="resetBtn">Reset
+										Changes</button>
 									</form>
 								</div>
 
@@ -207,17 +280,23 @@
 								<div class="tab-pane " id="account">
 									<h6>Account Setting</h6>
 									<hr>
-									<form>
-										<div class="mb-3">
-											<label for="exampleFormControlInput1" class="form-label">username</label>
-											<input type="text" class="form-control"
-												id="exampleFormControlInput1" placeholder="Thapa Technical">
-											<small class='form-text text-muted'>회원 이름을 바꾸시면 쓰시던
-												이름은 다른사람이 사용 가능하게 됩니다.</small>
-										</div>
-									</form>
-									<hr>
-									<form>
+
+									<c:if test="${not empty sessionScope.authMentor }">
+										<form action="/member/uploadImg" method="post"
+											enctype="multipart/form-data">
+											<div class="mb-3">
+												<label for="profile_img" class="form-label">사진등록</label> <input
+													type="file" class="btn form-control" name="files"
+													id="profile_img"> <small
+													class='form-text text-muted'>사진을 등록하세요.</small>
+											</div>
+											<button class="btn btn-success">사진 등록하기</button>
+										</form>
+										<hr>
+									</c:if>
+
+
+									<form action="/member/confirm-pw">
 										<div class="mb-3">
 											<label for="exampleFormControlInput1"
 												class="form-label text-danger">Delete Account</label>
@@ -225,32 +304,64 @@
 
 										</div>
 										<br>
-										<button class="btn btn-danger">Delete Profile</button>
+										<button class="btn btn-danger" type="submit">Delete
+											Profile</button>
 									</form>
 								</div>
 								<div class="tab-pane " id="security">
 									<h6>Security Setting</h6>
 									<hr>
-									<form>
+									<form action="/member/modify-password" method="post">
 										<div class="mb-3">
-											<label for="exampleFormControlInput1" class="form-label">username</label>
-											<input type="Password" class="form-control"
-												id="exampleFormControlInput1" placeholder="현재 비밀번호">
-											<br> <input type="Password" class="form-control"
-												id="exampleFormControlInput1" placeholder="새로운 비밀번호">
-											<input type="Password" class="form-control"
-												id="exampleFormControlInput1" placeholder="비밀번호 확인">
+											<label for="exampleFormControlInput1" class="form-label">현재
+												비밀번호</label> <input type="Password" class="form-control" id="currPw"
+												name="currPw" placeholder="현재 비밀번호">
+											<p class='text-muted small' id="infoCurrPw">
+												<c:if
+													test="${not empty param.err and not empty modifyValid.currPassword}">
+                   비밀번호를 잘못 입력하였습니다.
+                </c:if>
+											</p>
+											<label for="exampleFormControlInput1" class="form-label">새로운
+												비밀번호</label> <input type="Password" class="form-control mb-2"
+												id="newPw" name="newPw" placeholder="새로운 비밀번호"> <input
+												type="Password" class="form-control mb-2" id="confirmNewPw"
+												name="confirmNewPw" placeholder="비밀번호 확인">
+											<div class='text-muted small' id="infoNewPw">
+												<c:choose>
+													<c:when
+														test="${not empty param.err and not empty modifyValid.samePassword}">
+                         이전 비밀번호와 같습니다
+                      </c:when>
+													<c:when
+														test="${not empty param.err and not empty modifyValid.newPassword}">
+                         영어,숫자,특수문자 조합의 8글자 이상입니다.
+                      </c:when>
+													<c:when
+														test="${not empty param.err and not empty modifyValid.confirmPassword}">
+                         비밀번호가 일치하지 않습니다.
+                      </c:when>
+												</c:choose>
+											</div>
+											<button class="btn btn-outline-info" id="btnModifyPw"
+												type="submit">비밀번호 변경</button>
 
 										</div>
 									</form>
 									<hr>
-									<form>
+									<form action="javascript:loginFormWithKakao()">
 										<div class="form-group">
-											<label class="d-block mb-2">Two Factor Authentication</label>
-											<button class="btn btn-outline-info" type="submit">Enable
-												two-factor authentication</button>
-											<p class='text-muted small'>여기에 아마 카카오랑 네이버 로그인 연동하는거 하지
-												않을까 싶습니다.</p>
+											<label class="d-block mb-2">카카오 계정 연동</label>
+											<c:choose>
+												<c:when test="${authentication.kakaoJoin == 'y' }">
+													<div class='text-muted small'>카카오 연동이 되어있습니다.</div>
+												</c:when>
+												<c:otherwise>
+													<button class="btn" type="submit"><img src="/resources/img/kakaoLogo.png"></button>
+													<div class='text-muted small'>버튼을 클릭해 카카오아이디로 로그인
+														하세요~</div>
+												</c:otherwise>
+											</c:choose>
 										</div>
 									</form>
 								</div>
@@ -282,60 +393,10 @@
 		</div>
 	</div>
 
-	<script type="text/javascript">
-(() =>{
-	var dataArr = ["${authMentor.grade}","${authMentor.major}","${authMentor.wantDay}","${authMentor.wantTime}","${authMentor.requirement}"];
-	var i = 0;
 	
-	document.querySelectorAll('select').forEach(e =>{
-		document.querySelectorAll('#'+e.dataset.sel+' option').forEach(t => {
-			if(t.value == dataArr[i]) t.selected =true;
-		})
-		i++;
-	})
-	
-	
-})();
-
-let cnt = 1;
-let div = document.createElement('div');
-document.querySelector('#btnHistory').addEventListener('click', (e) =>{
-	
-	
-	
-	
-	let input = document.createElement('input');
-
-	
-		div.className = "hsDiv";
-		input.className = "form-control mt-2";
-		input.id = "history"+cnt;
-		input.name = "history";
-		input.placeholder="이력사항을 적어주세요";
-		div.append(input);
-		
-		if(cnt == 1){
-			document.querySelector('#histories').append(div)
-		}
-		
-		
-			
-		
-		cnt++;
-		
-	
-})
-
-
-document.querySelector('#resetBtn').addEventListener('click', (e) =>{
-	div.innerHTML = "";
-})
-
-
-
-</script>
-
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+	<script src="/resources/js/member/mypage.js"></script>
 	<%@ include file="/WEB-INF/views/include/jsFiles.jsp"%>
 </body>
 </html>

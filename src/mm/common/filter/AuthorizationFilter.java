@@ -14,8 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
 import mm.common.code.ErrorCode;
 import mm.common.exception.HandlableException;
+import mm.member.model.dto.Member;
 
 
 
@@ -74,11 +76,24 @@ public class AuthorizationFilter implements Filter {
 	}
 
 	private void mentoringAuthorize(HttpServletRequest httpRequest, HttpServletResponse httpResponse, String[] uriArr) throws IOException, ServletException{
-		HttpSession session = httpRequest.getSession();
-		if(session.getAttribute("authentication") == null){
-			
+		Member member = (Member) httpRequest.getSession().getAttribute("authentication");
+		if(member == null){
 			throw new HandlableException(ErrorCode.UNLOGINED_ERROR);
-			
+		}
+		
+		switch (uriArr[2]) {
+		case "mentoring-accept":
+			if(!member.getRole().equals("MO00")) {
+				throw new HandlableException(ErrorCode.ACCESS_ONLY_MENTOR);
+			}
+			break;
+		case "regist-mentoring":
+			if(!member.getRole().equals("MO00")) {
+				throw new HandlableException(ErrorCode.ACCESS_ONLY_MENTOR);
+			}
+			break;
+		default:
+			break;
 		}
 		
 	}
@@ -107,12 +122,30 @@ public class AuthorizationFilter implements Filter {
 	private void memberAuthorize(HttpServletRequest httpRequest, HttpServletResponse httpResponse, String[] uriArr)
 			throws IOException, ServletException {
 		HttpSession session = httpRequest.getSession();
-
+		String serverToken = null;
+		String clientToken = null;
 		switch(uriArr[2]) {
 		case "mypage": 
 			if(session.getAttribute("authentication") == null){
 				throw new HandlableException(ErrorCode.UNLOGINED_ERROR);
 			}
+			break;
+		case "join-impl":
+			serverToken = (String) httpRequest.getSession().getAttribute("persist-token");
+			clientToken = httpRequest.getParameter("persist-token");
+
+			if (serverToken == null || !serverToken.contentEquals(clientToken)) {
+				throw new HandlableException(ErrorCode.AUTHENTICATION_FAILED_ERROR);
+			}
+			break;
+		case "password-impl":
+			serverToken = (String) httpRequest.getSession().getAttribute("persist-token");
+			clientToken = httpRequest.getParameter("persist-token");
+
+			if (serverToken == null || !serverToken.contentEquals(clientToken)) {
+				throw new HandlableException(ErrorCode.AUTHENTICATION_FAILED_ERROR);
+			}
+			break;
 		}
 
 	}
