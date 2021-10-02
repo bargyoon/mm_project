@@ -4,104 +4,122 @@
 
 document.addEventListener('DOMContentLoaded', function() {
 	
+	
+	/*  캘린더   */
 	todoList = [];
 	plugins: ['interaction', 'dayGrid', 'interactionPlugin'];
       
 	var calendarEl = document.getElementById('calendar');
-	var calendar = new FullCalendar.Calendar(calendarEl, {
+	calendar = new FullCalendar.Calendar(calendarEl, {
 		headerToolbar: {
 			left: 'prev,next today',
 			center: 'title',
 			right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
           },
-          
           initialView: 'dayGridMonth',
           locale: 'ko',
           navLinks: true, // can click day/week names to navigate views
           businessHours: true, // display business hours
           editable: true,
-          selectable: true,
+		  displayEventTime: false,
 
+		//날짜 클릭하면 일정추가 팝업
 		dateClick: function(info) {
-			let addSign = confirm("일정을 추가할까요?");
-			let openAdd;
-				if(addSign){
-					window.name = "parentForm";
-					openAdd = window.open("${contextPath}/todo/insert","childForm","width=500, height=500, left=0, top=0");
-					//console.log(openAdd);
-				}else{return;}
+			//alert('Clicked on: ' + info.dateStr); //클릭한 날짜
+			//localStorage.setItem("dateStr", info.dateStr);	
+			var dateStr = info.dateStr;
+			document.getElementById("todo_start").value = dateStr;
+
+			window.name = "parentForm";
+			openAdd = window.open("${contextPath}/todo/insert","childForm","width=600, height=520, left=100, top=100");
+			//console.log(openAdd);
+			window.close();
 			},
 			
+		//일정 클릭하면 일정수정/삭제 팝업	
+		eventClick: function(info){
+
+//			localStorage.setItem("startStr", info.event.startStr);	//클릭한 일정 시작일 
+//			localStorage.setItem("endStr", info.event.endStr);	
+//			localStorage.setItem("title", info.event.title);	
+//			alert(info.event.backgroundColor);
+
+			var color = info.event.backgroundColor;
+			var start = info.event.startStr;
+			var end = info.event.endStr;
+			var title = info.event.title;
+			var todoIdx = info.event.id;
 			
-		eventClick:  function(info) {
-			let title = info.event.title;
-			let start = new Date(info.event.start); 
-				 //start = start.toISOString().slice(0,10);
-			let time = info.event.time;
-			let modifySign = confirm("일정을 수정/삭제할까요 ?");
-/*				 document.getElementById("startValue").value = start;
-				 document.getElementById("titleValue").value = title;
-				 document.getElementById("timeValue").value = time;*/
-			let openModify;
-				if(modifySign){
-					openWin = open("${contextPath}/todo/modify","popup","width=500, height=500, left=0, top=0");
-				}else{return;}
-			},
+			document.getElementById("todo_color").value = color;
+			document.getElementById("todo_start").value = start;
+			document.getElementById("todo_end").value = end;
+			document.getElementById("todo_title").value = title;
+			document.getElementById("todo_idx").value = todoIdx;
 			
-			events: [{
-				title: 'Meeting1',
-				start: '2021-09-12',
-				end: '2021-09-15'
-				
-			},{
-				title: 'Meeting10',
-				start: '2021-09-12',
-				end: '2021-09-12'
-			}
+			window.name = "parentForm";
+			openModify = window.open("${contextPath}/todo/modify","popup","width=600, height=520, left=100, top=100");
 			
-			]
-			 	 
+		}
+
+
+  /*  alert('Event: ' + info.event.title);
+    alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+    alert('View: ' + info.view.type);*/
+		 	
         });
 
+	// 일정 가져오기
+	setDate();
 	calendar.render();
-
-
-	// localStorage 의 일정목록 불러오기
-	function load(calendar) {
-		// [{}, {}, {}] 
-		// 객체 배열이나, 객체 리스트로
-		let retrieved = localStorage.getItem("todoList");
-		console.log(retrieved);
-		
-		
-		todoList = JSON.parse(retrieved)
-		console.log(todoList); 
-		
-	//	if( todoList == null ) return;
-		
-		todoList.forEach(todoObj =>{
-			let dateObj = {};
-	
-			dateObj.title = todoObj.title;
-			dateObj.start = todoObj.start;
-			dateObj.end = todoObj.end;
-			dateObj.color = todoObj.color;
-			
-			calendar.addEvent(dateObj);
-		});
-	}
-	
-	load();
+	/*  캘린더   */
 	
 });
 
 
-
-
-
+/* 일정 가져오기 */
 function setDate() {
 	
-	alert("aaa");
-	
+	$.ajax({
+	    url		:	'/todo/eventList', //request 보낼 서버의 경로
+	    type	:	'get', // 메소드(get, post, put 등)
+	    data:{	
+				
+		}, //보낼 데이터
+	    success: function(data) {
+	        //서버로부터 정상적으로 응답이 왔을 때 실행
+			console.log(data);
+			console.log(typeof data);
+			
+			var list = JSON.parse(data);
+			
+			console.log(list);
+			console.log(typeof list);
+			
+			for( var i = 0 ; i < list.length ; i++ ) {
+				console.log("start : " + list[i].start);
+				console.log("end : " + list[i].end);
+				console.log("title : " + list[i].title);
+				console.log("todoIdx : " + list[i].todoIdx);
+				
+				var event = {
+								start : list[i].start,
+								end : list[i].end,
+								title : list[i].title,
+							};
+				
+				list[i].id = list[i].todoIdx;
+				list[i].start = list[i].start + "T00:00:00.000Z";
+				list[i].end = list[i].end + "T23:00:00.000Z";
+				list[i].allDay = true;
+				
+				calendar.addEvent(list[i]);
+			}
+	    },
+	    error: function(err) {
+	        //서버로부터 응답이 정상적으로 처리되지 못햇을 때 실행
+
+	    }
+	});
+
 }	
 

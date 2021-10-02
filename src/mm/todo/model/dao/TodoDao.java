@@ -9,7 +9,6 @@ import java.util.List;
 
 import mm.common.db.JDBCTemplate;
 import mm.common.exception.DataAccessException;
-import mm.member.model.dto.Member;
 import mm.todo.model.dto.Todo;
 
 public class TodoDao {
@@ -17,19 +16,19 @@ public class TodoDao {
 	JDBCTemplate template = JDBCTemplate.getInstance();
 
 	//캘린더에 모든 요소 출력용
-	public List<Todo> calendarList(Connection conn){
+	public List<Todo> calendarList(int userIdx, Connection conn){
 		
-		List<Todo> calendarList = new ArrayList<Todo>();	
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		
-		String query = "SELECT * FROM TODO";
-		
+		ArrayList<Todo> calendarList = new ArrayList<Todo>();	
+
 		try {
+			String query = " SELECT * FROM TODO WHERE USER_IDX = ? ";
 			pstm = conn.prepareStatement(query);
+			pstm.setInt(1, userIdx);
 			rset = pstm.executeQuery();
 		while(rset.next()) {
-				calendarList.add(convertRowToTodo(rset));
+			calendarList.add(convertRowToTodo(rset));
 			}
 		} catch (SQLException e) {
 			throw new DataAccessException(e);
@@ -47,8 +46,8 @@ public class TodoDao {
 		int res = 0;
 		PreparedStatement pstm = null;
 		
-		System.out.println("################ @TodoDao - insertTodo");
-		System.out.println(todo.toString());
+		//System.out.println("################ @TodoDao - insertTodo");
+		//System.out.println(todo.toString());
 		
 
 		try {
@@ -56,21 +55,13 @@ public class TodoDao {
 							+ "VALUES(SEQ_TODO.nextval,?,?,?,?,?,?)";
 			
 			pstm = conn.prepareStatement(query);
-			/*
-			pstm.setInt(1, todo.getTodoIdx());
-			pstm.setInt(2, todo.getUserIdx());
-			pstm.setDate(3, todo.getStartDate());
-			pstm.setDate(4, todo.getEndDate());
-			pstm.setString(5, todo.getTitle());
-			pstm.setBoolean(6, todo.isDone());
-			pstm.setString(7, todo.getColor());
-			*/
+		
 			int index = 1;
 			pstm.setInt(index++, todo.getUserIdx());
 			pstm.setDate(index++, todo.getStartDate());
 			pstm.setDate(index++, todo.getEndDate());
 			pstm.setString(index++, todo.getTitle());
-			pstm.setBoolean(index++, todo.isDone());
+			pstm.setString(index++, todo.getDone());
 			pstm.setString(index++, todo.getColor());
 
 			res = pstm.executeUpdate();
@@ -92,11 +83,12 @@ public class TodoDao {
 		
 		try {
 			pstm = conn.prepareStatement(query);
-			pstm.setString(1, todo.getTitle());
-			pstm.setDate(2, todo.getStartDate());
-			pstm.setDate(3, todo.getEndDate());
-			pstm.setString(4, todo.getColor());	
-			pstm.setInt(5, todo.getTodoIdx());
+			int index = 1;
+			pstm.setString(index++, todo.getTitle());
+			pstm.setDate(index++, todo.getStartDate());
+			pstm.setDate(index++, todo.getEndDate());
+			pstm.setString(index++, todo.getColor());	
+			pstm.setInt(index++, todo.getTodoIdx());
 			res = pstm.executeUpdate();
 		} catch (SQLException e) {
 			throw new DataAccessException(e);
@@ -155,25 +147,23 @@ public class TodoDao {
 		return todayList;
 	}
 	
-	
-	// 오늘의 일정
-	public void todaySave(ArrayList<Integer> todoIdxList) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	
-	//일정 체크
-	public boolean todaySave(Todo todo, Connection conn) {		
-		boolean res = false;		
+
+	//체크박스 값 변경 
+	public int todoSave(int todoIdx, char done, Connection conn) {
+		int res = 0;	
 		PreparedStatement pstm = null;
 		String query = "UPDATE TODO SET DONE = ? WHERE TODO_IDX = ?";
 		
+		//System.out.println("done : " + done);
+		//체크여부 넣어주기
 		try {
 			pstm = conn.prepareStatement(query);
-			pstm.setBoolean(1, todo.isDone());
-			pstm.setInt(2, todo.getTodoIdx());
-			res = pstm.execute();
+			pstm.setInt(1, done);
+			pstm.setInt(2, todoIdx);
+			res = pstm.executeUpdate();
+			
+			
 		} catch (SQLException e) {
 			throw new DataAccessException(e);
 		}finally {
@@ -181,16 +171,8 @@ public class TodoDao {
 		}
 		
 		return res;
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}			
+
 	
 	
 	
@@ -201,12 +183,12 @@ public class TodoDao {
 		todo.setStartDate(rset.getDate("start_date"));
 		todo.setEndDate(rset.getDate("end_date"));
 		todo.setTitle(rset.getString("title"));
-		todo.setDone(rset.getBoolean("done"));
+		todo.setDone(rset.getString("done"));
 		todo.setColor(rset.getString("color"));
 		
 		return todo;
 	}
 
 
-		
+
 }

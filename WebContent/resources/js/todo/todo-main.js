@@ -1,37 +1,43 @@
 /**
  * 
  */
-
-submit();
-
-function submit(){
+document.addEventListener('DOMContentLoaded', function() {
+	var todo_length = $(".cb_todo").length;
+	var todo_length = $(".cb_todo").length;
+	var checked_todo_length = $(".cb_todo:checked").length;
 	
-/*
-<label for ="cbox">체크박스</label>
-<input type="checkbox" id="cbox" name="cbox">
-<button id="btn">체크하기</button>
-*/
-
-let todoIdxs = "<c:out value=”${todo.todoIdx}” />"; 
-console.log(todoIdxs);
-//let idxList = document.getElementsById('#todoIdxs');
-
-}
-/*
-
-let todoIdx = "<c: out value='${todo.todoIdx}'>";
-while(false){
-	cbox += document.getElementsById("todoIdx");
-}
-
-let save = document.getElementById("save");
-
-save.addEventListener('click', function(){
-		//checked 제어
-	 	cbox.checked = true;
-	console.log(save);
+	var percent = (checked_todo_length / todo_length * 100).toFixed(0);
+	if(isNaN(percent)){	//percent가 NaN이면, 
+		percent = 0;
+	}
+	$("#percent").text(percent);	
+	
+	$(".Aligner-under-item").width(percent+"%");
 });
 
-}
 
-*/
+
+function cb_click(todoIdx) {
+	
+	var cb = document.getElementById(todoIdx);
+	var check = cb.checked;
+	
+	$.ajax({
+	    url		:	'/todo/todaySave', //request 보낼 서버의 경로
+	    type	:	'post', // 메소드(get, post, put 등)
+	    data:{	
+			done	: check,
+			todoIdx	: todoIdx,
+		}, //보낼 데이터
+	    success: function(data) {
+	        //서버로부터 정상적으로 응답이 왔을 때 실행
+			location.reload();
+			
+	    },
+	    error: function(err) {
+	        //서버로부터 응답이 정상적으로 처리되지 못햇을 때 실행
+
+	    }
+	});
+
+}
