@@ -1,11 +1,9 @@
 package mm.todo.model.service;
 
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.List;
 
 import mm.common.db.JDBCTemplate;
-import mm.member.model.dto.Member;
 import mm.todo.model.dao.TodoDao;
 import mm.todo.model.dto.Todo;
 
@@ -46,7 +44,7 @@ public class TodoService {
 			template.close(conn);
 		}
 		
-		System.out.println(res);
+		//System.out.println(res);
 		return res;
 		
 	}
@@ -68,7 +66,7 @@ public class TodoService {
 			template.close(conn);
 		}
 		
-		System.out.println(res);
+		//System.out.println(res);
 		return res;
 						
 	}

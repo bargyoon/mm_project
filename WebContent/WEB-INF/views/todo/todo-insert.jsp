@@ -24,10 +24,10 @@
 <body>
 <!-- <form action="/todo/insert" method="post"> -->
 <div class="wrap-input">
-	<div>일정 제목 <input type="text" name="title" placeholder="일정을 입력하세요" id="titleInput" /></div>
-	<div>일정 시작일 <input type="date" name="startDate" id="startInput" /></div>
-	<div>일정 종료일 <input type="date" name="endDate" id="endInput" /></div>
-	<div>색상 <input type="color" name="color" id="colorInput" /></div>
+	<div class="top-div">일정 제목</div><div><input type="text" name="title" placeholder="일정을 입력하세요" id="titleInput" /></div>
+	<div>일정 시작일</div><div><input type="date" name="startDate" id="startInput" /></div>
+	<div>일정 종료일</div><div><input type="date" name="endDate" id="endInput" /></div>
+	<div>색상</div><div><input type="color" name="color" id="colorInput" /></div>
 	<input type="hidden" id="done" name="done" value="0" />
 </div>
 <div class="wrap-button">

@@ -33,6 +33,7 @@
             
 <script src="/resources/js/todo/todo-detail.js"></script>
 
+<input type="hidden" name="color" id="todo_color" />
 <input type="hidden" name="start" id="todo_start" />
 <input type="hidden" name="end" id="todo_end" />
 <input type="hidden" name="title" id="todo_title" />

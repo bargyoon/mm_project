@@ -6,9 +6,12 @@ document.addEventListener('DOMContentLoaded', function() {
 	var todo_length = $(".cb_todo").length;
 	var checked_todo_length = $(".cb_todo:checked").length;
 	
-	var percent = (checked_todo_length / todo_length * 100).toFixed(1);
-
+	var percent = (checked_todo_length / todo_length * 100).toFixed(0);
+	if(isNaN(percent)){	//percent가 NaN이면, 
+		percent = 0;
+	}
 	$("#percent").text(percent);	
+	
 	$(".Aligner-under-item").width(percent+"%");
 });
 

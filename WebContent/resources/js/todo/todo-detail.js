@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded', function() {
 			center: 'title',
 			right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
           },
-          
           initialView: 'dayGridMonth',
           locale: 'ko',
           navLinks: true, // can click day/week names to navigate views
@@ -26,11 +25,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		//날짜 클릭하면 일정추가 팝업
 		dateClick: function(info) {
-			//alert('Clicked on: ' + info.dateStr); 클릭한 날짜
-			
-			localStorage.setItem("dateStr", info.dateStr);	
+			//alert('Clicked on: ' + info.dateStr); //클릭한 날짜
+			//localStorage.setItem("dateStr", info.dateStr);	
+			var dateStr = info.dateStr;
+			document.getElementById("todo_start").value = dateStr;
+
 			window.name = "parentForm";
-			openAdd = window.open("${contextPath}/todo/insert","childForm","width=500, height=500, left=0, top=0");
+			openAdd = window.open("${contextPath}/todo/insert","childForm","width=600, height=520, left=100, top=100");
 			//console.log(openAdd);
 			window.close();
 			},
@@ -41,18 +42,22 @@ document.addEventListener('DOMContentLoaded', function() {
 //			localStorage.setItem("startStr", info.event.startStr);	//클릭한 일정 시작일 
 //			localStorage.setItem("endStr", info.event.endStr);	
 //			localStorage.setItem("title", info.event.title);	
+//			alert(info.event.backgroundColor);
+
+			var color = info.event.backgroundColor;
 			var start = info.event.startStr;
 			var end = info.event.endStr;
 			var title = info.event.title;
 			var todoIdx = info.event.id;
 			
+			document.getElementById("todo_color").value = color;
 			document.getElementById("todo_start").value = start;
 			document.getElementById("todo_end").value = end;
 			document.getElementById("todo_title").value = title;
 			document.getElementById("todo_idx").value = todoIdx;
 			
 			window.name = "parentForm";
-			openModify = window.open("${contextPath}/todo/modify","popup","width=500, height=500, left=0, top=0");
+			openModify = window.open("${contextPath}/todo/modify","popup","width=600, height=520, left=100, top=100");
 			
 		}
 

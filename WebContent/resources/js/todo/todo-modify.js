@@ -2,16 +2,15 @@
  * 
  */
 
-
-
 document.addEventListener('DOMContentLoaded', function() {
 	
-		
+	var color = window.opener.document.getElementById("todo_color").value;
 	var start = window.opener.document.getElementById("todo_start").value;
 	var end = window.opener.document.getElementById("todo_end").value;
 	var title = window.opener.document.getElementById("todo_title").value;
 	var todoIdx = window.opener.document.getElementById("todo_idx").value;
 	
+	document.getElementById("colorInput").value = color;
 	document.getElementById("startInput").value = start;
 	document.getElementById("endInput").value = end;
 	document.getElementById("titleInput").value = title;
@@ -19,6 +18,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	
 });
+
+
+
 
 function todoModify(){
 	
@@ -30,12 +32,9 @@ function todoModify(){
 	let	modifyButton = document.getElementById("modifyButton");
 	let	deleteButton = document.getElementById("deleteButton");
 	
-	let titleValue = titleInput.value;
-	
-	
-	
 	let todoIdxValue = todoIdxInput.value; 
 	
+	let titleValue = titleInput.value;
 	if(!titleValue){
 		alert('제목을 입력해주세요');
 		return;
@@ -77,20 +76,26 @@ function todoModify(){
 	
 	setDate(event);
 	
-	// opener.document.location.reload();
-
+// opener.document.location.reload();
 //	alert('일정이 수정되었습니다.');
 //	close();
 }
 
-//function close(){
-//	self.close();
-//}
-
 function deleteEntry(){
-	alert('일정을 삭제할까요?');
-	opener.document.location.reload();
-	close();
+	
+	if (confirm("정말 삭제하시겠습니까?") == true){    //확인
+	let todoIdxValue = document.getElementById("todoIdx").value; 
+	
+	var event = {
+	todoIdx	: todoIdxValue
+	}
+	
+	setDate2(event);
+	document.submit();
+	}else{   //취소
+	     return;
+	}
+
 }
 
 
@@ -113,11 +118,29 @@ function setDate(event) {
 	    },
 	    error: function(err) {
 	        //서버로부터 응답이 정상적으로 처리되지 못햇을 때 실행
-
 	    }
 	});
 
 }	
 
 
+function setDate2(event) {
+	
+	$.ajax({
+	    url		:	'/todo/delete', //request 보낼 서버의 경로
+	    type	:	'post', // 메소드(get, post, put 등)
+	    data:{	
+				todoIdx		: event.todoIdx,
+		}, //보낼 데이터
+	    success: function(data) {
+			window.opener.document.location.reload();
+			alert("삭제 성공!!");
+			close();
+	    },
+	    error: function(err) {
+	        //서버로부터 응답이 정상적으로 처리되지 못햇을 때 실행
 
+	    }
+	});
+
+}	

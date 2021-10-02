@@ -9,7 +9,6 @@ import java.util.List;
 
 import mm.common.db.JDBCTemplate;
 import mm.common.exception.DataAccessException;
-import mm.member.model.dto.Member;
 import mm.todo.model.dto.Todo;
 
 public class TodoDao {
@@ -47,8 +46,8 @@ public class TodoDao {
 		int res = 0;
 		PreparedStatement pstm = null;
 		
-		System.out.println("################ @TodoDao - insertTodo");
-		System.out.println(todo.toString());
+		//System.out.println("################ @TodoDao - insertTodo");
+		//System.out.println(todo.toString());
 		
 
 		try {
@@ -56,15 +55,7 @@ public class TodoDao {
 							+ "VALUES(SEQ_TODO.nextval,?,?,?,?,?,?)";
 			
 			pstm = conn.prepareStatement(query);
-			/*
-			pstm.setInt(1, todo.getTodoIdx());
-			pstm.setInt(2, todo.getUserIdx());
-			pstm.setDate(3, todo.getStartDate());
-			pstm.setDate(4, todo.getEndDate());
-			pstm.setString(5, todo.getTitle());
-			pstm.setBoolean(6, todo.isDone());
-			pstm.setString(7, todo.getColor());
-			*/
+		
 			int index = 1;
 			pstm.setInt(index++, todo.getUserIdx());
 			pstm.setDate(index++, todo.getStartDate());
@@ -96,7 +87,6 @@ public class TodoDao {
 			pstm.setString(index++, todo.getTitle());
 			pstm.setDate(index++, todo.getStartDate());
 			pstm.setDate(index++, todo.getEndDate());
-//			pstm.setString(index++, todo.getDone());
 			pstm.setString(index++, todo.getColor());	
 			pstm.setInt(index++, todo.getTodoIdx());
 			res = pstm.executeUpdate();
@@ -165,7 +155,7 @@ public class TodoDao {
 		PreparedStatement pstm = null;
 		String query = "UPDATE TODO SET DONE = ? WHERE TODO_IDX = ?";
 		
-		System.out.println("done : " + done);
+		//System.out.println("done : " + done);
 		//체크여부 넣어주기
 		try {
 			pstm = conn.prepareStatement(query);

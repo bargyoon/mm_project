@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -42,6 +40,8 @@ public class TodoController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    
+    //get요청시 jsp와 연결 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
@@ -76,14 +76,14 @@ public class TodoController extends HttpServlet {
 		int userIdx = member.getUserIdx();
 		
 		List<Todo> todayList = todoService.todoMain(userIdx);
-		System.out.println("userIdx : " + userIdx);
+		//System.out.println("userIdx : " + userIdx);
 		
-		for (Todo todo : todayList) {
-			System.out.println(todo.toString());
-		}
+//		for (Todo todo : todayList) {
+//			System.out.println(todo.toString());
+//		}
 		
 		request.setAttribute("todayList", todayList);
-		System.out.println(todayList.toString());
+		//System.out.println(todayList.toString());
 		
 		request.getRequestDispatcher("/todo/todo-main").forward(request, response);
 	
@@ -156,8 +156,8 @@ public class TodoController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Member member = (Member) session.getAttribute("authentication");
 		
-		System.out.println("컨트롤러 userId : " + member.getUserId());
-		System.out.println("컨트롤러 userIdx : " + member.getUserIdx());
+		//System.out.println("컨트롤러 userId : " + member.getUserId());
+		//System.out.println("컨트롤러 userIdx : " + member.getUserIdx());
 		
 		int userIdx = member.getUserIdx();
 		String startDate = request.getParameter("startDate");
@@ -166,8 +166,8 @@ public class TodoController extends HttpServlet {
 		String done = request.getParameter("done");
 		String color = request.getParameter("color");
 		
-		System.out.println("############# @TodoController - todoInsert()");
-		System.out.println("title : " + title);
+		//System.out.println("############# @TodoController - todoInsert()");
+		//System.out.println("title : " + title);
 		
 		Todo todo = new Todo();
 		todo.setUserIdx(userIdx);
@@ -187,12 +187,12 @@ public class TodoController extends HttpServlet {
 		Member member = (Member) session.getAttribute("authentication");
 		Todo todo = (Todo) session.getAttribute("todoIdx");
 		
-		System.out.println("userId : " + member.getUserId());
-		System.out.println("userIdx : " + member.getUserIdx());
+		//System.out.println("userId : " + member.getUserId());
+		//System.out.println("userIdx : " + member.getUserIdx());
 		
 		int userIdx = member.getUserIdx();
 		int todoIdx = Integer.parseInt(request.getParameter("todoIdx"));
-		System.out.println("todoIdx : " + todoIdx);
+		//System.out.println("todoIdx : " + todoIdx);
 
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
@@ -200,10 +200,8 @@ public class TodoController extends HttpServlet {
 		String done = request.getParameter("done");
 		String color = request.getParameter("color");
 		
-		System.out.println("############# @TodoController - todoModify()");
-		System.out.println("title : " + title);
-		System.out.println("todoIdx : " + todoIdx);
-		System.out.println("todoIdx : " + todoIdx);
+		//System.out.println("############# @TodoController - todoModify()");
+		//System.out.println("title : " + title);
 		
 		todo = new Todo();
 		
@@ -223,20 +221,17 @@ public class TodoController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Member member = (Member) session.getAttribute("authentication");
 		
-		//여기도
 		Todo todo = (Todo) session.getAttribute("todoIdx");
 
 		int userIdx = member.getUserIdx();
-		int todoIdx = todo.getTodoIdx();
+		int todoIdx = Integer.parseInt(request.getParameter("todoIdx"));
 
-
-		System.out.println("############# @TodoController - todoDelete()");
-		System.out.println("todoIdx : " + todoIdx);
+		//System.out.println("############# @TodoController - todoDelete()");
+		//System.out.println("todoIdx : " + todoIdx);
 		
 		todo = new Todo();
 		todo.setUserIdx(userIdx);
 		todo.setTodoIdx(todoIdx);
-
 		
 		todoService.deleteTodo(todo);				
 	}
@@ -263,16 +258,14 @@ public class TodoController extends HttpServlet {
 //			todoIdxList.add( Integer.parseInt(todoIdx));
 //		}
 		
-		todoService.todaySave(todoIdx, done);
-
-		
+		todoService.todaySave(todoIdx, done);	
 	}
 	
 	
 	// 일정 가져오기
 	private void eventList(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		// TODO Auto-generated method stub
-		System.out.println("ajax 로 요청");
+		//System.out.println("ajax 로 요청");
 		
 		PrintWriter out = response.getWriter();
 		

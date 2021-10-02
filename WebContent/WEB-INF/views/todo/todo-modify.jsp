@@ -25,18 +25,17 @@
 <body>
 <div class="wrap-input">
 	<input type="hidden" name="todoIdx" id="todoIdx" />
-	<div>일정 제목 <input type="text" name="title" id="titleInput" /></div>
-	<div>일정 시작일 <input type="date" name="startDate" id="startInput" /></div>
-	<div>일정 종료일 <input type="date" name="endDate" id="endInput" /></div>
-	<div>색상 <input type="color" name="color" id="colorInput" /></div>
-	
+	<div class="top-div">일정 제목</div><div><input type="text" name="title" id="titleInput" /></div>
+	<div>일정 시작일</div><div><input type="date" name="startDate" id="startInput" /></div>
+	<div>일정 종료일</div><div><input type="date" name="endDate" id="endInput" /></div>
+	<div>색상</div><div><input type="color" name="color" id="colorInput" /></div>
 	<input type="hidden" id="done" name="done" value="0" />
 	
 </div>
 <div class="wrap-button">
 <!-- 	<input type="submit" value="일정 수정" formaction="/todo/modify" id="modifyButton" onclick="todoModify()"/> -->
 	<button type="button" id="modifyButton" onclick="todoModify()">일정 수정</button>
-	<input type="submit" value="일정 삭제" formaction="/todo/delete" id="deleteButton" onclick="deleteEntry()"/>
+	<button type="button" id="deleteButton" onclick="deleteEntry()">일정 삭제</button>
 </div>
 </body>
 

@@ -3,10 +3,14 @@
  */
 
 //todoInsert();
+document.addEventListener('DOMContentLoaded', function() {
+	var start = window.opener.document.getElementById("todo_start").value;
+	document.getElementById("startInput").value = start;
 
-function todoInsert(){
+});
 	
-		
+function todoInsert(){
+
 //	addListeners();
 
 	let	titleInput = document.getElementById("titleInput");	//일정제목
