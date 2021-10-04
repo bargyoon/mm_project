@@ -4,10 +4,6 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-
-</head>
 <body>
 	<main class="flex-shrink-0">
 		<div class="site-mobile-menu site-navbar-target">
@@ -47,11 +43,16 @@
 													<li><a href="${contextPath}/mentoring/apply-page" class="nav-link">멘토신청</a></li>
 												</c:if>
 												<li><a href="${contextPath}/mentoring/manage-page" class="nav-link">멘토링 관리</a></li>
-												<li class="has-children"><a href="#" class="nav-link">게시판</a>
-													<ul class="dropdown arrow-top" style="text-align: center;">
-														<li><a href="${contextPath}/board/mentor" class="nav-link">멘토 게시판</a></li>
-														<li><a href="${contextPath}/board/mentee" class="nav-link">멘티 게시판</a></li>
-													</ul>
+												<li>
+												<c:choose>
+												<c:when test="${not empty sessionScope.authMentor}">
+												<a href="${contextPath}/board/mentor" class="nav-link">멘토게시판</a>
+												</c:when>
+												<c:otherwise>
+												<a href="${contextPath}/board/mentee" class="nav-link">멘티게시판</a>
+												</c:otherwise>
+												</c:choose>
+												
 												</li>
 
 												<li><a href="${contextPath}/todo/main" class="nav-link">일정관리</a></li>

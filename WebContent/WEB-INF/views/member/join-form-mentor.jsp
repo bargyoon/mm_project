@@ -96,6 +96,9 @@
 								test="${not empty param.err and not empty joinValid.passwordConfirmation}">
                          비밀번호가 일치하지 않습니다.
                       </c:when>
+							<c:otherwise>
+								<p style="color: black">영어,숫자,특수문자 조합의 8글자 이상입니다.</p>
+							</c:otherwise>
 						</c:choose>
 					</span>
 
@@ -111,11 +114,16 @@
 							<c:if test="${not empty param.err and empty joinValid.email}">
                             value="${joinForm.email}"
                                   </c:if>
-                                  <c:if test="${not empty kakao.email}">
+							<c:if test="${not empty kakao.email}">
                             value="${kakao.email}"
                                   </c:if>
 							required class="form-control bg-white border-left-0 border-md">
 					</div>
+					 <span id="emailCheck" class="valid-msg">
+                <c:if test="${not empty param.err and not empty joinValid.email}">
+                   이미 사용중이 email입니다.
+                </c:if>
+                </span>
 					<!-- Gender -->
 					<div class="input-group col-lg-12 mb-4">
 						<div class="input-group-prepend">
@@ -197,7 +205,7 @@
 								<i class="fa fa-user text-muted"></i>
 							</span>
 						</div>
-						<input id="nickname" type="text" name="nickname" placeholder="닉네임"
+						<input id="nickname" type="text" name="nickname" placeholder="닉네임(선택)"
 							<c:if test="${not empty param.err and empty joinValid.nickname}">
                             value="${joinForm.nickname}"
                                   </c:if>
@@ -209,7 +217,7 @@
 						class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">
 						<div class="border-bottom " style="width: 40%;"></div>
 						<span class="px-2 small text-muted font-weight-bold text-muted"
-							style="width: 20%; text-align:center">대학교 정보</span>
+							style="width: 20%; text-align: center">대학교 정보</span>
 						<div class="border-bottom " style="width: 40%;"></div>
 					</div>
 
@@ -288,7 +296,7 @@
 						class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">
 						<div class="border-bottom " style="width: 35%;"></div>
 						<span class="px-2 small text-muted font-weight-bold text-muted"
-							style="width: 30%; text-align:center">멘토링 요청사항</span>
+							style="width: 30%; text-align: center">멘토링 요청사항</span>
 						<div class="border-bottom " style="width: 35%;"></div>
 					</div>
 
@@ -357,23 +365,23 @@
 							<div style="display: flex">
 								<label>이력사항</label>
 								<div style="display: flex; position: absolute; right: 40px">
-									<small class="form-text text-muted">Please Enter your
-										fullname</small> <a class="btn btn-success btn-sm" id="addHistoryBtn">+</a>
+									<small class="form-text text-muted">이력사항을 추가하시려면 +버튼을
+										눌러주십시오</small> <a class="btn btn-success btn-sm" id="addHistoryBtn">+</a>
 								</div>
 							</div>
 
 							<input id="history0" type="text" name="history"
-								placeholder="이력사항을 적어주세요"
+								placeholder="이력사항을 적어주세요(선택)"
 								class="form-control bg-white border-md">
 						</div>
 					</div>
-					
+
 					<!-- Divide Line -->
 					<div
 						class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">
 						<div class="border-bottom " style="width: 40%;"></div>
 						<span class="px-2 small text-muted font-weight-bold text-muted"
-							style="width: 20%; text-align:center">계좌 정보</span>
+							style="width: 20%; text-align: center">계좌 정보</span>
 						<div class="border-bottom " style="width: 40%;"></div>
 					</div>
 					<!-- 계좌번호 -->
@@ -384,8 +392,8 @@
 								<i class="fas fa-money-check text-muted"></i>
 							</span>
 						</div>
-						<input id="accountNum" type="text" name="accountNum"
-							required placeholder="계좌번호 (- 빼고 입력하세요)"
+						<input id="accountNum" type="text" name="accountNum" required
+							placeholder="계좌번호 (- 빼고 입력하세요)"
 							class="form-control bg-white border-left-0 border-md">
 					</div>
 					<!-- 은행명 -->
@@ -396,8 +404,8 @@
 								<i class="fas fa-piggy-bank text-muted"></i>
 							</span>
 						</div>
-						<input id="bankName" type="text" name="bankName"
-							required placeholder="은행명"
+						<input id="bankName" type="text" name="bankName" required
+							placeholder="은행명"
 							class="form-control bg-white border-left-0 border-md">
 					</div>
 

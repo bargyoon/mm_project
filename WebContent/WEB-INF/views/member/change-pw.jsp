@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>비밀번호 변경</title>
 
 
 
@@ -24,9 +24,9 @@
 
 
 
-	<div class="section">
+	<div class="section" style="min-height: 92vh;">
 		<div class="container">
-			<div class="row full-height justify-content-center">
+			<div class="row justify-content-center">
 				<div class="col-12 text-center align-self-center py-5">
 					<div class="section pb-5 pt-5 pt-sm-2 text-center">
 
@@ -35,8 +35,8 @@
 								<div class="card-front">
 									<div class="center-wrap">
 
-										<form action="/member/change-password" class="section text-left"
-											method="post">
+										<form action="/member/change-password"
+											class="section text-left" method="post">
 											<h3 class="mb-4">비밀번호 변경</h3>
 											<div class="mb-4">
 												<div>비밀번호 변경페이지 입니다.</div>
@@ -49,12 +49,12 @@
 												<i class="input-icon uil uil-lock-alt"></i>
 											</div>
 											<div class="form-group mt-2">
-												<input type="password" name="resetConfirmNewPw" class="form-style"
-													placeholder="비밀번호 확인" id="resetConfirmNewPw" autocomplete="off">
-												<i class="input-icon uil uil-lock-alt"></i>
+												<input type="password" name="resetConfirmNewPw"
+													class="form-style" placeholder="비밀번호 확인"
+													id="resetConfirmNewPw" autocomplete="off"> <i
+													class="input-icon uil uil-lock-alt"></i>
 											</div>
-											<span style="color: moccasin">
-												<c:choose>
+											<span style="color: moccasin"> <c:choose>
 													<c:when
 														test="${not empty param.err and not empty modifyValid.newPassword}">
                          영어,숫자,특수문자 조합의 8글자 이상입니다.

@@ -2,9 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-</head>
+
 <body>
 <footer class="py-4 mt-auto" style="background-color: #343a40">
 		<div class="container px-5">

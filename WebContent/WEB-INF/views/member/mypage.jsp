@@ -4,20 +4,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>마이페이지</title>
 <%@ include file="/WEB-INF/views/include/head.jsp"%>
 <link rel="stylesheet" href="/resources/css/member/mypage.css">
 </head>
-<body>
-	<div class="main-content">
-		<!-- Top navbar -->
-		<%@ include file="/WEB-INF/views/include/nav.jsp"%>
-<body class="bg-right">
+<body class="bg-right" style="height: 100vh">
 
 	<!-- Top navbar -->
 	<%@ include file="/WEB-INF/views/include/nav.jsp"%>
 	<div class="container-fluid"
-		style="padding-top: 9rem; padding-bottom: 9rem">
+		style="padding-top: 9rem; padding-bottom: 9rem; min-height: 92vh">
 		<div class="row">
 			<div class="col-md-10 col-11 mx-auto">
 
@@ -34,21 +30,7 @@
 								</c:if>
 
 								<h1 class="text-light" style="margin-top: 40px">${authentication.userName}</h1>
-								<div class="row">
-									<div class="col">
-										<div class="card-profile-stats d-flex justify-content-center">
-											<div>
-												<span class="heading">22</span> <span class="description">Friends</span>
-											</div>
-											<div>
-												<span class="heading">10</span> <span class="description">Photos</span>
-											</div>
-											<div>
-												<span class="heading">89</span> <span class="description">Comments</span>
-											</div>
-										</div>
-									</div>
-								</div>
+								
 							</div>
 
 							<div class="card-body">
@@ -60,9 +42,13 @@
 										class="fas fa-user-cog mr-1"></i>계정 정보
 									</a> <a data-toggle="tab" class="nav-link" href="#security"> <i
 										class="fas fa-user-shield mr-1"></i>Security
-									</a> <a data-toggle="tab" class="nav-link" href="#billing"> <i
-										class="fas fa-money-check-alt mr-1"></i>계좌 정보
 									</a>
+									<c:if test="${not empty sessionScope.authMentor }">
+										<a data-toggle="tab" class="nav-link" href="#billing"> <i
+											class="fas fa-money-check-alt mr-1"></i>계좌 정보
+										</a>
+									</c:if>
+
 								</nav>
 							</div>
 						</div>
@@ -80,8 +66,13 @@
 										href="#account"><i class="fas fa-user-cog mr-1"></i></a></li>
 									<li class="nav-item"><a data-toggle="tab" class="nav-link"
 										href="#security"><i class="fas fa-user-shield mr-1"></i></a></li>
-									<li class="nav-item"><a data-toggle="tab" class="nav-link"
-										href="#billing"><i class="fas fa-money-check-alt mr-1"></i></a></li>
+									<c:if test="${not empty sessionScope.authMentor }">
+										<li class="nav-item"><a data-toggle="tab"
+											class="nav-link" href="#billing"><i
+												class="fas fa-money-check-alt mr-1"></i></a></li>
+
+									</c:if>
+
 
 								</ul>
 							</div>
@@ -104,8 +95,7 @@
 										<label for="userName" class="form-label">이름</label> <input
 											type="text" class="form-control" id="userName"
 											name="userName" required value="${authentication.userName}">
-										<small class="form-text text-muted">Please Enter your
-											fullname</small>
+
 
 									</div>
 									<div class="mb-3">
@@ -353,7 +343,9 @@
 													<div class='text-muted small'>카카오 연동이 되어있습니다.</div>
 												</c:when>
 												<c:otherwise>
-													<button class="btn" type="submit"><img src="/resources/img/kakaoLogo.png"></button>
+													<button class="btn" type="submit">
+														<img src="/resources/img/kakaoLogo.png">
+													</button>
 													<div class='text-muted small'>버튼을 클릭해 카카오아이디로 로그인
 														하세요~</div>
 												</c:otherwise>
@@ -361,24 +353,32 @@
 										</div>
 									</form>
 								</div>
-								<div class="tab-pane " id="billing">
-									<h6>계좌정보</h6>
-									<hr>
-									<form action="/member/modify-account" method="post">
-										<div class="mb-3">
-											<label for="accountNum" class="form-label">계좌번호</label> <input type="text" class="form-control" id="accountNum"
-												value="${authMentor.accountNum}" name="accountNum" placeholder="계좌번호">
-											<p class='text-muted small' id="infoCurrPw">
-												- 빼고 입력하세요
-											</p>
-											<label for="bankName" class="form-label">은행명</label> <input type="text" class="form-control mb-2"
-												id="bankName" name="bankName" value="${authMentor.bank}" placeholder="은행명"> 
-											<button class="btn btn-outline-info" 
-												type="submit">계좌번호 변경</button>
 
-										</div>
-									</form>
-								</div>
+
+								<c:if test="${not empty sessionScope.authMentor }">
+									<div class="tab-pane " id="billing">
+										<h6>계좌정보</h6>
+										<hr>
+										<form action="/member/modify-account" method="post">
+											<div class="mb-3">
+												<label for="accountNum" class="form-label">계좌번호</label> <input
+													type="text" class="form-control" id="accountNum"
+													value="${authMentor.accountNum}" name="accountNum" required
+													placeholder="계좌번호">
+												<p class='text-muted small' id="infoCurrPw">- 빼고 입력하세요</p>
+												<label for="bankName" class="form-label">은행명</label> <input
+													type="text" class="form-control mb-2" id="bankName" required
+													name="bankName" value="${authMentor.bank}"
+													placeholder="은행명">
+												<button class="btn btn-outline-info" type="submit">계좌번호
+													변경</button>
+
+											</div>
+										</form>
+									</div>
+
+								</c:if>
+
 							</div>
 						</div>
 					</div>
@@ -389,7 +389,7 @@
 		</div>
 	</div>
 
-	
+
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 	<script src="/resources/js/member/mypage.js"></script>

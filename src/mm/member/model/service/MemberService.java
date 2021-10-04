@@ -402,7 +402,9 @@ public class MemberService {
 		int res = 0;
 		try {
 			
-			res = memberDao.modifyMember(member, conn);
+			if(memberDao.modifyMember(member, conn) != 0) {
+				res = memberDao.deleteKakaoId(member.getUserIdx(),conn);
+			}
 					
 			System.out.println(member.getUserId() + "의 회원수정 로직이 동작했습니다.");
 			template.commit(conn);

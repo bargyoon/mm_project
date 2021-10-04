@@ -30,6 +30,9 @@ body {
 	min-height: 100vh;
 }
 
+*{
+	font-family: 'Pretendard-Regular';
+}
 .form-control:not(select) {
 	padding: 1.5rem 0.5rem;
 }
@@ -63,6 +66,11 @@ select.form-control {
 	position: absolute;
 	top: 225px;
 	
+}
+
+#emailCheck{
+	position: absolute;
+	top: 301px;
 }
 
 #tellCheck{

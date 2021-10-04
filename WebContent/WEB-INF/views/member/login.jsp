@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>로그인</title>
 <%@ include file="/WEB-INF/views/include/head.jsp"%>
 <link rel="stylesheet" href="/resources/css/member/style.css">
 
@@ -15,9 +15,9 @@
 	<%@ include file="/WEB-INF/views/include/nav.jsp"%>
 
 
-	<div class="section">
+	<div class="section" style="min-height:92vh">
 		<div class="container">
-			<div class="row full-height justify-content-center">
+			<div class="row justify-content-center">
 				<div class="col-12 text-center align-self-center py-5">
 					<div class="section pb-5 pt-5 pt-sm-2 text-center">
 
@@ -50,8 +50,7 @@
 												value="로그인">
 											<div class="border-bottom "></div>
 											<a href="javascript:loginFormWithKakao()"
-												class="btn kakao mt-2">카카오로 로그인</a> <a href="/member/login"
-												class="btn naver mt-2">네이버로 로그인</a>
+												class="btn kakao mt-2">카카오로 로그인</a> 
 
 											<div class="col-md-12">
 

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>회원가입 약관</title>
 <%@ include file="/WEB-INF/views/include/head.jsp"%>
 
 
@@ -16,7 +16,7 @@
 
 
 
-	<div class="container" style="padding-top: 100px">
+	<div class="container" style="padding-top: 100px;min-height:93vh">
 		<div class="row align-items-center">
 			<!-- For Demo Purpose -->
 

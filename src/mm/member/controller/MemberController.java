@@ -227,7 +227,8 @@ public class MemberController extends HttpServlet {
 			request.getSession().setAttribute("authMentor", mentor);
 		}
 		request.getSession().setAttribute("authentication", member);
-
+		request.getSession().removeAttribute("kakao");
+		request.getSession().removeAttribute("kakaoId");
 		response.sendRedirect("/");
 
 	}
@@ -357,15 +358,34 @@ public class MemberController extends HttpServlet {
 		mentor.setWantDay(wantDay);
 		mentor.setWantTime(wantTime);
 		mentor.setRequirement(requirement);
-		if (historyArr != null) {
+		if(history != null) {
+			if (historyArr != null) {
 
-			for (int i = 0; i < historyArr.length; i++) {
+				for (int i = 0; i < historyArr.length; i++) {
 
-				history += ("," + historyArr[i]);
+					history += ("," + historyArr[i]);
 
+				}
+				mentor.setHistory(history);
 			}
-			mentor.setHistory(history);
+		}else {
+			
+			if (historyArr != null) {
+
+				for (int i = 0; i < historyArr.length; i++) {
+					if(i == 0) {
+						history = historyArr[i];
+					}else {
+						history += ("," + historyArr[i]);
+					}
+					
+
+				}
+				mentor.setHistory(history);
+			}
 		}
+		
+		
 
 		if (memberService.modifyMentor(member, mentor) != 0) {
 			request.setAttribute("msg", "회원정보 수정이 완료되었습니다.");
@@ -443,6 +463,8 @@ public class MemberController extends HttpServlet {
 		request.getSession().removeAttribute("authMentor");
 		request.getSession().removeAttribute("authMentee");
 		request.getSession().removeAttribute("files");
+		request.getSession().removeAttribute("kakao");
+		request.getSession().removeAttribute("kakaoId");
 		response.sendRedirect("/index");
 	}
 
@@ -487,7 +509,6 @@ public class MemberController extends HttpServlet {
 		Mentee mentee = new Mentee();
 
 		member = commonMember(request, response, member);
-		String kakaoId = (String) request.getSession().getAttribute("kakaoId");
 		member.setRole("ME00");
 		mentee.setSchoolName(schoolName);
 		mentee.setMajor(major);
@@ -535,7 +556,6 @@ public class MemberController extends HttpServlet {
 		Mentor mentor = new Mentor();
 
 		member = commonMember(request, response, member);
-		String kakaoId = (String) request.getSession().getAttribute("kakaoId");
 		member.setRole("MO00");
 		mentor.setUniversityName(universityName);
 		mentor.setUniversityType(universityType);
@@ -592,7 +612,7 @@ public class MemberController extends HttpServlet {
 		Mentor mentor = (Mentor) session.getAttribute("persistMentor");
 		Mentee mentee = (Mentee) session.getAttribute("persistMentee");
 
-		if (member.getKakaoJoin() != null) {
+		if (member.getKakaoJoin().equals("y")) {
 
 			if (mentor != null) {
 				if (memberService.insertMentor(member, mentor, kakaoId) != 0) {
@@ -686,6 +706,7 @@ public class MemberController extends HttpServlet {
 
 	private void loginForm(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.getSession().removeAttribute("kakao");
 		request.getRequestDispatcher("/member/login").forward(request, response);
 	}
 
@@ -714,6 +735,8 @@ public class MemberController extends HttpServlet {
 		member.setNickname(nickname);
 		if (kakaoLog != null) {
 			member.setKakaoJoin("y");
+		}else {
+			member.setKakaoJoin("n");
 		}
 		return member;
 	}

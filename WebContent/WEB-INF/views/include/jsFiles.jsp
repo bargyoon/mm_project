@@ -4,10 +4,6 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
 <body>
 	<script src="${contextPath}/resources/js/common/jquery-3.3.1.min.js"></script>
 	<script src="${contextPath}/resources/js/common/bootstrap.min.js"></script>

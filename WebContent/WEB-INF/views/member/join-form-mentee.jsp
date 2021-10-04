@@ -95,6 +95,9 @@
                       <c:when test="${not empty param.err and not empty joinValid.passwordConfirmation}">
                          비밀번호가 일치하지 않습니다.
                       </c:when>
+                      <c:otherwise>
+                      <p style="color:black">영어,숫자,특수문자 조합의 8글자 이상입니다.</p>
+                      </c:otherwise>
                       </c:choose>
                   </span>
 
@@ -115,6 +118,11 @@
                                   </c:if>
                         required class="form-control bg-white border-left-0 border-md">
                   </div>
+                  <span id="emailCheck" class="valid-msg">
+                <c:if test="${not empty param.err and not empty joinValid.email}">
+                   이미 사용중이 email입니다.
+                </c:if>
+                </span>
                   <!-- Gender -->
                   <div class="input-group col-lg-12 mb-4">
                      <div class="input-group-prepend">
@@ -197,7 +205,7 @@
                         </span>
                      </div>
                      <input id="nickname" type="text" name="nickname"
-                        placeholder="닉네임"
+                        placeholder="닉네임(선택)"
                         <c:if test="${not empty param.err and empty joinValid.nickname}">
                             value="${joinForm.nickname}"
                                   </c:if>
@@ -205,14 +213,14 @@
                   </div>
 
 
-                  <!-- Divide Line -->
-                  <div
-                     class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">
-                     <div class="border-bottom " style="width: 40%;"></div>
-                     <span class="px-2 small text-muted font-weight-bold text-muted"
-                        style="width: 20%;">대학교 정보</span>
-                     <div class="border-bottom " style="width: 40%;"></div>
-                  </div>
+                 <!-- Divide Line -->
+					<div
+						class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">
+						<div class="border-bottom " style="width: 40%;"></div>
+						<span class="px-2 small text-muted font-weight-bold text-muted"
+							style="width: 20%; text-align: center">학교 정보</span>
+						<div class="border-bottom " style="width: 40%;"></div>
+					</div>
 
                   <!-- College name -->
                   <div class="input-group col-lg-12 mb-4">
@@ -272,7 +280,7 @@
                         </span>
                      </div>
                      <input id="hopeUniversity" type="text" name="hopeUniversity"
-                        placeholder="희망 대학"
+                        placeholder="희망 대학(선택)"
                         class="form-control bg-white border-left-0 border-md">
                   </div>
 
@@ -287,7 +295,7 @@
                         </span>
                      </div>
                      <input id="hopeMajor" type="text" name="hopeMajor"
-                        placeholder="희망 학과"
+                        placeholder="희망 학과(선택)"
                         class="form-control bg-white border-left-0 border-md">
                   </div>
 

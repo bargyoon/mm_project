@@ -411,6 +411,28 @@ public class MemberDao {
 		return res;
 		
 	}
+	
+	public int deleteKakaoId(int userIdx, Connection conn) {
+		int res = 0;
+		PreparedStatement pstm = null;
+
+		try {
+			String query = "delete from KAKAO_LOGIN where user_idx = ?;";
+
+			pstm = conn.prepareStatement(query);
+			pstm.setInt(1, userIdx);
+
+			res = pstm.executeUpdate();
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(pstm);
+		}
+
+		return res;
+		
+	}
+
 
 	public Mentee selectMenteeByRole(int userIdx, Connection conn) {
 		Mentee mentee = null;
@@ -655,6 +677,7 @@ public FileDTO selectFileDTO(int bdIdx, Connection conn) {
 		return res;
 	}
 
+	
 	
 
 	

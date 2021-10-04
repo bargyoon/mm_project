@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>멘토 정보</title>
 <%@ include file="/WEB-INF/views/include/head.jsp"%>
 <link rel="stylesheet" href="/resources/css/member/mypage.css">
 </head>
@@ -94,7 +94,7 @@
 
 										<br>
 
-										<button class="btn btn-outline-info">멘토링 신청하기</button>
+										<a class="btn btn-outline-info" href="javascript:history.back();">멘토링 신청하기</a>
 									</form>
 								</div>
 
