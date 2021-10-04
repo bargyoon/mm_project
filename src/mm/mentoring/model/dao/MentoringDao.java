@@ -10,6 +10,7 @@ import java.util.List;
 
 import mm.common.db.JDBCTemplate;
 import mm.common.exception.DataAccessException;
+import mm.common.file.FileDTO;
 import mm.member.model.dto.Member;
 import mm.member.model.dto.Mentor;
 import mm.mentoring.model.dto.ApplyHistory;
@@ -575,6 +576,63 @@ public class MentoringDao {
 		member.setKakaoJoin(rset.getString("kakao_join"));
 		return member;
 
+	}
+
+	public Mentor getMentorByMentorIdx(int mentorIdx, Connection conn) {
+		Mentor mentor = new Mentor();
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		String query = "select * from user_mentor where MENTOR_IDX = ?";
+		
+		try {
+			pstm = conn.prepareStatement(query);
+			pstm.setInt(1, mentorIdx);
+			rset = pstm.executeQuery();
+			
+			if(rset.next()) {
+				mentor = convertToMentor(rset);
+			}
+			
+		} catch (SQLException e) {
+			new DataAccessException(e);
+		} finally {
+			template.close(pstm);
+		}
+		
+		return mentor;
+	}
+
+	public FileDTO getFileByMentorIdx(int mentorIdx, Connection conn) {
+		FileDTO file = new FileDTO();
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		String query = "select fl_idx, type_idx, origin_file_name, "
+				+ " rename_file_name, save_path"
+				+ " from file_info where type_idx = ? and is_del = 0";
+		
+		
+		try {
+			pstm = conn.prepareStatement(query);
+			pstm.setInt(1, mentorIdx);
+			
+			rset = pstm.executeQuery();
+
+			if(rset.next()) {
+				file.setFlIdx(rset.getInt("fl_idx"));
+				file.setTypeIdx(rset.getInt("type_idx"));
+				file.setSavePath(rset.getString("save_path"));
+				file.setOriginFileName(rset.getString("origin_file_name"));
+				file.setRenameFileName(rset.getString("rename_file_name"));
+			}
+			
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		}finally {
+			template.close(rset, pstm);
+		}
+		
+		return file;
+		
 	}
 
 }

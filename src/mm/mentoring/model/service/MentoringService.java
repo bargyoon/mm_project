@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mm.common.db.JDBCTemplate;
+import mm.common.file.FileDTO;
+import mm.common.http.HttpConnector;
+import mm.common.http.RequestParams;
+import mm.common.mail.MailSender;
 import mm.member.model.dto.Member;
 import mm.member.model.dto.Mentor;
 import mm.mentoring.model.dao.MentoringDao;
@@ -266,6 +270,51 @@ public class MentoringService {
 		return mentorRating;
 	}
 
+	public Mentor getMentorByMentorIdx(int mentorIdx) {
+		Mentor mentor = new Mentor();
+		Connection conn = template.getConnection();
+		
+		try {
+			mentor = mDao.getMentorByMentorIdx(mentorIdx, conn);
+		} finally {
+			template.close(conn);
+		}
+		
+		return mentor;
+	}
+
+	public FileDTO getFileByMentorIdx(int mentorIdx) {
+		Connection conn = template.getConnection();
+		
+		FileDTO file = null;
+
+		try {
+
+			file = mDao.getFileByMentorIdx(mentorIdx, conn);
+			
+
+		} finally {
+			template.close(conn);
+		}
+
+		return file;
+	}
+
+	public void sendEmailToMentor(Member member) {
+		HttpConnector conn = new HttpConnector();
+		
+		String queryString = conn.urlEncodedForm(RequestParams.builder() 
+				.params("mail-template", "reset-password")
+				.params("email", member.getEmail())
+				.build());
+		
+		String mailTemplate = conn.get("http://localhost:7070/mail?" + queryString);
+
+		MailSender sender = new MailSender();
+
+		sender.sendEmail(member.getEmail(), "멘토 신청 완료 메일입니다.", mailTemplate);
+		
+	}
 	
 	
 	

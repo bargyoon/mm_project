@@ -29,9 +29,11 @@
 		<c:set var="excellentMentors" value="${requestScope.excellentMentors}"/>
 		<c:set var="excellentMentorsInfo" value="${requestScope.excellentMentorsInfo}"/>
 		<c:set var="excellentHistoryList" value="${requestScope.excellentHistoryList}"/>
+		<c:set var="excellentMentorImg" value="${requestScope.excellentMentorImg}"/>
 		<c:set var="normalMentors" value="${requestScope.normalMentors}"/>
 		<c:set var="normalMentorsInfo" value="${requestScope.normalMentorsInfo}"/>
 		<c:set var="normalHistoryList" value="${requestScope.normalHistoryList}"/>
+		<c:set var="normalMentorImg" value="${requestScope.normalMentorImg}"/>
 	        <div class="container px-5 my-5">
 	            <div class="row gx-5">
 	            	<c:choose>
@@ -61,7 +63,8 @@
 					                        	<div class="d-flex align-items-end justify-content-between">
 					                                <div class="d-flex align-items-center">
 					                                	<c:if test="${excellentMentors[i].profileImg eq 1}">
-					                                    	<img class="rounded-circle me-3" src="https://dummyimage.com/50x50/ced4da/6c757d" alt="..." />
+					                                    	<img class="rounded-circle me-3" src="${excellentMentorImg[i].downloadURL}" alt="..."
+					                                    		style="height: 60px; width: 60px"/>
 					                                	</c:if>
 					                                    <div class="small">
 					                                        <div class="fw-bold">${excellentMentorsInfo[i].userName}</div>
@@ -100,7 +103,8 @@
 				                        	<div class="d-flex align-items-end justify-content-between">
 				                                <div class="d-flex align-items-center">
 				                                    <c:if test="${normalMentors[i].profileImg eq 1}">
-					                                    	<img class="rounded-circle me-3" src="https://dummyimage.com/50x50/ced4da/6c757d" alt="..." />
+					                                    <img class="rounded-circle me-3" src="${normalMentorImg[i].downloadURL}" alt="..."
+					                                    	style="height: 60px; width: 60px"/>
 					                                </c:if>
 				                                    <div class="small">
 				                                        <div class="fw-bold">${normalMentorsInfo[i].userName}</div>

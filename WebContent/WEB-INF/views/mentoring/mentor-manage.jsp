@@ -20,11 +20,19 @@
 		    <div class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start">
 		    	<div class="d-flex align-items-center">
 			    	<div class="mb-4 mb-xl-0">
-			        	<img class="rounded-circle me-3" src="https://dummyimage.com/100x100/ced4da/6c757d" alt="..." />
+		            	<c:if test="${authentication.role eq 'MO00'}">
+			        		<img class="rounded-circle me-3" src="${requestScope.mentorImg.downloadURL}" alt="..."
+			        			style="height: 100px; width: 100px"/>
+			        	</c:if>
 			        </div>
 			        <div class="mb-4 mb-xl-0">
-			            <div class="fs-3 fw-bold text-white"><c:out value="${authentication.role}"/> <c:out value="${authentication.userName}"/>님</div>
-			            <div class="text-white-50">Sign.</div>
+		            	<c:if test="${authentication.role eq 'ME00'}">
+				            <div class="fs-3 fw-bold text-white"><c:out value="멘티 ${authentication.userName}님"/></div>
+			            </c:if>
+		            	<c:if test="${authentication.role eq 'MO00'}">
+				            <div class="fs-3 fw-bold text-white"><c:out value="멘토 ${authentication.userName}님"/></div>
+			            </c:if>
+				            <div class="text-white-50">환영합니다</div>
 			        </div>
 		        </div>
 		        <div class="d-flex flex-column align-items-center">
@@ -75,7 +83,6 @@
 						<div class="d-flex align-items-center justify-content-between">
 						    <c:if test="${authentication.role eq 'ME00'}">
 							    <div class="d-flex align-items-center">
-							    	<img class="rounded-circle me-3" src="https://dummyimage.com/60x60/ced4da/6c757d" alt="..." />
 							    	<div class="small">
 								        <div class="fw-bold"><c:out value="${ah.mentorName}"/></div>
 								        <div class="text-muted">멘토 신청 날짜 : <c:out value="${ah.applyDate}"/></div>
@@ -109,7 +116,6 @@
 	                <div class="col-lg-10 mb-4">
 						<div class="d-flex align-items-center justify-content-between">
 						    <div class="d-flex align-items-center">
-						    	<img class="rounded-circle me-3" src="https://dummyimage.com/60x60/ced4da/6c757d" alt="..." />
 						    	<div class="small">
 						    		<c:if test="${authentication.role eq 'ME00'}">
 							        	<div class="fw-bold"><c:out value="${ph.mentorName}"/></div>
@@ -131,7 +137,6 @@
 						<div class="d-flex align-items-center justify-content-between">
 							<c:if test="${authentication.role eq 'ME00'}">
 							    <div class="d-flex align-items-center">
-							    	<img class="rounded-circle me-3" src="https://dummyimage.com/60x60/ced4da/6c757d" alt="..." />
 							    	<div class="small">
 								        <div class="fw-bold"><c:out value="${fh.mentorName}"/></div>
 								        <div class="text-muted">멘토 진행 기간 : <c:out value="${fh.startDate}"/> ~ <c:out value="${fh.endDate}"/></div>

@@ -7,7 +7,6 @@ UPLOAD_PATH("C:\\CODE\\E_SERVLET\\mm_project\\WebContent\\resources\\img\\"), //
 	SMTP_AUTHENTIFICATION_PASSWORD("147856aa"),
 	COMPANY_EMAIL("bargyoon@gmail.com");
 	
-	
 	public final String DESC;
 	
 	private Config(String desc) {

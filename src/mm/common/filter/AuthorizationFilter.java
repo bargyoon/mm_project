@@ -92,6 +92,36 @@ public class AuthorizationFilter implements Filter {
 				throw new HandlableException(ErrorCode.ACCESS_ONLY_MENTOR);
 			}
 			break;
+		case "rating-page":
+			if(!member.getRole().equals("ME00")) {
+				throw new HandlableException(ErrorCode.ACCESS_ONLY_MENTOR);
+			}
+			break;
+		case "mentor-list":
+			if(!member.getRole().equals("ME00")) {
+				throw new HandlableException(ErrorCode.ACCESS_ONLY_MENTOR);
+			}
+			break;
+		case "regist-apply":
+			if(!member.getRole().equals("ME00")) {
+				throw new HandlableException(ErrorCode.ACCESS_ONLY_MENTOR);
+			}
+			break;
+		case "apply-complete":
+			if(!member.getRole().equals("ME00")) {
+				throw new HandlableException(ErrorCode.ACCESS_ONLY_MENTOR);
+			}
+			break;
+		case "apply-page":
+			if(!member.getRole().equals("ME00")) {
+				throw new HandlableException(ErrorCode.ACCESS_ONLY_MENTOR);
+			}
+			break;
+		case "reapply-complete":
+			if(!member.getRole().equals("ME00")) {
+				throw new HandlableException(ErrorCode.ACCESS_ONLY_MENTOR);
+			}
+			break;
 		default:
 			break;
 		}

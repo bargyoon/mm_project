@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
@@ -32,6 +33,7 @@ import javax.ws.rs.core.MediaType;
 import mm.common.code.Config;
 import mm.common.code.ErrorCode;
 import mm.common.exception.HandlableException;
+import mm.common.file.FileDTO;
 import mm.member.model.dto.Member;
 import mm.member.model.dto.Mentor;
 import mm.mentoring.model.dto.ApplyHistory;
@@ -98,9 +100,11 @@ public class MentoringController extends HttpServlet {
 
 	private void payment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int mentorIdx = Integer.parseInt(request.getParameter("mentor_idx"));
-		//
+		Mentor mentor = mService.getMentorByMentorIdx(mentorIdx);
+		//toss api
 		Client client = ClientBuilder.newClient();
-		Entity payload = Entity.json("{  \"apiKey\": \"dcf102a946024eafb1c3d61cbdba3c47\",  \"bankName\": \"카카오뱅크\",  \"bankAccountNo\": \"21604828802016\",  \"amount\": 15000,  \"message\": \"토스입금버튼\"}");
+		Entity payload = Entity.json("{  \"apiKey\": \"dcf102a946024eafb1c3d61cbdba3c47\",  \"bankName\": \"" + mentor.getBank()
+								+ "\",  \"bankAccountNo\":\"" + mentor.getAccountNum() + "\",  \"amount\": 15000,  \"message\": \"토스입금버튼\"}");
 		Response paymentResponse = client.target("https://toss.im/transfer-web/linkgen-api/link")
 		  .request(MediaType.APPLICATION_JSON_TYPE)
 		  .post(payload);
@@ -283,6 +287,7 @@ public class MentoringController extends HttpServlet {
 			request.setAttribute("back", "back");
 			request.getRequestDispatcher("common/result").forward(request, response);
 		} else {
+			mService.sendEmailToMentor(mentorInfo);
 			request.getRequestDispatcher("/mentoring/apply-complete").forward(request,response); 
 		}
 	}
@@ -291,6 +296,7 @@ public class MentoringController extends HttpServlet {
 	private void registApply(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Member member = (Member) request.getSession().getAttribute("authentication");
 		int mentorIdx = Integer.parseInt(request.getParameter("mentor_idx"));
+		Member mentorInfo = mService.getMemberByIdx(mService.getMentorByMentorIdx(mentorIdx).getUserIdx());
 		String mentorName = request.getParameter("mentor_name");
 		ApplyHistory ah = new ApplyHistory();
 		
@@ -314,6 +320,7 @@ public class MentoringController extends HttpServlet {
 			request.setAttribute("back", "back");
 			request.getRequestDispatcher("common/result").forward(request, response); 
 		} else {
+			mService.sendEmailToMentor(mentorInfo);
 			request.getRequestDispatcher("/mentoring/apply-complete").forward(request,response); 
 		}
 	}
@@ -322,7 +329,7 @@ public class MentoringController extends HttpServlet {
 	private void reapplyComplete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		int ahIdx = Integer.parseInt(request.getParameter("a_idx"));
-
+		
 		int res = mService.increaseReapplyCnt(ahIdx);
 		if (res == 0) {
 			request.setAttribute("msg", "멘토링 재신청에 실패하였습니다.");
@@ -416,6 +423,11 @@ public class MentoringController extends HttpServlet {
 		int mentorUserIdx = member.getUserIdx();
 		Mentor mentor = mService.getMentorByUserIdx(mentorUserIdx);
 		String role = member.getRole();
+		FileDTO mentorImg = new FileDTO();
+		if(member.getRole().equals("MO00")) {
+			mentorImg = mService.getFileByMentorIdx(mService.getMentorByUserIdx(mentorUserIdx).getMentorIdx());
+			request.setAttribute("mentorImg", mentorImg);
+		}
 		
 		List<MentoringHistory> mhList = new ArrayList<MentoringHistory>();
 		List<ApplyHistory> ahList = new ArrayList<ApplyHistory>();
@@ -449,7 +461,7 @@ public class MentoringController extends HttpServlet {
 				finishMhList.add(mhList.get(i));
 			}
 		}
-
+		
 		request.setAttribute("applyHistory", ahList);
 		request.setAttribute("processHistory", processMhList);
 		request.setAttribute("finishHistory", finishMhList);
@@ -477,8 +489,10 @@ public class MentoringController extends HttpServlet {
 		//멘토의 평점을 가져와 우수멘토와 일반멘토 구분
 		List<Mentor> excellentMentorList = new ArrayList<Mentor>();
 		List<Member> excellentMentorInfo = new ArrayList<Member>();
+		List<FileDTO> excellentMentorImg = new ArrayList<FileDTO>();
 		List<Mentor> normalMentorList = new ArrayList<Mentor>();
 		List<Member> normalMentorInfo = new ArrayList<Member>();
+		List<FileDTO> normalMentorImg = new ArrayList<FileDTO>();
 		
 		for (int i = 0; i < nonExistMentorList.size(); i++) {
 			int mentoringCnt = nonExistMentorList.get(i).getMentoringCnt();
@@ -498,10 +512,16 @@ public class MentoringController extends HttpServlet {
 				//멘토의 idx로 멘토의 멤버정보 가져옴
 				excellentMentorList.add(nonExistMentorList.get(i));
 				excellentMentorInfo.add(mService.getMemberByIdx(nonExistMentorList.get(i).getUserIdx()));
+				excellentMentorImg.add(mService.getFileByMentorIdx(nonExistMentorList.get(i).getMentorIdx()));
 			} else {
 				normalMentorList.add(nonExistMentorList.get(i));
 				normalMentorInfo.add(mService.getMemberByIdx(nonExistMentorList.get(i).getUserIdx()));
+				normalMentorImg.add(mService.getFileByMentorIdx(nonExistMentorList.get(i).getMentorIdx()));
 			}
+		}
+		
+		for (FileDTO fileDTO : normalMentorImg) {
+			System.out.println(fileDTO);
 		}
 		
 		// 멘토 리스트에서 history를 꺼내 리스트에 담음
@@ -511,9 +531,11 @@ public class MentoringController extends HttpServlet {
 		request.setAttribute("excellentMentors", excellentMentorList);
 		request.setAttribute("excellentMentorsInfo", excellentMentorInfo);
 		request.setAttribute("excellentHistoryList", excellentHistoryList);
+		request.setAttribute("excellentMentorImg", excellentMentorImg);
 		request.setAttribute("normalMentors", normalMentorList);
 		request.setAttribute("normalMentorsInfo", normalMentorInfo);
 		request.setAttribute("normalHistoryList", normalHistoryList);
+		request.setAttribute("normalMentorImg", normalMentorImg);
 
 		request.getRequestDispatcher("/mentoring/mentor-list").forward(request, response);
 	}
@@ -561,6 +583,7 @@ public class MentoringController extends HttpServlet {
 		
 		return gradeCnt;
 	}
+
 
 	private void applyPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/mentoring/mentor-apply").forward(request, response);
