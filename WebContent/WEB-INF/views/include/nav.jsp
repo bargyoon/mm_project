@@ -46,10 +46,10 @@
 												<li>
 												<c:choose>
 												<c:when test="${not empty sessionScope.authMentor}">
-												<a href="${contextPath}/board/mentor" class="nav-link">멘토게시판</a>
+												<a href="${contextPath}/moboard/mentor" class="nav-link">멘토게시판</a>
 												</c:when>
 												<c:otherwise>
-												<a href="${contextPath}/board/mentee" class="nav-link">멘티게시판</a>
+												<a href="${contextPath}/meboard/mentee" class="nav-link">멘티게시판</a>
 												</c:otherwise>
 												</c:choose>
 												

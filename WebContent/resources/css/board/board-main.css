@@ -22,10 +22,12 @@
 }
 #boardTitle>p{
 	font-size: 25px;
+	color: #343a40;
+	font-weight: bolder;
 }
 .wrap_search{
 	position:relative;
-	left:795px;
+	left:925px;
 	display: flex;
 	bottom: 10%;
 }
@@ -45,6 +47,8 @@
 }
 #selectBox{
 	height: 40px !important;
+	color: #343a40;
+	font-weight: bolder;
 }
 #searchBox{
 	display: flex;
@@ -90,6 +94,9 @@
 	background-color: #343a40;
 	color: rgba(255, 255, 255, 0.6);
 }
+.board_th>a{
+	color:#ccc;
+}
 
 .board_table, .board_th, .board_tr, .board_td{
 	width: 1500px;
@@ -101,6 +108,18 @@
 	border-right: none;
 }
 .board_td{
+	color: #343a40 !important;
+	font-weight: bolder;
+}
+
+tr{
+	height: 3%; !important;
+}
+.board_td{
+	color: #343a40 !important;
+}
+
+.board_td>a{
 	color: #343a40 !important;
 }
 

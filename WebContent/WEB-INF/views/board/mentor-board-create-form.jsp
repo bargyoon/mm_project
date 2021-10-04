@@ -18,7 +18,7 @@
 			</div>
 		</div>
 		<hr>
-		<form action="/meboard/mentee/mentee-upload" enctype="multipart/form-data" method="post">
+		<form action="/moboard/mentor/mentor-upload" enctype="multipart/form-data" method="post">
 		<div id="createBody">
 			<div id=createHeader>
 			<p>제목 : </p><input type="text" name="bdTitle" id="createTitle"/>
@@ -32,7 +32,7 @@
 		</div>
 
 		<div class="create_footer">
-			<button id="returnButton" type="button" onclick="location.href='mentee'">목록</button>
+			<button id="returnButton" type="button" onclick="location.href='mentor'">목록</button>
 			<div id="wrapButton">
 				<button type="submit">등록</button>
 			</div>

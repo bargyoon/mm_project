@@ -24,18 +24,18 @@
 				<thead class="content_thead">
 					<tr class="content_tr">
 						<th class="content_info" id="contentNo"><c:out
-								value="${datas.boardMentee.bdIdx}" /></th>
+								value="${datas.boardMentor.bdIdx}" /></th>
 						<th class="content_info" id="content"><c:out
-								value="${datas.boardMentee.bdTitle}" /></th>
+								value="${datas.boardMentor.bdTitle}" /></th>
 						<th class="content_info" id="contentWriter" name="userId">작성자
-							: <c:out value="${datas.boardMentee.userId}" />
+							: <c:out value="${datas.boardMentor.userId}" />
 						</th>
 						<th class="content_info" id="contentDate"><c:out
-								value="${datas.boardMentee.detailDate}" /></th>
+								value="${datas.boardMentor.detailDate}" /></th>
 						<th class="content_info" id="contentView">조회수 : <c:out
-								value="${datas.boardMentee.viewCount}" /></th>
+								value="${datas.boardMentor.viewCount}" /></th>
 						<th class="content_info" id="contentRec">추천수 : <c:out
-								value="${datas.boardMentee.recCount}" /></th>
+								value="${datas.boardMentor.recCount}" /></th>
 					</tr>
 				</thead>
 			</table>
@@ -45,7 +45,7 @@
 					<c:forEach items="${datas.files}" var="file">
 					<img src="${file.downloadURL}"><br>
 					</c:forEach>
-					<c:out value="${datas.boardMentee.bdContent}" />
+					<c:out value="${datas.boardMentor.bdContent}" />
 				</div>
 			</div>
 			<div class='info file_info'>
@@ -57,7 +57,7 @@
 				</ol>
 			</div>
 			<div id="otherUtil">
-				<a href="mentee/mentee-board-detail/content-recommend?bdIdx=${datas.boardMentee.bdIdx}&userId=${datas.boardMentee.userId}">추천</a> <a onclick="clip(); return false;">공유</a>
+				<a href="mentor/mentor-board-detail/content-recommend?bdIdx=${datas.boardMentor.bdIdx}&userId=${datas.boardMentor.userId}">추천</a> <a onclick="clip(); return false;">공유</a>
 			</div>
 			<hr>
 			<table class="comment_table" border="0">
@@ -65,15 +65,15 @@
 					<tr class="comment_tr">
 						<th class="comment_info">${commentList.userId}</th>
 						<th class="comment_info">${commentList.coContent}</th>
-						<th class="comment_info"><i class="fas fa-times" onclick="location.href='mentee/comment-delete?coIdx=${commentList.coIdx}&userId=${commentList.userId}&bdIdx=${datas.boardMentee.bdIdx}'"></i></th>
+						<th class="comment_info"><i class="fas fa-times" onclick="location.href='mentor/comment-delete?coIdx=${commentList.coIdx}&userId=${commentList.userId}&bdIdx=${datas.boardMentor.bdIdx}'"></i></th>
 						<th class="comment_info">${commentList.detailDate}</th>
-						<th class="comment_info"><i class="far fa-thumbs-up" onclick="location.href='mentee/comment-recommend?coIdx=${commentList.coIdx}&userId=${commentList.userId}&bdIdx=${datas.boardMentee.bdIdx}'" ></i>${commentList.recCount}</th>
+						<th class="comment_info"><i class="far fa-thumbs-up" onclick="location.href='mentor/comment-recommend?coIdx=${commentList.coIdx}&userId=${commentList.userId}&bdIdx=${datas.boardMentor.bdIdx}'" ></i>${commentList.recCount}</th>
 					</tr>
 				</c:forEach>
 			</table>
 			<hr>
-			<form class="wrap_comment" action="/meboard/mentee/comment-upload">
-				<input type="hidden" name="bdIdx" value="${datas.boardMentee.bdIdx}"/>
+			<form class="wrap_comment" action="/moboard/mentor/comment-upload">
+				<input type="hidden" name="bdIdx" value="${datas.boardMentor.bdIdx}"/>
 				<textarea id="commentBox" required="required" maxlength="100" name="coComment"></textarea>
 				<button id="writeButton">등록</button>
 			</form>
@@ -82,12 +82,12 @@
 
 		<div class="content_footer">
 			<button id="returnButton" type="button"
-				onclick="location.href='mentee'">목록</button>
+				onclick="location.href='mentor'">목록</button>
 			<div id="wrapButton">
 				<button type="button"
-					onclick="location.href='mentee/mentee-board-modify?bdIdx=${datas.boardMentee.bdIdx}&userId=${datas.boardMentee.userId}'">수정</button>
+					onclick="location.href='mentor/mentor-board-modify?bdIdx=${datas.boardMentor.bdIdx}&userId=${datas.boardMentor.userId}'">수정</button>
 				<button type="button"
-					onclick="location.href='mentee/mentee-board-delete?bdIdx=${datas.boardMentee.bdIdx}&userId=${datas.boardMentee.userId}'">삭제</button>
+					onclick="location.href='mentor/mentor-board-delete?bdIdx=${datas.boardMentor.bdIdx}&userId=${datas.boardMentor.userId}'">삭제</button>
 			</div>
 		</div>
 	</div>

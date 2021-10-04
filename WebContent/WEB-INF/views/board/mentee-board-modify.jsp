@@ -18,7 +18,7 @@
 			</div>
 		</div>
 		<hr>
-		<form action="/board/mentee/mentee-board-update" encType = "multipart/form-data" method="post">
+		<form action="/meboard/mentee/mentee-board-update" encType = "multipart/form-data" method="post">
 		<div id="createBody">
 			<input type="hidden" name="bdIdx" value="${datas.boardMentee.bdIdx}"/>
 			<div>

@@ -18,23 +18,24 @@
 			</div>
 		</div>
 		<hr>
-		<form action="/meboard/mentee/mentee-upload" enctype="multipart/form-data" method="post">
+		<form action="/moboard/mentor/mentor-board-update" encType = "multipart/form-data" method="post">
 		<div id="createBody">
-			<div id=createHeader>
-			<p>제목 : </p><input type="text" name="bdTitle" id="createTitle"/>
-			<input type="file" id="fileBtn" name="files" value="파일" multiple/>
+			<input type="hidden" name="bdIdx" value="${datas.boardMentor.bdIdx}"/>
+			<div>
+			제목 : <input type="text" name="bdTitle" value="${datas.boardMentor.bdTitle}"/>
+			파일 : <input type="file" name="fileName" multiple/>
 			</div>
 			<hr>
 			<div id="createBox">
-				<textarea id="createBox" name="bdContent" required="required" maxlength="1000"></textarea>
+				<textarea id="createBox" name="bdContent" required="required" maxlength="1000"><c:out value="${datas.boardMentor.bdContent}"/></textarea>
 			</div>
 			<hr>
 		</div>
 
 		<div class="create_footer">
-			<button id="returnButton" type="button" onclick="location.href='mentee'">목록</button>
+			<button id="returnButton" type="button" onclick="location.href='mentor'">목록</button>
 			<div id="wrapButton">
-				<button type="submit">등록</button>
+				<button type="submit">수정</button>
 			</div>
 		</div>
 		</form>
