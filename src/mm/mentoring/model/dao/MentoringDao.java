@@ -337,117 +337,6 @@ public class MentoringDao {
 		
 		return res;
 	}
-	
-	private String createQueryPart (String[] types) {
-		String type = "";
-		
-		for (int i = 0; i < types.length; i++) {
-			if(i == types.length-1) {
-				type += "'" + types[i] + "')";
-			} else {
-				type += "'" + types[i] + "',";
-			}
-		}
-		
-		return type;
-	}
-	
-	private String createConditionQuery (MentorCondition mentorCondition) {
-		String query = "select * from user_mentor where";
-		String universityType = " university_type in (";
-		String wantTime = " want_time in (";
-		String wantPlace = " requirement in (";
-		String major = " major in (";
-		String date = " want_day in (";
-		
-		universityType += createQueryPart(mentorCondition.getUniversityType());
-		wantTime += createQueryPart(mentorCondition.getWantTime());
-		wantPlace += createQueryPart(mentorCondition.getWantPlace());
-		major += createQueryPart(mentorCondition.getMajorType());
-		date += createQueryPart(mentorCondition.getWantDate());
-		
-		return query+universityType+" and"+wantTime+" and"+wantPlace+" and"+major+" and"+date;
-	}
-	
-	private Rating convertToRating(ResultSet rset) throws SQLException {
-		Rating rating = new Rating();
-		rating.setRatingIdx(rset.getInt("rating_idx"));
-		rating.setMentorIdx(rset.getInt("mentor_idx"));
-		rating.setKindness(rset.getString("kindness"));
-		rating.setCommunication(rset.getString("COMMUNICATION"));
-		rating.setProfessional(rset.getString("PROFESSIONALISM"));
-		rating.setProcess(rset.getString("PROCESS"));
-		rating.setAppointment(rset.getString("TIME_APPOINTMENT"));
-		rating.setExplain(rset.getString("EXPLAIN"));
-		rating.setComment(rset.getString("USER_COMMENT"));
-		rating.setIsDel(rset.getInt("is_del"));
-		rating.setUserIdx(rset.getInt("user_idx"));
-		
-		return rating;
-	}
-	
-	private ApplyHistory convertToApplyDTO(ResultSet rset) throws SQLException {
-		ApplyHistory ah = new ApplyHistory();
-		ah.setaIdx(rset.getInt("a_idx"));
-		ah.setUserIdx(rset.getInt("user_idx"));
-		ah.setMentorIdx(rset.getInt("mentor_idx"));
-		ah.setMentorName(rset.getString("mentor_name"));
-		ah.setApplyDate(rset.getDate("apply_date"));
-		ah.setEpDate(rset.getDate("ep_date"));
-		ah.setReapplyCnt(rset.getInt("reapply_cnt"));
-		ah.setMenteeName(rset.getString("mentee_name"));
-		
-		return ah;
-	}
-	
-	private MentoringHistory convertToMhDTO(ResultSet rset) throws SQLException {
-		MentoringHistory mh = new MentoringHistory();
-		mh.setmIdx(rset.getInt("m_idx"));
-		mh.setUserIdx(rset.getInt("user_idx"));
-		mh.setMentorIdx(rset.getInt("mentor_idx"));
-		mh.setMentorName(rset.getString("mentor_name"));
-		mh.setStartDate(rset.getDate("start_date"));
-		mh.setEndDate(rset.getDate("end_date"));
-		mh.setPrice(rset.getInt("price"));
-		mh.setState(rset.getString("state"));
-		mh.setMenteeName(rset.getString("mentee_name"));
-
-		return mh;
-	}
-	
-	private Mentor convertToMentor(ResultSet rset) throws SQLException {
-		Mentor mentor = new Mentor();
-		mentor.setMentorIdx(rset.getInt("mentor_idx"));
-		mentor.setUserIdx(rset.getInt("user_idx"));
-		mentor.setUniversityName(rset.getString("university_name"));
-		mentor.setUniversityType(rset.getString("university_type"));
-		mentor.setGrade(rset.getInt("grade"));
-		mentor.setMajor(rset.getString("major"));
-		mentor.setWantDay(rset.getString("want_day"));
-		mentor.setRequirement(rset.getString("requirement"));
-		mentor.setHistory(rset.getString("history"));
-		mentor.setMentoringCnt(rset.getInt("mentoring_cnt"));
-
-		return mentor;
-	}
-	
-	private Member convertToMember(ResultSet rset) throws SQLException {
-		Member member = new Member();
-		member.setUserIdx(rset.getInt("user_idx"));
-		member.setUserName(rset.getString("user_name"));
-		member.setUserId(rset.getString("user_id"));
-		member.setPassword(rset.getString("password"));
-		member.setEmail(rset.getString("email"));
-		member.setGender(rset.getString("gender"));
-		member.setAddress(rset.getString("address"));
-		member.setPhone(rset.getString("phone"));
-		member.setNickname(rset.getString("nickname"));
-		member.setRole(rset.getString("role"));
-		member.setJoinDate(rset.getDate("join_date"));
-		member.setIsLeave(rset.getInt("is_leave"));
-
-		return member;
-	}
 
 	public Mentor getMentorByUserIdx(int mentorUserIdx, Connection conn) {
 		Mentor mentor = null;
@@ -534,6 +423,158 @@ public class MentoringDao {
 		}
 		
 		return mentorRating;
+	}
+	
+	public void deleteAh() {
+		Connection conn = template.getConnection();
+		
+		PreparedStatement pstm = null;
+		String query = "delete from apply_history where sysdate > ep_date";
+		
+		try {
+			pstm = conn.prepareStatement(query);
+			pstm.executeUpdate();
+			template.commit(conn);
+		} catch (SQLException e) {
+			template.rollback(conn);
+			new DataAccessException(e);
+		} finally {
+			template.close(pstm, conn);
+		}
+	}
+
+	public void deleteMh() {
+		Connection conn = template.getConnection();
+		
+		PreparedStatement pstm = null;
+		String query = "delete from mentoring_history where sysdate > ep_date";
+		
+		try {
+			pstm = conn.prepareStatement(query);
+			pstm.executeUpdate();
+			template.commit(conn);
+		} catch (SQLException e) {
+			template.rollback(conn);
+			new DataAccessException(e);
+		} finally {
+			template.close(pstm, conn);
+		}
+	}
+	
+	private String createQueryPart (String[] types) {
+		String type = "";
+		
+		for (int i = 0; i < types.length; i++) {
+			if(i == types.length-1) {
+				type += "'" + types[i] + "')";
+			} else {
+				type += "'" + types[i] + "',";
+			}
+		}
+		
+		return type;
+	}
+	
+	private String createConditionQuery (MentorCondition mentorCondition) {
+		String query = "select * from user_mentor where";
+		String universityType = " university_type in (";
+		String wantTime = " want_time in (";
+		String wantPlace = " requirement in (";
+		String major = " major in (";
+		String date = " want_day in (";
+		
+		universityType += createQueryPart(mentorCondition.getUniversityType());
+		wantTime += createQueryPart(mentorCondition.getWantTime());
+		wantPlace += createQueryPart(mentorCondition.getWantPlace());
+		major += createQueryPart(mentorCondition.getMajorType());
+		date += createQueryPart(mentorCondition.getWantDate());
+		
+		return query+universityType+" and"+wantTime+" and"+wantPlace+" and"+major+" and"+date;
+	}
+	
+	private Rating convertToRating(ResultSet rset) throws SQLException {
+		Rating rating = new Rating();
+		rating.setRatingIdx(rset.getInt("rating_idx"));
+		rating.setMentorIdx(rset.getInt("mentor_idx"));
+		rating.setKindness(rset.getString("kindness"));
+		rating.setCommunication(rset.getString("COMMUNICATION"));
+		rating.setProfessional(rset.getString("PROFESSIONALISM"));
+		rating.setProcess(rset.getString("PROCESS"));
+		rating.setAppointment(rset.getString("TIME_APPOINTMENT"));
+		rating.setExplain(rset.getString("EXPLAIN"));
+		rating.setComment(rset.getString("USER_COMMENT"));
+		rating.setIsDel(rset.getInt("is_del"));
+		rating.setUserIdx(rset.getInt("user_idx"));
+		
+		return rating;
+	}
+	
+	private ApplyHistory convertToApplyDTO(ResultSet rset) throws SQLException {
+		ApplyHistory ah = new ApplyHistory();
+		ah.setaIdx(rset.getInt("a_idx"));
+		ah.setUserIdx(rset.getInt("user_idx"));
+		ah.setMentorIdx(rset.getInt("mentor_idx"));
+		ah.setMentorName(rset.getString("mentor_name"));
+		ah.setApplyDate(rset.getDate("apply_date"));
+		ah.setEpDate(rset.getDate("ep_date"));
+		ah.setReapplyCnt(rset.getInt("reapply_cnt"));
+		ah.setMenteeName(rset.getString("mentee_name"));
+		
+		return ah;
+	}
+	
+	private MentoringHistory convertToMhDTO(ResultSet rset) throws SQLException {
+		MentoringHistory mh = new MentoringHistory();
+		mh.setmIdx(rset.getInt("m_idx"));
+		mh.setUserIdx(rset.getInt("user_idx"));
+		mh.setMentorIdx(rset.getInt("mentor_idx"));
+		mh.setMentorName(rset.getString("mentor_name"));
+		mh.setStartDate(rset.getDate("start_date"));
+		mh.setEndDate(rset.getDate("end_date"));
+		mh.setPrice(rset.getInt("price"));
+		mh.setState(rset.getString("state"));
+		mh.setMenteeName(rset.getString("mentee_name"));
+
+		return mh;
+	}
+	
+	private Mentor convertToMentor(ResultSet rset) throws SQLException {
+		Mentor mentor = new Mentor();
+		mentor.setMentorIdx(rset.getInt("mentor_idx"));
+		mentor.setUserIdx(rset.getInt("user_idx"));
+		mentor.setUniversityName(rset.getString("UNIVERSITY_NAME"));
+		mentor.setUniversityType(rset.getString("UNIVERSITY_TYPE"));
+		mentor.setGrade(rset.getInt("GRADE"));
+		mentor.setMajor(rset.getString("MAJOR"));
+		mentor.setWantDay(rset.getString("WANT_DAY"));
+		mentor.setWantTime(rset.getString("WANT_TIME"));
+		mentor.setRequirement(rset.getString("REQUIREMENT"));
+		mentor.setHistory(rset.getString("HISTORY"));
+		mentor.setMentoringCnt(rset.getInt("MENTORING_CNT"));
+		mentor.setProfileImg(rset.getInt("PROFILE_IMG"));
+		mentor.setAccountNum(rset.getString("account_num"));
+		mentor.setBank(rset.getString("bank"));
+		return mentor;
+	      
+	}
+	
+	private Member convertToMember(ResultSet rset) throws SQLException {
+		Member member = new Member();	
+		member.setUserIdx(rset.getInt("user_idx"));
+		member.setUserName(rset.getString("user_name"));
+		member.setUserId(rset.getString("user_id"));
+		member.setPassword(rset.getString("password"));
+		member.setEmail(rset.getString("email"));
+		member.setGender(rset.getString("gender"));
+		member.setAddress(rset.getString("address"));
+		member.setPhone(rset.getString("phone"));
+		member.setNickname(rset.getString("nickname"));
+		member.setRole(rset.getString("role"));
+		member.setJoinDate(rset.getDate("join_date"));
+		member.setIsLeave(rset.getInt("is_leave"));
+		member.setKakaoJoin(rset.getString("kakao_join"));
+		return member;
+
 	}
 
 }

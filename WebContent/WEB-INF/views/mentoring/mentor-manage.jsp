@@ -84,7 +84,7 @@
 							    </div>
 								<div class="d-flex flex-column">
 								    <button class="btn btn-primary-dark my-1" style="font-size: 0.75rem" onclick='reapply(${ah.aIdx},${ah.reapplyCnt})'>재신청</button>
-								    <button class="btn btn-primary-dark my-1" style="font-size: 0.75rem">결제하기</button>
+								    <button class="btn btn-primary-dark my-1" style="font-size: 0.75rem" onclick='payment(${ah.mentorIdx})'>결제하기</button>
 								</div>
 							</c:if>
 							<c:if test="${authentication.role eq 'MO00'}">

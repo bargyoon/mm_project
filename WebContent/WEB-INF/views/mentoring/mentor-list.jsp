@@ -60,18 +60,20 @@
 					                            <div class="badge bg-primary bg-gradient rounded-pill mb-4">우수 멘토</div>
 					                        	<div class="d-flex align-items-end justify-content-between">
 					                                <div class="d-flex align-items-center">
-					                                    <img class="rounded-circle me-3" src="https://dummyimage.com/50x50/ced4da/6c757d" alt="..." />
+					                                	<c:if test="${excellentMentors[i].profileImg eq 1}">
+					                                    	<img class="rounded-circle me-3" src="https://dummyimage.com/50x50/ced4da/6c757d" alt="..." />
+					                                	</c:if>
 					                                    <div class="small">
 					                                        <div class="fw-bold">${excellentMentorsInfo[i].userName}</div>
 					                                        <div class="text-muted">${excellentMentors[i].universityName} &middot; ${excellentMentors[i].grade}학년</div>
 					                                    </div>
 					                                </div>
 					                            </div>
-					                            <c:if test="${normalMentors[i].history eq null}">
+					                            <c:if test="${excellentMentors[i].history eq null}">
 					                            <div class="text-decoration-none link-dark "><h6 class="card-title mb-3 mt-4">이력사항</h6></div>
 					                            	<p class="card-text mb-0 small">이력사항이 없습니다.</p>
 					                            </c:if>
-					                             <c:if test="${normalMentors[i].history ne null}">
+					                             <c:if test="${excellentMentors[i].history ne null}">
 					                            <div class="text-decoration-none link-dark "><h6 class="card-title mb-3 mt-4">이력사항</h6></div>
 					                            	<c:forEach var="j" begin="0" step="1" end="${excellentHistoryList[i].size()-1}">
 					                            		<p class="card-text mb-0 small">${excellentHistoryList[i][j]}</p>
@@ -97,7 +99,9 @@
 				                            <div class="badge bg-primary bg-gradient rounded-pill mb-4">추천 멘토</div>
 				                        	<div class="d-flex align-items-end justify-content-between">
 				                                <div class="d-flex align-items-center">
-				                                    <img class="rounded-circle me-3" src="https://dummyimage.com/50x50/ced4da/6c757d" alt="..." />
+				                                    <c:if test="${normalMentors[i].profileImg eq 1}">
+					                                    	<img class="rounded-circle me-3" src="https://dummyimage.com/50x50/ced4da/6c757d" alt="..." />
+					                                </c:if>
 				                                    <div class="small">
 				                                        <div class="fw-bold">${normalMentorsInfo[i].userName}</div>
 				                                        <div class="text-muted">${normalMentors[i].universityName} &middot; ${normalMentors[i].grade}학년</div>
@@ -117,8 +121,8 @@
 				                        </div>
 				                        <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
 				                            <div class="d-flex align-items-center justify-content-between">
-				                            		<button class="btn bg-primary btn-lg px-3 me-sm-3 fw-bolder" onclick="checkHistory(${Members[i].userIdx})" style="box-shadow: 4px 3px 3px black; color: white;">이력 자세히 보기</button>
-				                            		<button class="btn bg-primary btn-lg px-3 me-sm-3 fw-bolder" href="/mentoring/apply-complete" style="box-shadow: 4px 3px 3px black; color: white;">멘토링 신청하기</button>
+				                            	<button class="btn bg-primary btn-lg px-3 me-sm-3 fw-bolder" onclick="checkHistory(${normalMentorsInfo[i].userIdx})" style="box-shadow: 4px 3px 3px black; color: white;">이력 자세히 보기</button>
+				                            	<button class="btn bg-primary btn-lg px-3 me-sm-3 fw-bolder" onclick="apply(${normalMentorsInfo[i].userIdx}, ${normalMentors[i].mentorIdx})" style="box-shadow: 4px 3px 3px black; color: white;">멘토링 신청하기</button>
 				                            </div>
 				                        </div>
 				                    </div>

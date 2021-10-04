@@ -34,7 +34,7 @@
 							<div class="card-3d-wrapper">
 								<div class="card-front">
 									<div class="center-wrap">
-										<div class="section text-left">
+										<form class="section text-left" action="/member/reset-password">
 											<h3 class="mb-4">비밀번호를 잊으셨나요?</h3>
 											<div class="mb-4">
 												<div>가입시 작성한 이메일을 적어주십시오.</div>
@@ -46,10 +46,15 @@
 													placeholder="Your Email" id="logemail" autocomplete="off">
 												<i class="input-icon uil uil-at"></i>
 											</div>
+											<p class='text-muted small' id="infoPw">
+												<c:if test="${not empty param.err}">
+                   등록되지 않은 이메일 입니다.
+                </c:if>
+											</p>
 
-											<a href="/member/login" class="btn mt-4" style="width:100%">submit</a>
+											<button type="submit" class="btn mt-4" style="width:100%">submit</button>
 
-										</div>
+										</form>
 									</div>
 								</div>
 

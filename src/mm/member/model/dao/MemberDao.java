@@ -127,6 +127,33 @@ public class MemberDao {
 		return member;
 	}
 	
+	public Member selectMemberByEmail(String email, Connection conn) {
+		Member member = null;
+
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+
+		try {
+
+			String query = "select * from member where email = ?";
+			pstm = conn.prepareStatement(query);
+			pstm.setString(1, email);
+
+			rset = pstm.executeQuery();
+
+			if (rset.next()) {
+				member = convertRowToMember(rset);
+			}
+		} catch (SQLException e) {
+
+			throw new DataAccessException(e);
+		} finally {
+			template.close(rset, pstm);
+		}
+
+		return member;
+	}
+	
 	public int selectMemberByKakaoId(String kakaoId, Connection conn) {
 		int userIdx = 0;
 		PreparedStatement pstm = null;
@@ -317,7 +344,7 @@ public class MemberDao {
 		PreparedStatement pstm = null;
 
 		try {
-			String query = "insert into user_mentor(mentor_idx,user_idx,university_name,university_type,grade,major,want_day,want_time,requirement,history) values(sc_mentor_idx.nextval,sc_user_idx.currval,?,?,?,?,?,?,?,?)";
+			String query = "insert into user_mentor(mentor_idx,user_idx,university_name,university_type,grade,major,want_day,want_time,requirement,history,account_num,bank) values(sc_mentor_idx.nextval,sc_user_idx.currval,?,?,?,?,?,?,?,?,?,?)";
 
 			pstm = conn.prepareStatement(query);
 			pstm.setString(1, mentor.getUniversityName());
@@ -328,6 +355,8 @@ public class MemberDao {
 			pstm.setString(6, mentor.getWantTime());
 			pstm.setString(7, mentor.getRequirement());
 			pstm.setString(8, mentor.getHistory());
+			pstm.setString(9, mentor.getAccountNum());
+			pstm.setString(10, mentor.getBank());
 
 			res = pstm.executeUpdate();
 		} catch (SQLException e) {
@@ -571,6 +600,8 @@ public FileDTO selectFileDTO(int bdIdx, Connection conn) {
 		mentor.setHistory(rset.getString("HISTORY"));
 		mentor.setMentoringCnt(rset.getInt("MENTORING_CNT"));
 		mentor.setProfileImg(rset.getInt("PROFILE_IMG"));
+		mentor.setAccountNum(rset.getString("account_num"));
+		mentor.setBank(rset.getString("bank"));
 		return mentor;
 	}
 
@@ -585,6 +616,8 @@ public FileDTO selectFileDTO(int bdIdx, Connection conn) {
 		mentee.setHopeMajor(rset.getString("HOPE_MAJOR"));
 		return mentee;
 	}
+
+	
 
 	
 

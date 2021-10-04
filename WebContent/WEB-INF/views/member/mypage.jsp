@@ -389,59 +389,7 @@
 		</div>
 	</div>
 
-	<script type="text/javascript">
-(() =>{
-	var dataArr = ["${authMentor.grade}","${authMentor.major}","${authMentor.wantDay}","${authMentor.wantTime}","${authMentor.requirement}"];
-	var i = 0;
 	
-	document.querySelectorAll('select').forEach(e =>{
-		document.querySelectorAll('#'+e.dataset.sel+' option').forEach(t => {
-			if(t.value == dataArr[i]) t.selected =true;
-		})
-		i++;
-	})
-	
-	
-})();
-
-let cnt = 1;
-let div = document.createElement('div');
-document.querySelector('#btnHistory').addEventListener('click', (e) =>{
-	
-	
-	
-	
-	let input = document.createElement('input');
-
-	
-		div.className = "hsDiv";
-		input.className = "form-control mt-2";
-		input.id = "history"+cnt;
-		input.name = "history";
-		input.placeholder="이력사항을 적어주세요";
-		div.append(input);
-		
-		if(cnt == 1){
-			document.querySelector('#histories').append(div)
-		}
-		
-		
-			
-		
-		cnt++;
-		
-	
-})
-
-
-document.querySelector('#resetBtn').addEventListener('click', (e) =>{
-	div.innerHTML = "";
-})
-
-
-
-</script>
-
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 	<script src="/resources/js/member/mypage.js"></script>
