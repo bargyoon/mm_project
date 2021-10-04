@@ -2,11 +2,13 @@ package mm.board.model.service;
 
 import java.io.File;
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import mm.board.model.dao.BoardDao;
+import mm.board.model.dto.BoardComment;
 import mm.board.model.dto.BoardMentee;
 import mm.common.db.JDBCTemplate;
 import mm.common.exception.DataAccessException;
@@ -17,11 +19,15 @@ public class BoardService {
 	private JDBCTemplate template = JDBCTemplate.getInstance();
 	private BoardDao boardDao = new BoardDao();
 
-	public List<BoardMentee> selectBoardList() {
+	public List<BoardMentee> selectBoardList(String searchCondition, String searchKeyWord, int page) {
 
 		List<BoardMentee> boardMentee = null;
 		Connection conn = template.getConnection();
-		boardMentee = boardDao.selectBoardList(conn);
+		try {
+			boardMentee = boardDao.selectBoardList(searchCondition, searchKeyWord, page, conn);
+		} finally {
+			template.close(conn);
+		}
 		return boardMentee;
 	}
 
@@ -46,9 +52,13 @@ public class BoardService {
 
 		try {
 			boardDao.insertBoard(boardMentee, conn);
+
 			for (FileDTO fileDTO : fileDTOs) {
-				boardDao.insertFile(fileDTO, conn);
+				if (fileDTO.getOriginFileName() != null) {
+					boardDao.insertFile(fileDTO, conn);
+				}
 			}
+
 			template.commit(conn);
 		} catch (DataAccessException e) {
 			template.rollback(conn);
@@ -78,6 +88,9 @@ public class BoardService {
 			}
 
 			boardDao.deleteBoard(bdIdx, conn);
+			/*
+			 * boardDao.updateBdIdx(bdIdx, conn); boardDao.updateScBdIdx(conn);
+			 */
 			boardDao.deleteBoardFileDatas(bdIdx, conn);
 			template.commit(conn);
 		} catch (DataAccessException e) {
@@ -90,10 +103,12 @@ public class BoardService {
 
 	public void updateBoard(BoardMentee boardMentee, int bdIdx, List<FileDTO> fileDTOs) {
 		Connection conn = template.getConnection();
-		
+
 		try {
 			for (FileDTO fileDTO : fileDTOs) {
-				boardDao.insertFile(fileDTO, conn, bdIdx);
+				if (fileDTO.getOriginFileName() != null) {
+					boardDao.insertFile(fileDTO, conn, bdIdx);
+				}
 			}
 			boardDao.updateBoard(boardMentee, bdIdx, conn);
 			template.commit(conn);
@@ -103,27 +118,6 @@ public class BoardService {
 		} finally {
 			template.close(conn);
 		}
-	}
-
-	public void deleteBoard(int bdIdx, Map<String, Object> datas) {
-		Connection conn = template.getConnection();
-		Map<String, Object> res = new HashMap<String, Object>();
-		try {
-			// boardDao.deleteBoard(bdIdx, conn);
-			// boardDao.deleteBoardFile(bdIdx, conn);
-			// File file = new File((String) datas.get(0));
-			System.out.println(datas.get(0));
-			System.out.println(datas);
-			// for (FileDTO fileDTO : fileDTOs) { boardDao.deleteFile(fileDTO,conn); }
-
-			template.commit(conn);
-		} catch (DataAccessException e) {
-			template.rollback(conn);
-			throw e;
-		} finally {
-			template.close(conn);
-		}
-
 	}
 
 	public void deleteFile(int bdIdx) {
@@ -146,6 +140,74 @@ public class BoardService {
 			}
 
 			boardDao.deleteBoardFileDatas(bdIdx, conn);
+			template.commit(conn);
+		} catch (DataAccessException e) {
+			template.rollback(conn);
+			throw e;
+		} finally {
+			template.close(conn);
+		}
+
+	}
+
+	public int getBoardCount(String searchCondition, String searchKeyWord) {
+
+		Connection conn = template.getConnection();
+		int count = 0;
+
+		try {
+			count = boardDao.getBoardCount(searchCondition, searchKeyWord, conn);
+		} finally {
+			template.close(conn);
+		}
+		return count;
+	}
+
+	public void updateViewCount(int bdIdx) {
+
+		Connection conn = template.getConnection();
+		try {
+			boardDao.updateViewCount(bdIdx, conn);
+			template.commit(conn);
+		} catch (DataAccessException e) {
+			template.rollback(conn);
+			throw e;
+		} finally {
+			template.close(conn);
+		}
+
+	}
+
+	public void insertComment(BoardComment boardComment, int bdIdx) {
+		Connection conn = template.getConnection();
+
+		try {
+			boardDao.insertComment(boardComment, bdIdx, conn);
+			template.commit(conn);
+		} catch (DataAccessException e) {
+			template.rollback(conn);
+			throw e;
+		} finally {
+			template.close(conn);
+		}
+	}
+
+	public List<BoardComment> selectBoardComment(int bdIdx) {
+		List<BoardComment> boardComment = null;
+		Connection conn = template.getConnection();
+		try {
+			boardComment = boardDao.selectBoardComment(bdIdx, conn);
+		} finally {
+			template.close(conn);
+		}
+		return boardComment;
+	}
+
+	public void deleteBoardComment(int coIdx) {
+		Connection conn = template.getConnection();
+
+		try {
+			boardDao.deleteBoardComment(coIdx, conn);
 			template.commit(conn);
 		} catch (DataAccessException e) {
 			template.rollback(conn);

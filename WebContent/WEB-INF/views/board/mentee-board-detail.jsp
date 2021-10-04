@@ -53,24 +53,24 @@
 				</ol>
 			</div>
 			<div id="otherUtil">
-				<a>추천</a> <a>공유</a> <a>신고</a>
+				<a>추천</a> <a>공유</a>
 			</div>
 			<hr>
 			<table class="comment_table" border="0">
-				<thead class="comment_thead">
+				<c:forEach items="${boardCommentList}" var="commentList" varStatus="status">
 					<tr class="comment_tr">
-						<th class="comment_info">NAME3</th>
-						<th class="comment_info">comment</th>
-						<th class="comment_info"><i class="far fa-edit"></i></th>
-						<th class="comment_info"><i class="fas fa-times"></i></th>
-						<th class="comment_info">21-09-19 00:00:00</th>
-						<th class="comment_info"><i class="far fa-thumbs-up"></i>0</th>
+						<th class="comment_info">${commentList.userId}</th>
+						<th class="comment_info">${commentList.coContent}</th>
+						<th class="comment_info"><i class="fas fa-times" onclick="location.href='mentee/comment-delete?coIdx=${commentList.coIdx}&userId=${commentList.userId}&bdIdx=${datas.boardMentee.bdIdx}'"></i></th>
+						<th class="comment_info">${commentList.regDate}</th>
+						<th class="comment_info"><i class="far fa-thumbs-up" ></i>${commentList.recCount}</th>
 					</tr>
-				</thead>
+				</c:forEach>
 			</table>
 			<hr>
-			<form class="wrap_comment">
-				<textarea id="commentBox" required="required" maxlength="100">comment</textarea>
+			<form class="wrap_comment" action="/board/mentee/comment-upload">
+				<input type="hidden" name="bdIdx" value="${datas.boardMentee.bdIdx}"/>
+				<textarea id="commentBox" required="required" maxlength="100" name="coComment"></textarea>
 				<button id="writeButton">등록</button>
 			</form>
 			<hr>

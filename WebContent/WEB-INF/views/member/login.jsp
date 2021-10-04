@@ -15,7 +15,6 @@
 	<%@ include file="/WEB-INF/views/include/nav.jsp"%>
 
 
-
 	<div class="section">
 		<div class="container">
 			<div class="row full-height justify-content-center">

@@ -1,19 +1,5 @@
 (() =>{
-	if("${authMentor}" != ""){
-		var dataArr = ["${authMentor.grade}","${authMentor.major}","${authMentor.wantDay}","${authMentor.wantTime}","${authMentor.requirement}"];
-	}else{
-		var dataArr = ["${authMentee.major}","${authMentee.grade}"];
-	}
 	
-	var i = 0;
-	
-	document.querySelectorAll('select').forEach(e =>{
-		document.querySelectorAll('#'+e.dataset.sel+' option').forEach(t => {
-			if(t.value == dataArr[i]) t.selected =true;
-			console.dir(i)
-		})
-		i++;
-	})
 	if(document.querySelector('#security').baseURI.endsWith('err=1')){
 		document.querySelector('#profile').className = "tab-pane";
 		document.querySelector('#security').className += "active";

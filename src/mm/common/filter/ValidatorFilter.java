@@ -97,7 +97,7 @@ public class ValidatorFilter implements Filter {
 		case "change-password":
 			modifyPw = new ModifyPassword(httpRequest);
 			if (!modifyPw.test()) {
-				redirectURI = "/member/change-password?err=1";
+				redirectURI = "/member/password-impla?err=1";
 			}
 			break;
 		case "join-impl":
