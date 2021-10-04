@@ -96,10 +96,9 @@
 			            	</c:if>
 			            	<c:if test="${normalMentors.size() > 0}">
 			            	<c:forEach var="i" begin="0" step="1" end="${normalMentors.size()-1}">
-				                <div class="col-lg-4 mb-5">
+				                <div class="col-lg-4 mb-5 mt-5">
 				                    <div class="card h-100 shadow border-0">
 				                        <div class="card-body p-4">
-				                            <div class="badge bg-primary bg-gradient rounded-pill mb-4">추천 멘토</div>
 				                        	<div class="d-flex align-items-end justify-content-between">
 				                                <div class="d-flex align-items-center">
 				                                    <c:if test="${normalMentors[i].profileImg eq 1}">

@@ -116,31 +116,6 @@
 	            </div>
 	        </div>
         </section>
-        
-       <hr>
-       
-		<section class="py-3">
-			<div class="row gx-5 justify-content-center">
-			    <div class="col-lg-8 col-xl-6 mt-5">
-			        <div class="text-center">
-			            <h2 class="fw-bolder fw-normaltext-muted mb-5" style="color:#bf9667">멘토 ${sessionScope.authentication}님에 대한 평가</h2>
-			        </div>
-			    </div>
-			</div>
-		
-		
-			<div class="card-footer p-4 pt-0 bg-transparent border-top-0">
-			    <div class="d-flex align-items-end justify-content-between">
-			        <div class="d-flex align-items-center">
-			            <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." />
-			            <div class="small">
-			                <div class="fw-bold">멘티 님</div>
-			                <div class="text-muted">멘토링 진행기간 : 2021.01 - 02</div>
-			            </div>
-			        </div>
-			    </div>
-			</div>
-		</section>
 	</main>
 
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>		

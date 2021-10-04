@@ -270,7 +270,7 @@ public class MemberController extends HttpServlet {
 			return;
 		}
 		member.setIsLeave(1);
-		if (memberService.deleteMember(member) != 0) {
+		if (memberService.deleteMember(member) != 0 && memberService.setIsLeave(member) != 0) {
 
 			request.getSession().removeAttribute("authentication");
 			request.getSession().removeAttribute("authMentor");

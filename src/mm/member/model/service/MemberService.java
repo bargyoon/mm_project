@@ -459,6 +459,27 @@ public class MemberService {
 		
 	}
 
+	public int setIsLeave(Member member) {
+		int res = 0;
+		
+		Connection conn = template.getConnection();
+		
+		try {
+			if(member.getRole().equals("MO00")) {
+				res = memberDao.setIsLeaveMentor(member, conn);
+			} else {
+				res = memberDao.setIsLeaveMentee(member, conn);
+			}
+			template.commit(conn);
+		} catch (Exception e) {
+			template.rollback(conn);
+			throw e;
+		} finally {
+			template.close(conn);
+		}
+		return res;
+	}
+
 	
 
 

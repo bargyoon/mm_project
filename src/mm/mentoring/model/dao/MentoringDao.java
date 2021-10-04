@@ -344,7 +344,7 @@ public class MentoringDao {
 		Mentor mentor = null;
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String query = "select * from user_mentor where user_idx = ?";
+		String query = "select * from user_mentor where user_idx = ? and is_leave = 0";
 		
 		try {
 			pstm = conn.prepareStatement(query);
@@ -553,6 +553,7 @@ public class MentoringDao {
 		String wantPlace = " requirement in (";
 		String major = " major in (";
 		String date = " want_day in (";
+		String isLeave = " and is_leave = 0";
 		
 		universityType += createQueryPart(mentorCondition.getUniversityType());
 		wantTime += createQueryPart(mentorCondition.getWantTime());
@@ -560,7 +561,7 @@ public class MentoringDao {
 		major += createQueryPart(mentorCondition.getMajorType());
 		date += createQueryPart(mentorCondition.getWantDate());
 		
-		return query+universityType+" and"+wantTime+" and"+wantPlace+" and"+major+" and"+date;
+		return query+universityType+" and"+wantTime+" and"+wantPlace+" and"+major+" and"+date + isLeave;
 	}
 	
 	private Rating convertToRating(ResultSet rset) throws SQLException {
@@ -574,7 +575,6 @@ public class MentoringDao {
 		rating.setAppointment(rset.getString("TIME_APPOINTMENT"));
 		rating.setExplain(rset.getString("EXPLAIN"));
 		rating.setComment(rset.getString("USER_COMMENT"));
-		rating.setIsDel(rset.getInt("is_del"));
 		rating.setUserIdx(rset.getInt("user_idx"));
 		
 		return rating;

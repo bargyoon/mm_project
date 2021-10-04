@@ -422,10 +422,11 @@ public class MentoringController extends HttpServlet {
 			request.setAttribute("mentorImg", mentorImg);
 		}
 		
+		
+		// role에 따른 idx로 MentoringHistory, ApplyHistory DTO 생성
 		List<MentoringHistory> mhList = new ArrayList<MentoringHistory>();
 		List<ApplyHistory> ahList = new ArrayList<ApplyHistory>();
 		
-		// role에 따른 idx로 MentoringHistory, ApplyHistory DTO 생성
 		if(role.equals("ME00")) {
 			mhList = mService.getMtHistoryByUserIdx(member.getUserIdx(), role);
 			ahList = mService.getApHistoryByUserIdx(member.getUserIdx(), role);
@@ -433,20 +434,11 @@ public class MentoringController extends HttpServlet {
 			mhList = mService.getMtHistoryByUserIdx(mentor.getMentorIdx(), role);
 			ahList = mService.getApHistoryByUserIdx(mentor.getMentorIdx(), role);
 		}
-		
-		List<MentoringHistory> finishMhList = new ArrayList<MentoringHistory>();
-		List<MentoringHistory> processMhList = new ArrayList<MentoringHistory>();
-
-		// 가져온 DTO 확인용 syso
-		for (int i = 0; i < mhList.size(); i++) {
-			System.out.println(mhList.get(i).toString());
-		}
-
-		for (int i = 0; i < ahList.size(); i++) {
-			System.out.println(ahList.get(i).toString());
-		}
 
 		// 가져온 mhList를 진행중과 완료 상태로 나눔
+		List<MentoringHistory> finishMhList = new ArrayList<MentoringHistory>();
+		List<MentoringHistory> processMhList = new ArrayList<MentoringHistory>();
+		
 		for (int i = 0; i < mhList.size(); i++) {
 			if (mhList.get(i).getState().equals("P")) {
 				processMhList.add(mhList.get(i));
@@ -487,22 +479,23 @@ public class MentoringController extends HttpServlet {
 		List<Member> normalMentorInfo = new ArrayList<Member>();
 		List<FileDTO> normalMentorImg = new ArrayList<FileDTO>();
 		
+		System.out.println("size : " + nonExistMentorList.size());
 		for (int i = 0; i < nonExistMentorList.size(); i++) {
 			int mentoringCnt = nonExistMentorList.get(i).getMentoringCnt();
-			int gradeCnt = 0;
 			int gradePoint = 0;
+			int totalPoint = 0;
 			//멘토 idx로 평가에 따라 gradeCnt++ 하기
 			if(mentoringCnt != 0) {
-				gradeCnt = increaseGradeCnt(nonExistMentorList.get(i));
+				gradePoint = increaseGradeCnt(nonExistMentorList.get(i));
 			}
 			
-			if(gradeCnt != 0) {
-				gradePoint = gradeCnt/mentoringCnt;
+			if(gradePoint != 0) {
+				totalPoint = gradePoint/mentoringCnt;
 			}
 			
 			System.out.println("mentoringCnt : " + mentoringCnt);
-			System.out.println("gradeCnt2 : " + gradeCnt);
-			System.out.println("gradePoint : " + gradePoint);
+			System.out.println("gradePointOut : " + gradePoint);
+			System.out.println("totalPoint : " + totalPoint);
 			// 멘토평점/멘토횟수를 통해 우수멘토와 일반멘토로 구분후 List에 담아주기
 			if(gradePoint >= 3) {
 				//멘토의 idx로 멘토의 멤버정보 가져옴
@@ -559,25 +552,26 @@ public class MentoringController extends HttpServlet {
 	}
 
 	private int increaseGradeCnt(Mentor mentor) {
-		int gradeCnt = 0;
+		int gradePoint = 0;
 		List<Rating> mentorRating = mService.getRatingByMentorIdx(mentor.getMentorIdx());
 		for (Rating rating : mentorRating) {
-			if(rating.getKindness().equals("Y")) {
-				gradeCnt++;
-			} else if(rating.getCommunication().equals("Y")) {
-				gradeCnt++;
-			} else if(rating.getProfessional().equals("Y")) {
-				gradeCnt++;
-			} else if(rating.getProcess().equals("Y")) {
-				gradeCnt++;
-			} else if(rating.getAppointment().equals("Y")) {
-				gradeCnt++;
-			} else if(rating.getExplain().equals("Y")) {
-				gradeCnt++;
+			for (int i = 0; i < 6; i++) {
+				if(rating.getKindness().equals("Y")) {
+					gradePoint++;
+				} else if(rating.getCommunication().equals("Y")) {
+					gradePoint++;
+				} else if(rating.getProfessional().equals("Y")) {
+					gradePoint++;
+				} else if(rating.getProcess().equals("Y")) {
+					gradePoint++;
+				} else if(rating.getAppointment().equals("Y")) {
+					gradePoint++;
+				} else if(rating.getExplain().equals("Y")) {
+					gradePoint++;
+				}
 			}
 		}
-		System.out.println("gradeCnt : " + gradeCnt);
-		return gradeCnt;
+		return gradePoint;
 	}
 
 

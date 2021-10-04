@@ -617,6 +617,44 @@ public FileDTO selectFileDTO(int bdIdx, Connection conn) {
 		return mentee;
 	}
 
+	public int setIsLeaveMentor(Member member, Connection conn) {
+		int res = 0;
+		PreparedStatement pstm = null;
+
+		try {
+			String query = "update user_mentor set is_leave = 1 where user_idx = ?";
+
+			pstm = conn.prepareStatement(query);
+			pstm.setInt(1, member.getUserIdx());
+
+			res = pstm.executeUpdate();
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(pstm);
+		}
+		return res;
+	}
+
+	public int setIsLeaveMentee(Member member, Connection conn) {
+		int res = 0;
+		PreparedStatement pstm = null;
+
+		try {
+			String query = "update user_mentee set is_leave = 1 where user_idx = ?";
+
+			pstm = conn.prepareStatement(query);
+			pstm.setInt(1, member.getUserIdx());
+
+			res = pstm.executeUpdate();
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(pstm);
+		}
+		return res;
+	}
+
 	
 
 	
