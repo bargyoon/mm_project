@@ -90,7 +90,7 @@
 }
 #otherUtil{
 	position: relative;
-	left: 88%;
+	left: 91%;
 	width: 150px;
 	text-decoration: underline;
 }
@@ -142,12 +142,9 @@
 	width: 3%;
 }
 .comment_info:nth-child(4){
-	width: 3%;
+	width: 13%;
 }
 .comment_info:nth-child(5){
-	width: 10%;
-}
-.comment_info:nth-child(6){
 	width: 3%;
 }
 

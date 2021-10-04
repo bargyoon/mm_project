@@ -641,7 +641,7 @@ public class MemberController extends HttpServlet {
 		 * if (member == null) { response.sendRedirect("/member/login-form?err=1");
 		 * return; }
 		 */
-
+		
 		String userId = request.getParameter("userId");
 		String password = request.getParameter("password");
 		Member member = null;
