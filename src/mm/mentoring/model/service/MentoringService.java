@@ -120,13 +120,13 @@ public class MentoringService {
 		return res;
 	}
 
-	public boolean commentCheck(int userIdx, int mentorIdx) {
+	public boolean commentCheck(int mIdx) {
 		boolean isRegistered = false;
 		
 		Connection conn = template.getConnection();
 		
 		try {
-			isRegistered = mDao.commentCheck(userIdx, mentorIdx, conn);
+			isRegistered = mDao.commentCheck(mIdx, conn);
 		} finally {
 			template.close(conn);
 		}
@@ -148,13 +148,14 @@ public class MentoringService {
 		return mh;
 	}
 
-	public int registRating(Rating rating) {
+	public int registRating(Rating rating, int mIdx) {
 		int res = 0;
 		
 		Connection conn = template.getConnection();
 		
 		try {
 			res = mDao.registRating(rating, conn);
+			res = mDao.modifyIsRating(mIdx, conn);
 			template.commit(conn);
 		} catch (Exception e) {
 			template.rollback(conn);

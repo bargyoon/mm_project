@@ -35,7 +35,7 @@
 	                            <h5 class="card-title mb-1 text-decoration-none mt-2">키워드 평가</h5>
 	                            <p class="small card-text mt-0">멘토의 좋았던 점을 체크해주세요 !</p>
 	                            <form action="/mentoring/regist-rating" class="mt-2">
-	                            	<input type="hidden" name="mentor_idx" value="${mh.mentorIdx}">
+	                            	<input type="hidden" name="m_idx" value="${mh.mIdx}">
 	                            	<div class="justify-content-between">
 				                        <div class="switch-holder my-md-2 mx-md-5">
 					                        <div class="switch-label">

@@ -11341,7 +11341,7 @@ html {
 .user-name {
    flex-flow: row;
    text-align: center;
-   margin-top: 8.5%;
+   margin-top: 10%;
    font-family: 'Pretendard-Bold';
    
 }
@@ -11420,26 +11420,34 @@ checkbox{
 }
 
 
+
+
+
 .wrap-but{
 	flex-flow: row;
     justify-content: center;
     text-align: center;
 	height: 50px;
 	margin-top: 5%;
-	margin-bottom: 3%;
 	
+
 }
 
 .wrap-but>a{
 	flex-flow: row;
     justify-content: center;
     text-align: center;
+    width: 20%;
+    height: 100%;
 }
+
+
+
 
 .submit-but {
    background-color: #343a40;
    height: 100%;
-   width: 25%;
+   width: 20%;
    border-radius: 5px 5px 5px 5px;
    font-family: 'Pretendard-SemiBold';
 }
@@ -11450,10 +11458,9 @@ checkbox{
 	
 }
 
-.wrap-calendar{
-  	margin-top: 10%;
-  	margin-left: 9%;
-  	margin-right: 9%;
+
+/* ////////////////////calendar///////////////////////// */
+
 
 
 .wrap-calendar{
@@ -11467,6 +11474,7 @@ checkbox{
     font-family: 'Pretendard-SemiBold';	
 	
 }
+
 
 
 main{

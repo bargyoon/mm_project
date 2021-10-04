@@ -170,21 +170,22 @@ public class MentoringDao {
 		return res;
 	}
 	
-	public boolean commentCheck(int userIdx, int mentorIdx, Connection conn) {
+	public boolean commentCheck(int mIdx, Connection conn) {
 		boolean isRegistered = false;
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String query = "select * from rating where user_idx = ? and mentor_idx = ?";
+		String query = "select is_rating from mentoring_history where m_idx = ?";
 		
 		try {
 			
 			pstm = conn.prepareStatement(query);
-			pstm.setInt(1, userIdx);
-			pstm.setInt(2, mentorIdx);
+			pstm.setInt(1, mIdx);
 			rset = pstm.executeQuery();
 			
 			if(rset.next()) {
-				isRegistered = true;
+				if(rset.getInt("is_rating") == 1) {
+					isRegistered = true;
+				}
 			}
 			
 		} catch (SQLException e) {
@@ -223,8 +224,8 @@ public class MentoringDao {
 	public int registRating(Rating rating, Connection conn) {
 		int res = 0;
 		PreparedStatement pstm = null;
-		String query = "insert into rating (RATING_IDX, MENTOR_IDX, USER_IDX, KINDNESS, COMMUNICATION, PROFESSIONALISM, PROCESS, TIME_APPOINTMENT, EXPLAIN, IS_DEL, USER_COMMENT)"
-				+ " VALUES (SC_RATING_IDX.nextval, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)";
+		String query = "insert into rating (RATING_IDX, MENTOR_IDX, USER_IDX, KINDNESS, COMMUNICATION, PROFESSIONALISM, PROCESS, TIME_APPOINTMENT, EXPLAIN, USER_COMMENT)"
+				+ " VALUES (SC_RATING_IDX.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		try {
 			pstm = conn.prepareStatement(query);
@@ -462,6 +463,75 @@ public class MentoringDao {
 		}
 	}
 	
+	public void updateMh() {
+		Connection conn = template.getConnection();
+		
+		PreparedStatement pstm = null;
+		String query = "update mentoring_history set state = 'F' where sysdate > ep_date";
+		
+		try {
+			pstm = conn.prepareStatement(query);
+			pstm.executeUpdate();
+			template.commit(conn);
+		} catch (SQLException e) {
+			template.rollback(conn);
+			new DataAccessException(e);
+		} finally {
+			template.close(pstm, conn);
+		}
+		
+	}
+
+	public FileDTO getFileByMentorIdx(int mentorIdx, Connection conn) {
+		FileDTO file = new FileDTO();
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		String query = "select fl_idx, type_idx, origin_file_name, "
+				+ " rename_file_name, save_path"
+				+ " from file_info where type_idx = ? and is_del = 0";
+		
+		
+		try {
+			pstm = conn.prepareStatement(query);
+			pstm.setInt(1, mentorIdx);
+			
+			rset = pstm.executeQuery();
+
+			if(rset.next()) {
+				file.setFlIdx(rset.getInt("fl_idx"));
+				file.setTypeIdx(rset.getInt("type_idx"));
+				file.setSavePath(rset.getString("save_path"));
+				file.setOriginFileName(rset.getString("origin_file_name"));
+				file.setRenameFileName(rset.getString("rename_file_name"));
+			}
+			
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		}finally {
+			template.close(rset, pstm);
+		}
+		
+		return file;
+		
+	}
+
+	public int modifyIsRating(int mIdx, Connection conn) {
+		int res = 0;
+		PreparedStatement pstm = null;
+		String query = "update mentoring_history set is_rating = 1 where m_idx = ?";
+		
+		try {
+			pstm = conn.prepareStatement(query);
+			pstm.setInt(1, mIdx);
+			res = pstm.executeUpdate();
+		} catch (SQLException e) {
+			new DataAccessException(e);
+		} finally {
+			template.close(pstm);
+		}
+		return res;
+	}
+	
 	private String createQueryPart (String[] types) {
 		String type = "";
 		
@@ -518,7 +588,7 @@ public class MentoringDao {
 		ah.setMentorName(rset.getString("mentor_name"));
 		ah.setApplyDate(rset.getDate("apply_date"));
 		ah.setEpDate(rset.getDate("ep_date"));
-		ah.setReapplyCnt(rset.getInt("reapply_cnt"));
+		ah.setReapplyCnt(rset.getInt("REAPPLY_CNT"));
 		ah.setMenteeName(rset.getString("mentee_name"));
 		
 		return ah;
@@ -602,37 +672,5 @@ public class MentoringDao {
 		return mentor;
 	}
 
-	public FileDTO getFileByMentorIdx(int mentorIdx, Connection conn) {
-		FileDTO file = new FileDTO();
-		PreparedStatement pstm = null;
-		ResultSet rset = null;
-		String query = "select fl_idx, type_idx, origin_file_name, "
-				+ " rename_file_name, save_path"
-				+ " from file_info where type_idx = ? and is_del = 0";
-		
-		
-		try {
-			pstm = conn.prepareStatement(query);
-			pstm.setInt(1, mentorIdx);
-			
-			rset = pstm.executeQuery();
-
-			if(rset.next()) {
-				file.setFlIdx(rset.getInt("fl_idx"));
-				file.setTypeIdx(rset.getInt("type_idx"));
-				file.setSavePath(rset.getString("save_path"));
-				file.setOriginFileName(rset.getString("origin_file_name"));
-				file.setRenameFileName(rset.getString("rename_file_name"));
-			}
-			
-		} catch (SQLException e) {
-			throw new DataAccessException(e);
-		}finally {
-			template.close(rset, pstm);
-		}
-		
-		return file;
-		
-	}
 
 }

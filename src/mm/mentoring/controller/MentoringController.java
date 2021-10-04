@@ -240,14 +240,9 @@ public class MentoringController extends HttpServlet {
 	}
 
 	private void commentCheck(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Member member = (Member) request.getSession().getAttribute("authentication");
-		int userIdx = member.getUserIdx();
 		int mIdx = Integer.parseInt(request.getParameter("m_idx"));
 		
-		MentoringHistory mh = mService.getMhByMIdx(mIdx);
-		int mentorIdx = mh.getMentorIdx();
-		
-		boolean isRegistered = mService.commentCheck(userIdx, mentorIdx);
+		boolean isRegistered = mService.commentCheck(mIdx);
 		
 		if(isRegistered) {
 			response.getWriter().print("registered");
@@ -342,13 +337,15 @@ public class MentoringController extends HttpServlet {
 	}
 
 	private void registRating(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Member member = (Member) request.getSession().getAttribute("authentication");
 		String[] ratings = request.getParameterValues("rating");
 		String comment = request.getParameter("rating_comment");
-		int mentorIdx = Integer.parseInt(request.getParameter("mentor_idx"));
-		Member member = (Member) request.getSession().getAttribute("authentication");
+		int mIdx = Integer.parseInt(request.getParameter("m_idx"));
+		
+		int mentorIdx = mService.getMhByMIdx(mIdx).getMentorIdx();
 		int userIdx = member.getUserIdx();
 		
-		boolean isRegistered = mService.commentCheck(userIdx, mentorIdx);
+		boolean isRegistered = mService.commentCheck(mIdx);
 		
 		if(isRegistered) {
 			throw new HandlableException(ErrorCode.ALREADY_REGISTERED_COMMENT);
@@ -359,7 +356,7 @@ public class MentoringController extends HttpServlet {
 		rating.setUserIdx(userIdx);
 		rating.setComment(comment);
 		
-		int res = mService.registRating(rating);
+		int res = mService.registRating(rating, mIdx);
 		
 		System.out.println(rating);
 		
@@ -401,11 +398,7 @@ public class MentoringController extends HttpServlet {
 		int mIdx = Integer.parseInt(request.getParameter("m_idx"));
 		MentoringHistory mh = mService.getMhByMIdx(mIdx);
 		
-		Member member = (Member) request.getSession().getAttribute("authentication");
-		int userIdx = member.getUserIdx();
-		int mentorIdx = mh.getMentorIdx();
-		
-		boolean isRegistered = mService.commentCheck(userIdx, mentorIdx);
+		boolean isRegistered = mService.commentCheck(mIdx);
 		
 		if(isRegistered) {
 			throw new HandlableException(ErrorCode.ALREADY_REGISTERED_COMMENT);
@@ -507,6 +500,9 @@ public class MentoringController extends HttpServlet {
 				gradePoint = gradeCnt/mentoringCnt;
 			}
 			
+			System.out.println("mentoringCnt : " + mentoringCnt);
+			System.out.println("gradeCnt2 : " + gradeCnt);
+			System.out.println("gradePoint : " + gradePoint);
 			// 멘토평점/멘토횟수를 통해 우수멘토와 일반멘토로 구분후 List에 담아주기
 			if(gradePoint >= 3) {
 				//멘토의 idx로 멘토의 멤버정보 가져옴
@@ -580,7 +576,7 @@ public class MentoringController extends HttpServlet {
 				gradeCnt++;
 			}
 		}
-		
+		System.out.println("gradeCnt : " + gradeCnt);
 		return gradeCnt;
 	}
 
