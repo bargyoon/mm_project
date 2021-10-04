@@ -1,11 +1,7 @@
 package mm.member.controller;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletException;
@@ -18,7 +14,6 @@ import javax.servlet.http.HttpSession;
 import mm.common.file.FileDTO;
 import mm.common.file.FileUtil;
 import mm.common.file.MultiPartParams;
-import mm.common.http.HttpConnector;
 import mm.member.model.dto.Member;
 import mm.member.model.dto.Mentee;
 import mm.member.model.dto.Mentor;
@@ -86,6 +81,9 @@ public class MemberController extends HttpServlet {
 		case "password-impl":
 			passwordImpl(request, response);
 			break;
+		case "password-impla":
+			passwordImpl(request, response);
+			break;
 		case "delete-member":
 			deleteMember(request, response);
 			break;
@@ -106,6 +104,9 @@ public class MemberController extends HttpServlet {
 			break;
 		case "modify-password":
 			modifyPassword(request, response);
+			break;
+		case "modify-account":
+			modifyAccount(request, response);
 			break;
 		case "confirm-pw":
 			confirmPassword(request, response);
@@ -139,6 +140,8 @@ public class MemberController extends HttpServlet {
 
 	}
 
+	
+
 	private void changePassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
@@ -147,7 +150,7 @@ public class MemberController extends HttpServlet {
 		member.setPassword(password);
 		if (memberService.modifyMember(member) != 0) {
 			request.setAttribute("msg", "비밀번호 수정이 완료되었습니다.");
-			request.setAttribute("url", "/member/mypage");
+			request.setAttribute("url", "/member/login-form");
 			request.getRequestDispatcher("/common/result").forward(request, response);
 			
 			session.removeAttribute("persistUser");
@@ -171,7 +174,7 @@ public class MemberController extends HttpServlet {
 		member = memberService.selectMemberByEmail(email);
 
 		if (member == null) {
-			response.sendRedirect("/member/login-form?err=1");
+			response.sendRedirect("/member/forget-password?err=1");
 			return;
 		}else {
 			String persistToken = UUID.randomUUID().toString();
@@ -185,7 +188,7 @@ public class MemberController extends HttpServlet {
 			request.getRequestDispatcher("/common/result").forward(request, response);
 
 		}
-		response.sendRedirect("/");
+		
 	}
 
 	private void kakaoAuth(HttpServletRequest request, HttpServletResponse response)
@@ -198,7 +201,6 @@ public class MemberController extends HttpServlet {
 			member.setKakaoJoin("y");
 			response.getWriter().print("available");
 			if (memberService.kakaoAuth(member, kakaoId) != 0) {
-				System.out.println("카카오 인증 완료");
 
 			}
 		}
@@ -343,7 +345,6 @@ public class MemberController extends HttpServlet {
 		Mentor mentor = (Mentor) request.getSession().getAttribute("authMentor");
 		String history = mentor.getHistory();
 
-		System.out.println(userName);
 
 		member.setUserName(userName);
 		member.setEmail(email);
@@ -374,6 +375,21 @@ public class MemberController extends HttpServlet {
 
 	}
 
+	private void modifyAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String accountNum = request.getParameter("accountNum");
+		String bank = request.getParameter("bankName");
+		Member member = (Member) request.getSession().getAttribute("authentication");
+		Mentor mentor = (Mentor) request.getSession().getAttribute("authMentor");
+		mentor.setAccountNum(accountNum);
+		mentor.setBank(bank);
+		
+		if (memberService.modifyMentor(member, mentor) != 0) {
+			request.setAttribute("msg", "계좌 정보 수정이 완료되었습니다.");
+			request.setAttribute("url", "/member/mypage");
+			request.getRequestDispatcher("/common/result").forward(request, response);
+		}
+	}
+	
 	private void joinRule(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -383,14 +399,15 @@ public class MemberController extends HttpServlet {
 
 	private void mentorInfoForm(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		int mentorIdx = Integer.parseInt(request.getParameter("user_idx"));
+		int userIdx = Integer.parseInt(request.getParameter("user_idx"));
 		Member member = null;
 		Mentor mentor = null;
-		member = memberService.selectMemberByIdx(mentorIdx);
-
+		member = memberService.selectMemberByIdx(userIdx);
+		
 		mentor = memberService.selectMentorByRole(member);
+		FileDTO file = memberService.selectBoardDetail(mentor.getMentorIdx());
+		request.getSession().setAttribute("files", file);
 		request.getSession().setAttribute("mentorInfo", mentor);
-
 		request.getSession().setAttribute("userInfo", member);
 
 		request.getRequestDispatcher("/member/mentor-info").forward(request, response);
@@ -642,7 +659,7 @@ public class MemberController extends HttpServlet {
 		 * if (member == null) { response.sendRedirect("/member/login-form?err=1");
 		 * return; }
 		 */
-
+		
 		String userId = request.getParameter("userId");
 		String password = request.getParameter("password");
 		Member member = null;
@@ -683,7 +700,6 @@ public class MemberController extends HttpServlet {
 		String phone = request.getParameter("countryCode") + request.getParameter("phone");
 		String nickname = request.getParameter("nickname");
 		String kakaoLog = (String) request.getSession().getAttribute("kakaoId");
-		System.out.println("카카오 ?" + kakaoLog);
 		member.setUserName(userName);
 		member.setUserId(userId);
 		member.setPassword(password);

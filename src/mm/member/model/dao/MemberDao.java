@@ -268,7 +268,7 @@ public class MemberDao {
 		PreparedStatement pstm = null;
 
 		try {
-			String query = "update user_mentor set university_name = ?, grade = ?, major = ?, want_day = ?, want_time = ?, requirement = ?, history = ? where user_idx = ?";
+			String query = "update user_mentor set university_name = ?, grade = ?, major = ?, want_day = ?, want_time = ?, requirement = ?, history = ?, account_num =?, bank =? where user_idx = ?";
 
 			pstm = conn.prepareStatement(query);
 			pstm.setString(1, mentor.getUniversityName());
@@ -278,7 +278,9 @@ public class MemberDao {
 			pstm.setString(5, mentor.getWantTime());
 			pstm.setString(6, mentor.getRequirement());
 			pstm.setString(7, mentor.getHistory());
-			pstm.setInt(8, userIdx);
+			pstm.setString(8, mentor.getAccountNum());
+			pstm.setString(9, mentor.getBank());
+			pstm.setInt(10, userIdx);
 
 			res = pstm.executeUpdate();
 		} catch (SQLException e) {
@@ -482,7 +484,6 @@ public class MemberDao {
 		}finally {
 			template.close(pstm);
 		}
-		System.out.println(res);
 		return res;
 		
 	}
@@ -528,7 +529,6 @@ public class MemberDao {
 		} finally {
 			template.close(pstm);
 		}
-		System.out.println("modifyImg");
 		return res;
 		
 	}
@@ -616,27 +616,6 @@ public FileDTO selectFileDTO(int bdIdx, Connection conn) {
 		mentee.setHopeMajor(rset.getString("HOPE_MAJOR"));
 		return mentee;
 	}
-
-	
-
-	
-
-	
-
-	
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
 
 	
 

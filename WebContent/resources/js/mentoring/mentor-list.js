@@ -1,4 +1,5 @@
 let checkHistory = (userIdx) => {
+	console.dir(userIdx)
    location.href = `/member/mentor-info?user_idx=${userIdx}`;
 }
 
