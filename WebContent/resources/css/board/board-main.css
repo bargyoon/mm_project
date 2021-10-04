@@ -217,6 +217,9 @@ tr{
 	position: relative;
 	right: 10%;
 }
+#rightArrow,#leftArrow{
+	cursor:pointer;
+}
 
 #writerButton{
 	position:relative;

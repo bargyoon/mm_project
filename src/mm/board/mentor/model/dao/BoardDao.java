@@ -161,7 +161,7 @@ public class BoardDao {
 		PreparedStatement pstm = null;
 
 		String sql = "insert into mentor_board(bd_idx,bd_title,reg_date,view_count,rec_count,bd_content,mentor_idx,user_id,detail_date)"
-				+ "values(sc_mentor_bd_idx.nextval,?,sysdate,0,0,?,?,?,to_char(sysdate,'YYYY-MM-DD HH24:MI:SS'))";
+				+ "values(sc_mentor_bd_idx.nextval,?,sysdate,0,0,?,?,?,to_char(current_timestamp,'yyyy-mm-dd hh24:mi:ss'))";
 
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -319,7 +319,7 @@ public class BoardDao {
 		PreparedStatement pstm = null;
 
 		String sql = "insert into mentor_comment(co_idx,user_id,co_content,reg_date,rec_count,bd_idx,detail_date)"
-				+ "values(sc_mentor_co_idx.nextval,?,?,sysdate,0,?,to_char(sysdate,'YYYY-MM-DD HH24:MI:SS'))";
+				+ "values(sc_mentor_co_idx.nextval,?,?,sysdate,0,?,to_char(current_timestamp,'yyyy-mm-dd hh24:mi:ss'))";
 
 		try {
 			pstm = conn.prepareStatement(sql);

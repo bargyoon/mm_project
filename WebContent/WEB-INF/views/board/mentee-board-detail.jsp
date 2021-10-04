@@ -51,13 +51,13 @@
 			<div class='info file_info'>
 				<ol>
 					<c:forEach items="${datas.files}" var="file">
-						<li><a id="fileName"
-							href="/file/${file.savePath}${file.renameFileName}?originName=${file.originFileName}">${file.originFileName}</a></li>
+						<li id="liTag"><a id="fileName"
+							href="/file/${file.savePath}${file.renameFileName}?originName=${file.originFileName}">${file.originFileName}<i class="fas fa-paperclip" id="fileClip"></i></a></li>
 					</c:forEach>
 				</ol>
 			</div>
 			<div id="otherUtil">
-				<a href="mentee/mentee-board-detail/content-recommend?bdIdx=${datas.boardMentee.bdIdx}&userId=${datas.boardMentee.userId}">추천</a> <a onclick="clip(); return false;">공유</a>
+				<a href="mentee/mentee-board-detail/content-recommend?bdIdx=${datas.boardMentee.bdIdx}&userId=${datas.boardMentee.userId}">추천</a> <a id="shareURL" onclick="clip(); return false;">공유</a>
 			</div>
 			<hr>
 			<table class="comment_table" border="0">
@@ -65,9 +65,9 @@
 					<tr class="comment_tr">
 						<th class="comment_info">${commentList.userId}</th>
 						<th class="comment_info">${commentList.coContent}</th>
-						<th class="comment_info"><i class="fas fa-times" onclick="location.href='mentee/comment-delete?coIdx=${commentList.coIdx}&userId=${commentList.userId}&bdIdx=${datas.boardMentee.bdIdx}'"></i></th>
+						<th class="comment_info"><i class="fas fa-times" id="commentDelete" onclick="location.href='mentee/comment-delete?coIdx=${commentList.coIdx}&userId=${commentList.userId}&bdIdx=${datas.boardMentee.bdIdx}'"></i></th>
 						<th class="comment_info">${commentList.detailDate}</th>
-						<th class="comment_info"><i class="far fa-thumbs-up" onclick="location.href='mentee/comment-recommend?coIdx=${commentList.coIdx}&userId=${commentList.userId}&bdIdx=${datas.boardMentee.bdIdx}'" ></i>${commentList.recCount}</th>
+						<th class="comment_info"><i class="far fa-thumbs-up" id="commentRecommend" onclick="location.href='mentee/comment-recommend?coIdx=${commentList.coIdx}&userId=${commentList.userId}&bdIdx=${datas.boardMentee.bdIdx}'" ></i>${commentList.recCount}</th>
 					</tr>
 				</c:forEach>
 			</table>

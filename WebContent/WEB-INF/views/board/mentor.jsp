@@ -19,7 +19,7 @@
 	<div class="board_section">
 		<div id="boardHeader">
 			<div id="boardTitle">
-				<p>멘티 게시판</p>
+				<p>멘토 게시판</p>
 			</div>
 			<form class="wrap_search" method="get">
 				<div id="searchList">

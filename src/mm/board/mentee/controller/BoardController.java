@@ -260,6 +260,14 @@ public class BoardController extends HttpServlet {
 		Member member = (Member) request.getSession().getAttribute("authentication");
 
 		int bdIdx = Integer.parseInt(request.getParameter("bdIdx"));
+		
+		if(member==null) {
+			request.setAttribute("msg", "해당 경로는 잘못된 접근입니다.");
+			request.setAttribute("url", "/");
+			request.getRequestDispatcher("/common/result").forward(request, response);
+			return;
+		}
+		
 		String client = member.getUserId();
 		String writer = request.getParameter("userId");
 

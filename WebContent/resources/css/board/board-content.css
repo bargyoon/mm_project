@@ -91,8 +91,14 @@
 }
 
 #fileName{
+	position:relative;
+	left:2%;
 	font-weight:bolder;
 	color:#343a40;
+}
+#liTag{
+	list-style: none;
+	padding-left: 0px;
 }
 #otherUtil{
 	position: relative;
@@ -105,7 +111,11 @@
 	margin-left: 5%;
 	font-weight: bolder;
 	text-align:center;
+	color:#343a40;
 	left: 2%;
+}
+#shareURL{
+	cursor:pointer;
 }
 
 .comment_table{
@@ -152,6 +162,9 @@
 }
 .comment_info:nth-child(5){
 	width: 3%;
+}
+#commentDelete,#commentRecommend{
+	cursor:pointer;
 }
 
 .wrap_comment{

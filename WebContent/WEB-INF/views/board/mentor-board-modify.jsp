@@ -14,7 +14,7 @@
 	<div class="create_section">
 		<div id="contentHeader">
 			<div id="contentTitle">
-				<p>멘티 게시판</p>
+				<p>멘토 게시판</p>
 			</div>
 		</div>
 		<hr>
