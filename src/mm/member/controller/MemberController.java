@@ -401,7 +401,6 @@ public class MemberController extends HttpServlet {
 	private void mentorInfoForm(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		int userIdx = Integer.parseInt(request.getParameter("user_idx"));
-		System.out.println(userIdx);
 		Member member = null;
 		Mentor mentor = null;
 		member = memberService.selectMemberByIdx(userIdx);

@@ -27,7 +27,7 @@
 								<img
 									src="${files.downloadURL}"
 									class="card-img-top img-fluid rounded-circle" alt=""
-									style="margin: 15px auto; width: 120px; display: block">
+									style="margin: 15px auto; width: 120px; height: 120px; display: block">
 								<h1 class="text-light mb-2">${userInfo.userName}</h1>
 								<h4 class="text-light mb-2">멘토링 횟수:${mentorInfo.mentoringCnt}</h4>
 							</div>
