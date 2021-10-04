@@ -25,10 +25,10 @@
 						<div class="card bg-common card-left bg-commom">
 							<div class="profile">
 								<img
-									src="https://footballk.net/w/images/thumb/3/39/%ED%99%8D%EA%B8%B8%EB%8F%99.jpg/300px-%ED%99%8D%EA%B8%B8%EB%8F%99.jpg"
+									src="${files.downloadURL}"
 									class="card-img-top img-fluid rounded-circle" alt=""
-									style="margin: 15px auto; width: 120px; display: block">
-								<h1 class="text-light mb-2">홍길동</h1>
+									style="margin: 15px auto; width: 120px; height: 120px; display: block">
+								<h1 class="text-light mb-2">${userInfo.userName}</h1>
 								<h4 class="text-light mb-2">멘토링 횟수:${mentorInfo.mentoringCnt}</h4>
 							</div>
 							<div class="card-body"></div>
