@@ -200,7 +200,6 @@ public class MemberController extends HttpServlet {
 			member.setKakaoJoin("y");
 			response.getWriter().print("available");
 			if (memberService.kakaoAuth(member, kakaoId) != 0) {
-				System.out.println("카카오 인증 완료");
 
 			}
 		}
@@ -345,7 +344,6 @@ public class MemberController extends HttpServlet {
 		Mentor mentor = (Mentor) request.getSession().getAttribute("authMentor");
 		String history = mentor.getHistory();
 
-		System.out.println(userName);
 
 		member.setUserName(userName);
 		member.setEmail(email);
@@ -701,7 +699,6 @@ public class MemberController extends HttpServlet {
 		String phone = request.getParameter("countryCode") + request.getParameter("phone");
 		String nickname = request.getParameter("nickname");
 		String kakaoLog = (String) request.getSession().getAttribute("kakaoId");
-		System.out.println("카카오 ?" + kakaoLog);
 		member.setUserName(userName);
 		member.setUserId(userId);
 		member.setPassword(password);

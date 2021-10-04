@@ -390,5 +390,23 @@
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 	<script src="/resources/js/member/mypage.js"></script>
 	<%@ include file="/WEB-INF/views/include/jsFiles.jsp"%>
+	<script type="text/javascript">
+	(()=>{if("${authMentor}" != ""){
+		var dataArr = ["${authMentor.grade}","${authMentor.major}","${authMentor.wantDay}","${authMentor.wantTime}","${authMentor.requirement}"];
+	}else{
+		var dataArr = ["${authMentee.major}","${authMentee.grade}"];
+	}
+	
+	var i = 0;
+	
+	document.querySelectorAll('select').forEach(e =>{
+		document.querySelectorAll('#'+e.dataset.sel+' option').forEach(t => {
+			console.dir(t.value)
+			console.dir(dataArr[i])
+			if(t.value == dataArr[i]) t.selected =true;
+		})
+		i++;
+	})})();
+	</script>
 </body>
 </html>
