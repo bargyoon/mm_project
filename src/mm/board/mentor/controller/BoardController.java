@@ -198,7 +198,7 @@ public class BoardController extends HttpServlet {
 		// request.setAttribute("bdTitle", datas.getBdTitle());
 		// request.setAttribute("bdContent", boardMentorDetail.getBdContent());
 		if (client.equals(writer)) {
-			request.getRequestDispatcher("/moboard/mentor-board-modify").forward(request, response);
+			request.getRequestDispatcher("/board/mentor-board-modify").forward(request, response);
 		} else {
 			request.setAttribute("msg", "해당 게시글을 작성한 사용자가 아닙니다.");
 			request.setAttribute("url", "/moboard/mentor");

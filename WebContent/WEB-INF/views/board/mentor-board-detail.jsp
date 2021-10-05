@@ -43,7 +43,7 @@
 			<div id="contentBox">
 				<div>
 					<c:forEach items="${datas.files}" var="file">
-					<img src="${file.downloadURL}"><br>
+					<img src="${file.downloadURL}" style="height: 500px;width: 500px;"><br>
 					</c:forEach>
 					<c:out value="${datas.boardMentor.bdContent}" />
 				</div>
