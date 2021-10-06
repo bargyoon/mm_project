@@ -14,7 +14,7 @@
 	<%@ include file="/WEB-INF/views/include/nav.jsp" %>
 	<main class="flex-shrink-0">
 		<section class="pt-5">
-			<div class="container px-5 my-5 py-5">
+			<div class="container px-5 my-5 py-5" style="min-height:78vh;">
 				<div class="row gx-5">
 					<h5 class="fw-bolder px-sm-0 mb-3 pb-2" style="border-bottom: solid 2px gray;">멘토링 신청하기</h5>
 				</div>

@@ -376,39 +376,7 @@
 						</div>
 					</div>
 					
-					<!-- Divide Line -->
-					<div
-						class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">
-						<div class="border-bottom " style="width: 40%;"></div>
-						<span class="px-2 small text-muted font-weight-bold text-muted"
-							style="width: 20%; text-align:center">계좌 정보</span>
-						<div class="border-bottom " style="width: 40%;"></div>
-					</div>
-					<!-- 계좌번호 -->
-					<div class="input-group col-lg-6 mb-4">
-						<div class="input-group-prepend">
-							<span
-								class="input-group-text bg-white px-4 border-md border-right-0">
-								<i class="fas fa-money-check text-muted"></i>
-							</span>
-						</div>
-						<input id="accountNum" type="text" name="accountNum"
-							required placeholder="계좌번호 (- 빼고 입력하세요)"
-							class="form-control bg-white border-left-0 border-md">
-					</div>
-					<!-- 은행명 -->
-					<div class="input-group col-lg-6 mb-4">
-						<div class="input-group-prepend">
-							<span
-								class="input-group-text bg-white px-4 border-md border-right-0">
-								<i class="fas fa-piggy-bank text-muted"></i>
-							</span>
-						</div>
-						<input id="bankName" type="text" name="bankName"
-							required placeholder="은행명"
-							class="form-control bg-white border-left-0 border-md">
-					</div>
-
+					
 					<!-- Divide Line -->
 					<div
 						class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">

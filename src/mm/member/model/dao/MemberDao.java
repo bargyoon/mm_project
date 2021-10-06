@@ -417,7 +417,7 @@ public class MemberDao {
 		PreparedStatement pstm = null;
 
 		try {
-			String query = "delete from KAKAO_LOGIN where user_idx = ?;";
+			String query = "delete from KAKAO_LOGIN where user_idx = ?";
 
 			pstm = conn.prepareStatement(query);
 			pstm.setInt(1, userIdx);

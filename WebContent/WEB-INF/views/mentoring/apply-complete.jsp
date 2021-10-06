@@ -10,10 +10,10 @@
 <%@ include file="/WEB-INF/views/include/head.jsp" %>
 
 </head>
-<body class="d-flex flex-column h-75">
+<body class="d-flex flex-column h-100">
 <%@ include file="/WEB-INF/views/include/nav.jsp" %>
 	<main class="flex-shrink-0">
-		<section class="pt-5">
+		<section class="pt-5" style="min-height:93vh">
 			<div class="container px-5 my-5 py-5">
 				<div class="row gx-5 pt-5 justify-content-md-around">
 					<div class="col-lg-5 mb-5 mb-lg-5">

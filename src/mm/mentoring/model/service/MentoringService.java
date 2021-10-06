@@ -305,7 +305,7 @@ public class MentoringService {
 		HttpConnector conn = new HttpConnector();
 		
 		String queryString = conn.urlEncodedForm(RequestParams.builder() 
-				.params("mail-template", "reset-password")
+				.params("mail-template", "notice-apply")
 				.params("email", member.getEmail())
 				.build());
 		

@@ -31,7 +31,7 @@
 						</p>
 						<div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
 							<a class="btn btn-primary btn-lg px-4 me-sm-3 fw-bolder"
-								href="#features" style="box-shadow: 4px 3px 3px black">멘토링
+								href="/mentoring/apply-page" style="box-shadow: 4px 3px 3px black">멘토링
 								신청하기</a>
 						</div>
 					</div>
@@ -94,32 +94,7 @@
 	</section>
 
 
-	<section class="py-5" id="features">
-		<div class="container px-5 my-5">
-			<div class="row gx-5">
-				<div class="col-lg-5 mb-5 mb-lg-5">
-					<h5 class="fw-bolder mb-0" style="text-decoration: underline;">Free
-						Chat</h5>
-					<h3 class="fw-bolder mb-0 shadow-gray-2" style="margin-top: 0;">
-						멘토가 마음에 든다면<br> <span
-							style="background-color: orange; color: white;">무료 채팅 상담</span>으로<br>
-						멘토 진행 방식에 대해 알아보세요 !
-					</h3>
-					<h6 class="fw-bolder mb-0" style="margin-top: 2%; color: gray;">
-						무료채팅 상담으로<br>멘토선택에 도움을 받으세요.
-					</h6>
-				</div>
-			</div>
-
-			<div class="ms-5">
-				<img src="/resources/img/main1.jpg" class="img-fluid img-main">
-
-
-
-			</div>
-		</div>
-	</section>
-
+	
 	<!-- Footer-->
 
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
